@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://givo7vtbgb3r"]
+
+[ext_resource type="PackedScene" uid="uid://d0o81vbctgpmt" path="res://Scenes/player.tscn" id="1_qxrlw"]
+[ext_resource type="PackedScene" uid="uid://263eao016li6" path="res://Scenes/node_2d.tscn" id="1_wrm1d"]
+[ext_resource type="PackedScene" uid="uid://cwyxopp5jpkqn" path="res://Scenes/background.tscn" id="3_wrm1d"]
+
+[node name="Game" type="Node2D" unique_id=856613315]
+
+[node name="platform" parent="." unique_id=380204568 instance=ExtResource("1_wrm1d")]
+position = Vector2(1, 2)
+
+[node name="Player 1" parent="platform" unique_id=433096886 instance=ExtResource("1_qxrlw")]
+position = Vector2(0.552124, -1.4698486)
+scale = Vector2(0.99999994, 1)
+
+[node name="Camera2D" type="Camera2D" parent="platform/Player 1" unique_id=24078457]
+position = Vector2(-1, -98)
+zoom = Vector2(2, 2)
+position_smoothing_enabled = true
+position_smoothing_speed = 3.0
+
+[node name="Background" parent="platform" unique_id=1292660756 instance=ExtResource("3_wrm1d")]
