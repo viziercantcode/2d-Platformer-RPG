@@ -1,5 +1,5 @@
 78098b89c88a74ebe8c20117b8754620
-::res://::1790099113
+::res://::1790168187
 gitignore.txt::TextFile::-1::1790088532::0::1::::<><><>0<>0<><>::
 ::res://Assets/::1790087888
 ::res://Assets/Character/::1790087888
@@ -209,12 +209,12 @@ parallax-02.png::CompressedTexture2D::3210049395266261475::1790025810::179002649
 parallax-03.png::CompressedTexture2D::274441762126420764::1790025810::1790026490::1::::<><><>0<>0<>e1729c4353680becd08aa693cc6cd4a7<>res://.godot/imported/parallax-03.png-d4c13c5ef2b581e00305cad6aa2966f6.ctex::
 parallax-04.png::CompressedTexture2D::5213316547934714385::1790027628::1790027632::1::::<><><>0<>0<>9ba95c07dabdb55bd6119af04f3b2d06<>res://.godot/imported/parallax-04.png-1b62d1e5f1d8db82b8d164ec10fd9eeb.ctex::
 Tiles.png::CompressedTexture2D::4780787057428234478::1790025438::1790025440::1::::<><><>0<>0<>004a3f54f7403954b5d3da8e4f639b98<>res://.godot/imported/Tiles.png-506dbc881704f60282be5c5e9bc2ce98.ctex::
-::res://Scenes/::1790094427
-background.tscn::PackedScene::6367963297866656221::1790089674::0::1::::<><><>0<>0<><>::uid://b38yjdlr7cc15::::res://Assets/Platform/parallax-00.png<>uid://ks7turqyui7h::::res://Assets/Platform/parallax-01.png<>uid://bly8brq3mdcd4::::res://Assets/Platform/parallax-02.png<>uid://d57asgc6oxiq::::res://Assets/Platform/parallax-03.png<>uid://cgjmtdrykvvun::::res://Assets/Platform/parallax-04.png
-game.tscn::PackedScene::438949855876381485::1790094427::0::1::::<><><>0<>0<><>::uid://d0o81vbctgpmt::::res://Scenes/player.tscn<>uid://263eao016li6::::res://Scenes/node_2d.tscn<>uid://cwyxopp5jpkqn::::res://Scenes/background.tscn<>uid://c0cnfrvfbddut::::res://Shaders/reflection.gdshader<>uid://cupmwwayfb05d::::res://Scripts/reflection.gd
-node_2d.tscn::PackedScene::1960801730374931603::1790038088::0::1::::<><><>0<>0<><>::uid://csuewb3bf60oo::::res://Assets/Platform/groundTilemap_64px.png
+::res://Scenes/::1790162242
+background.tscn::PackedScene::6367963297866656221::1790139887::0::1::::<><><>0<>0<><>::uid://b38yjdlr7cc15::::res://Assets/Platform/parallax-00.png<>uid://ks7turqyui7h::::res://Assets/Platform/parallax-01.png<>uid://bly8brq3mdcd4::::res://Assets/Platform/parallax-02.png<>uid://d57asgc6oxiq::::res://Assets/Platform/parallax-03.png<>uid://cgjmtdrykvvun::::res://Assets/Platform/parallax-04.png
+game.tscn::PackedScene::438949855876381485::1790162242::0::1::::<><><>0<>0<><>::uid://d0o81vbctgpmt::::res://Scenes/player.tscn<>uid://263eao016li6::::res://Scenes/platform.tscn<>uid://cwyxopp5jpkqn::::res://Scenes/background.tscn<>uid://c0cnfrvfbddut::::res://Shaders/reflection.gdshader<>uid://cupmwwayfb05d::::res://Scripts/reflection.gd
+platform.tscn::PackedScene::1960801730374931603::1790038088::0::1::::<><><>0<>0<><>::uid://csuewb3bf60oo::::res://Assets/Platform/groundTilemap_64px.png
 player.tscn::PackedScene::8944935626641442503::1790084674::0::1::::<><><>0<>0<><>::uid://dueql6yvi7sc6::::res://Assets/Character/Samurai/Sprites/ATTACK 2.png<>uid://68b3yk1idwct::::res://Assets/Character/Samurai/Sprites/IDLE.png<>uid://dxdirpeu0v81x::::res://Assets/Character/Samurai/Sprites/JUMP-START.png<>uid://e3bkjutglwd1::::res://Assets/Character/Samurai/Sprites/JUMP-TRANSITION.png<>uid://b3fmchr047yiv::::res://Assets/Character/Samurai/Sprites/JUMP-FALL.png<>uid://bkiu4yup3yrmu::::res://Assets/Character/Samurai/Sprites/RUN.png<>uid://cey4jg5b72x1a::::res://Assets/Character/Sprite-0002-export.png
-::res://Scripts/::1790093559
-reflection.gd::GDScript::6208352954447755963::1790093559::0::1::::<>Sprite2D<><>0<>1<><>::
-::res://Shaders/::1790093559
-reflection.gdshader::Shader::6532490389287100495::1790093559::0::1::::<><><>0<>0<><>::
+::res://Scripts/::1790139887
+reflection.gd::GDScript::6208352954447755963::1790139887::0::1::::<>Sprite2D<><>0<>1<><>::
+::res://Shaders/::1790162242
+reflection.gdshader::Shader::6532490389287100495::1790162242::0::1::::<><><>0<>0<><>::
