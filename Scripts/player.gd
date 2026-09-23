@@ -5,6 +5,11 @@ const MAX_SPEED = 200.0
 const ACCELERATION = 600.0
 const FRICTION = 800.0  # How quickly player slows down when no input
 
+# Dash mechanics
+const DASH_SPEED = 500.0
+const DASH_DURATION = 0.2
+const DASH_COOLDOWN = 0.3
+
 # Jump mechanics
 const JUMP_FORCE = -400.0
 const MAX_FALL_SPEED = 400.0
@@ -23,7 +28,10 @@ const JUMP_BUFFER_TIME = 0.1  # Frames before landing you can press jump
 
 var coyote_timer: float = 0.0
 var jump_buffer_timer: float = 0.0
-
+var is_dashing: bool = false
+var dash_timer: float = 0.0
+var dash_cooldown_timer: float = 0.0
+var dash_direction: float = 1.0
 
 func _physics_process(delta: float) -> void:
 	var is_moving = abs(velocity.x) > 10  # For dust particles
@@ -37,49 +45,79 @@ func _physics_process(delta: float) -> void:
 	
 	jump_buffer_timer -= delta  # Count down the buffer timer every frame (this remembers the jump for 0.1s)
 	
+	dash_cooldown_timer -= delta
+	# Handle dash input
+	var direction := Input.get_axis("ui_left", "ui_right")
+	
+	if Input.is_key_pressed(KEY_SHIFT) and dash_cooldown_timer <= 0 and not is_dashing:
+		start_dash(direction)
+	
 	# Dust particles
 	dust.emitting = is_moving and on_ground
 	
-	# Apply gravity
-	if not on_ground:
-		velocity.y += GRAVITY * delta
-		velocity.y = min(velocity.y, MAX_FALL_SPEED)  # Terminal velocity
-	
-	# Handle jump input
-	if Input.is_action_just_pressed("ui_accept"):
-		jump_buffer_timer = JUMP_BUFFER_TIME
-	
-	# Execute jump if conditions are met
-	if jump_buffer_timer > 0 and coyote_timer > 0:
-		velocity.y = JUMP_FORCE
-		coyote_timer = 0.0
-		jump_buffer_timer = 0.0
-	
-	# Handle horizontal movement
-	var direction := Input.get_axis("ui_left", "ui_right")
-	
-	if direction != 0:
-		# Accelerate towards max speed
-		velocity.x = move_toward(velocity.x, direction * MAX_SPEED, ACCELERATION * delta)
+	if is_dashing:
+		dash_timer -= delta
+		velocity.x = dash_direction * DASH_SPEED
+		velocity.y = 0
+		
+		if dash_timer <= 0:
+			is_dashing = false
+			dash_cooldown_timer = DASH_COOLDOWN
 	else:
-		# Apply friction
-		velocity.x = move_toward(velocity.x, 0, FRICTION * delta)
+		# Apply gravity
+		if not on_ground:
+			velocity.y += GRAVITY * delta
+			velocity.y = min(velocity.y, MAX_FALL_SPEED)  # Terminal velocity
+		
+		# Handle jump input
+		if Input.is_action_just_pressed("ui_accept"):
+			jump_buffer_timer = JUMP_BUFFER_TIME
+		
+		# Execute jump if conditions are met
+		if jump_buffer_timer > 0 and coyote_timer > 0:
+			velocity.y = JUMP_FORCE
+			coyote_timer = 0.0
+			jump_buffer_timer = 0.0
+		
+		# Handle horizontal movement
+		if direction != 0:
+			# Accelerate towards max speed
+			velocity.x = move_toward(velocity.x, direction * MAX_SPEED, ACCELERATION * delta)
+		else:
+			# Apply friction
+			velocity.x = move_toward(velocity.x, 0, FRICTION * delta)
 	
 	move_and_slide()
 	update_animation(direction)
 
+func start_dash(direction: float) -> void:
+	is_dashing = true
+	dash_timer = DASH_DURATION
+	
+	if direction != 0:
+		dash_direction = sign(direction)
+	elif animated_sprite.flip_h:
+		dash_direction = -1.0
+	else:
+		dash_direction = 1.0
+	
+	velocity.y = 0
+
 
 func update_animation(direction: float) -> void:
-	# Flip sprite based on direction
-	if direction > 0:
-		animated_sprite.flip_h = false
-	elif direction < 0:
-		animated_sprite.flip_h = true
+	if not is_dashing:
+		# Flip sprite based on direction
+		if direction > 0:
+			animated_sprite.flip_h = false
+		elif direction < 0:
+			animated_sprite.flip_h = true
 
 	var target_animation: String = "Idle"
 
 	# Determine animation state
-	if not is_on_floor():
+	if is_dashing:
+		target_animation = "Dash"
+	elif not is_on_floor():
 		if velocity.y < -50:
 			target_animation = "Jump_start"
 		elif velocity.y >= -50 and velocity.y <= 50:
