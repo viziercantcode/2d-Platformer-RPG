@@ -3,20 +3,48 @@
 [ext_resource type="PackedScene" uid="uid://d0o81vbctgpmt" path="res://Scenes/player.tscn" id="1_qxrlw"]
 [ext_resource type="PackedScene" uid="uid://263eao016li6" path="res://Scenes/node_2d.tscn" id="1_wrm1d"]
 [ext_resource type="PackedScene" uid="uid://cwyxopp5jpkqn" path="res://Scenes/background.tscn" id="3_wrm1d"]
+[ext_resource type="Shader" uid="uid://c0cnfrvfbddut" path="res://Shaders/reflection.gdshader" id="4_wowpa"]
+[ext_resource type="Script" uid="uid://cupmwwayfb05d" path="res://Scripts/reflection.gd" id="5_i6g32"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_o88mx"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_orua6"]
+noise = SubResource("FastNoiseLite_o88mx")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jpyye"]
+shader = ExtResource("4_wowpa")
+shader_parameter/CAST_COLOR = Color(0, 0.06913683, 0.09467562, 1)
+shader_parameter/fast_noise = SubResource("NoiseTexture2D_orua6")
+shader_parameter/speed = Vector2(0.03, 0.07)
+shader_parameter/wave_strength = 2.0
+shader_parameter/scale_y = 550.0
+shader_parameter/y_zoom = 2.357948
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_jpyye"]
 
 [node name="Game" type="Node2D" unique_id=856613315]
 
 [node name="platform" parent="." unique_id=380204568 instance=ExtResource("1_wrm1d")]
 position = Vector2(1, 2)
 
-[node name="Player 1" parent="platform" unique_id=433096886 instance=ExtResource("1_qxrlw")]
-position = Vector2(0.552124, -1.4698486)
+[node name="Player 1" parent="." unique_id=433096886 instance=ExtResource("1_qxrlw")]
+position = Vector2(1.552124, 0.53015137)
 scale = Vector2(0.99999994, 1)
 
-[node name="Camera2D" type="Camera2D" parent="platform/Player 1" unique_id=24078457]
+[node name="Camera2D" type="Camera2D" parent="Player 1" unique_id=24078457]
 position = Vector2(-1, -98)
 zoom = Vector2(2, 2)
 position_smoothing_enabled = true
 position_smoothing_speed = 3.0
 
-[node name="Background" parent="platform" unique_id=1292660756 instance=ExtResource("3_wrm1d")]
+[node name="Background" parent="." unique_id=1292660756 instance=ExtResource("3_wrm1d")]
+position = Vector2(0.99999994, 2)
+
+[node name="Reflection" type="Sprite2D" parent="." unique_id=2017134479]
+z_index = 1
+material = SubResource("ShaderMaterial_jpyye")
+position = Vector2(0, 140.00002)
+scale = Vector2(4239, 236.00002)
+texture = SubResource("CanvasTexture_jpyye")
+script = ExtResource("5_i6g32")
