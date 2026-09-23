@@ -53,6 +53,7 @@ texture = ExtResource("4_kopta")
 
 [node name="ParallaxBackground2" type="ParallaxBackground" parent="." unique_id=171692194]
 layer = 1
+visible = false
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground2" unique_id=562697489]
 motion_scale = Vector2(2, 0.1)

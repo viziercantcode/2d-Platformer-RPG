@@ -1,7 +1,7 @@
 Sprite2D
+Node2D
 TileMapLayer
 TileMap
-Node2D
 GPUParticles2D
 ParallaxLayer
 ParallaxBackground
