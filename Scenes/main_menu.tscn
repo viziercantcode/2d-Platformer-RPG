@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://cc7giitqcg48n"]
+
+[ext_resource type="Script" uid="uid://dev42wh5d1pb4" path="res://Scripts/main_menu.gd" id="1_28flt"]
+[ext_resource type="Texture2D" uid="uid://b4mk343wbh4qc" path="res://Assets/UI/start.png" id="2_n45e2"]
+[ext_resource type="Texture2D" uid="uid://coid3563281tu" path="res://Assets/UI/20260924_001133.png" id="2_trj04"]
+[ext_resource type="FontFile" uid="uid://dplp6iacay57l" path="res://Assets/Font/Handjet-VariableFont_ELGR,ELSH,wght.ttf" id="3_16hvj"]
+[ext_resource type="Texture2D" uid="uid://c1372r5e47bhr" path="res://Assets/UI/start_hover.png" id="3_ce3w2"]
+[ext_resource type="Texture2D" uid="uid://butvac2en1hi8" path="res://Assets/UI/quit_hover.png" id="3_cp0ys"]
+[ext_resource type="Texture2D" uid="uid://c6cft7euma35r" path="res://Assets/UI/options.png" id="3_opfnp"]
+[ext_resource type="Texture2D" uid="uid://bw2j888hqooml" path="res://Assets/UI/options_hover.png" id="4_cp0ys"]
+[ext_resource type="Texture2D" uid="uid://u4nqs3hcex7q" path="res://Assets/UI/quit.png" id="5_yhxw7"]
+[ext_resource type="PackedScene" uid="uid://i5t3kb38uhjl" path="res://Scenes/Fade_transition.tscn" id="9_trj04"]
+
+[node name="main_menu" type="Node2D" unique_id=1106925953]
+script = ExtResource("1_28flt")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1961965781]
+position = Vector2(616, 336)
+scale = Vector2(0.3794672, 0.36522368)
+texture = ExtResource("2_trj04")
+
+[node name="Label" type="Label" parent="." unique_id=949522821]
+offset_left = 200.0
+offset_top = 208.0
+offset_right = 338.0
+offset_bottom = 292.0
+theme_override_fonts/font = ExtResource("3_16hvj")
+theme_override_font_sizes/font_size = 22
+text = "Follow us on GitHub
+@Viziercantcode
+@P1tuxn"
+horizontal_alignment = 1
+
+[node name="Button_manager" type="Control" parent="." unique_id=583087635]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Quit" type="TextureButton" parent="Button_manager" unique_id=139818271]
+layout_mode = 0
+offset_left = 160.0
+offset_top = 440.0
+offset_right = 881.0
+offset_bottom = 598.0
+scale = Vector2(0.30042484, 0.30042484)
+texture_normal = ExtResource("5_yhxw7")
+texture_hover = ExtResource("3_cp0ys")
+
+[node name="Options" type="TextureButton" parent="Button_manager" unique_id=2063824780]
+layout_mode = 0
+offset_left = 160.0
+offset_top = 376.0
+offset_right = 881.0
+offset_bottom = 534.0
+scale = Vector2(0.30042484, 0.30042484)
+texture_normal = ExtResource("3_opfnp")
+texture_hover = ExtResource("4_cp0ys")
+
+[node name="Start" type="TextureButton" parent="Button_manager" unique_id=1473575355]
+layout_mode = 0
+offset_left = 160.0
+offset_top = 312.0
+offset_right = 881.0
+offset_bottom = 470.0
+scale = Vector2(0.30042484, 0.30042484)
+texture_normal = ExtResource("2_n45e2")
+texture_hover = ExtResource("3_ce3w2")
+
+[node name="Fade_transition" parent="." unique_id=636216178 instance=ExtResource("9_trj04")]
+visible = false
+offset_right = 1224.0
+offset_bottom = 648.0
+
+[node name="Fade_timer" type="Timer" parent="Fade_transition" unique_id=1861652975]
+
+[connection signal="pressed" from="Button_manager/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Button_manager/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="Button_manager/Start" to="." method="_on_start_pressed"]
+[connection signal="timeout" from="Fade_transition/Fade_timer" to="." method="_on_fade_timer_timeout"]
