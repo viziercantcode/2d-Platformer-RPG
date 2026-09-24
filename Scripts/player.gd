@@ -12,6 +12,7 @@ const DASH_COOLDOWN = 0.3
 
 # Jump mechanics
 const JUMP_FORCE = -400.0
+const DOUBLE_JUMP_FORCE = -300.0
 const MAX_FALL_SPEED = 400.0
 const GRAVITY = 1200.0
 
@@ -32,6 +33,7 @@ var is_dashing: bool = false
 var dash_timer: float = 0.0
 var dash_cooldown_timer: float = 0.0
 var dash_direction: float = 1.0
+var can_double_jump: bool = true
 
 func _physics_process(delta: float) -> void:
 	var is_moving = abs(velocity.x) > 10  # For dust particles
@@ -40,6 +42,7 @@ func _physics_process(delta: float) -> void:
 	# Update timers
 	if on_ground:
 		coyote_timer = COYOTE_TIME
+		can_double_jump = true
 	else:
 		coyote_timer -= delta
 	
@@ -77,6 +80,10 @@ func _physics_process(delta: float) -> void:
 		if jump_buffer_timer > 0 and coyote_timer > 0:
 			velocity.y = JUMP_FORCE
 			coyote_timer = 0.0
+			jump_buffer_timer = 0.0
+		elif jump_buffer_timer > 0 and can_double_jump:
+			velocity.y = DOUBLE_JUMP_FORCE
+			can_double_jump = false
 			jump_buffer_timer = 0.0
 		
 		# Handle horizontal movement
