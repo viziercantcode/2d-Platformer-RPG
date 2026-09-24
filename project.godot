@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Bladefall"
-run/main_scene="uid://givo7vtbgb3r"
+run/main_scene="uid://cc7giitqcg48n"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
