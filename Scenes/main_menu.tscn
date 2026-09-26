@@ -21,9 +21,9 @@ texture = ExtResource("2_trj04")
 
 [node name="Label" type="Label" parent="." unique_id=949522821]
 offset_left = 200.0
-offset_top = 213.0
+offset_top = 208.0
 offset_right = 338.0
-offset_bottom = 297.0
+offset_bottom = 350.0
 theme_override_fonts/font = ExtResource("3_16hvj")
 theme_override_font_sizes/font_size = 22
 text = "Follow us on GitHub
