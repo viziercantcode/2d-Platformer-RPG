@@ -3,12 +3,14 @@ extends CharacterBody2D
 #Attack mechanics
 var attack_type: String
 var current_attack: bool
+var attack_hit_this_frame: bool = false  # To know when the attack lands, used for knockback
 
-var health = 1000
+var health = 100
 var health_max = 100
 var health_min = 0
 var can_take_damage: bool
 var dead: bool
+
 
 # Movement speeds
 const MAX_SPEED = 200.0
@@ -16,7 +18,7 @@ const ACCELERATION = 600.0
 const FRICTION = 800.0  # How quickly player slows down when no input
 
 # Dash mechanics
-const DASH_SPEED = 500.0
+const DASH_SPEED = 300.0
 const DASH_DURATION = 0.2
 const DASH_COOLDOWN = 0.3
 
@@ -29,6 +31,9 @@ const GRAVITY = 1200.0
 # Air control
 const AIR_ACCELERATION = 500.0  # Reduced acceleration in air
 const AIR_FRICTION = 200.0  # Air resistance
+
+# Damage taking
+const HURT_DURATION = 0.3
 
 # Forgiving input mechanics
 const COYOTE_TIME = 0.1  # Frames after leaving ground you can still jump
@@ -44,6 +49,8 @@ var is_dashing: bool = false
 var dash_timer: float = 0.0
 var dash_cooldown_timer: float = 0.0
 var dash_direction: float = 1.0
+var hurt_timer: float = 0.0
+
 var can_double_jump: bool = true
 
 func _ready() -> void:
@@ -59,8 +66,27 @@ func _physics_process(delta: float) -> void:
 	Global.playerDamageZone = deal_damage_zone
 	Global.playerHitbox = $PlayerHitbox
 	
+	
+	
+	# # COMBAT
+	
+	# Check whether an enemy is attacking player
+	check_hitbox()
+	
+	# Check player attack hits
+	if current_attack and not attack_hit_this_frame:
+		check_attack_hit()
+	
+	# Hurt
+	if hurt_timer > 0:
+		hurt_timer -= delta
+	
+	
+	# # MOVEMENT
+	
 	var is_moving = abs(velocity.x) > 10  # For dust particles
 	var on_ground = is_on_floor()
+	
 	if !dead:
 	# Update timers
 		if on_ground:
@@ -72,6 +98,7 @@ func _physics_process(delta: float) -> void:
 		jump_buffer_timer -= delta  # Count down the buffer timer every frame (this remembers the jump for 0.1s)
 		
 		dash_cooldown_timer -= delta
+		
 		# Handle dash input
 		var direction := Input.get_axis("ui_left", "ui_right")
 		
@@ -116,8 +143,12 @@ func _physics_process(delta: float) -> void:
 			else:
 				# Apply friction
 				velocity.x = move_toward(velocity.x, 0, FRICTION * delta)
-		#handling attack mechanics
-		if !current_attack:
+			
+			
+			
+		# # HANDLING ATTACK MECHANICS
+		
+		if !current_attack and hurt_timer <= 0:
 			if Input.is_action_just_pressed("Left_mouse") or Input.is_action_just_pressed("Right_mouse"):
 				current_attack = true
 				if Input.is_action_just_pressed("Left_mouse") and is_on_floor():
@@ -128,37 +159,73 @@ func _physics_process(delta: float) -> void:
 					attack_type = "air"
 				set_damage(attack_type)
 				handle_attack_animation(attack_type)
+				
 		update_animation(direction)
-		check_hitbox()
 	move_and_slide()
 
+
+# # ENEMY TO PLAYER DAMAGE
+
 func check_hitbox():
+	
 	var hitbox_areas = $PlayerHitbox.get_overlapping_areas()
-	var damage: int
-	if hitbox_areas:
-		var hitbox = hitbox_areas.front()
-		if hitbox.get_parent() is Enemy_1:
-			damage = Global.enemyDamageAmount
-			
-	if can_take_damage:
-		take_damage(damage)
+	
+	for enemy_area in hitbox_areas:
+		var enemy = enemy_area.get_parent()
+		
+		if enemy is Enemy_1:
+			if enemy.is_dealing_damage and enemy.can_damage_player and !enemy.player_hit_this_attack:
+				enemy.player_hit_this_attack = true
+				take_damage(enemy.damage_to_deal)
+				update_animation(0)
+				return
 
 func take_damage(damage):
-	if damage != 0:
-		if health > 0:
-			health -= damage
-			print(health)
-			if health <= 0:
-				health = 0
-				dead = true
-				Global.playerAlive = false
-				handle_death_animation()
-			take_damage_cooldown()
+	print("DAMAGE RECEIVED:", damage)
+	print("HEALTH BEFORE:", health)
+	if damage <= 0:
+		return
 
-func take_damage_cooldown():
-	can_take_damage = false
-	await get_tree().create_timer(1.5).timeout
-	can_take_damage = true
+	if health <= 0:
+		return
+	
+	if hurt_timer > 0: 
+		return
+	
+	health -= damage
+	hurt_timer = HURT_DURATION
+	
+	current_attack = false
+	attack_hit_this_frame = false
+	deal_damage_zone.get_node("CollisionShape2D").disabled = true
+	
+	print("Player health: ", health)
+
+	if health <= 0:
+		health = 0
+		dead = true
+		Global.playerAlive = false
+		hurt_timer = 0
+		current_attack = false
+		attack_hit_this_frame = false
+		deal_damage_zone.get_node("CollisionShape2D").disabled = true
+
+		handle_death_animation()
+
+
+# # PLAYER TO ENEMY DAMAGE
+
+func check_attack_hit():
+	var enemies_hit = $DealDamageZone.get_overlapping_areas()
+	
+	for enemy_area in enemies_hit:
+		var parent = enemy_area.get_parent()
+
+		if parent is Enemy_1 and enemy_area == parent.get_node("EnemyHitbox"):
+			attack_hit_this_frame = true
+			var knockback_dir = global_position.direction_to(parent.global_position) * -150
+			velocity.x = knockback_dir.x
+			break
 
 func start_dash(direction: float) -> void:
 	is_dashing = true
@@ -184,17 +251,9 @@ func handle_attack_animation(attack_type):
 		toggle_damage_collision(attack_type)
 
 func toggle_damage_collision(attack_type):
-	var damage_zone_collison = deal_damage_zone.get_node("CollisionShape2D")
-	var wait_time: float 
-	if attack_type == "air":
-		wait_time = 0.35
-	elif attack_type == "single":
-		wait_time = 0.3
-	elif attack_type == "double":
-		wait_time = 0.35
-	damage_zone_collison.disabled = false
-	await get_tree().create_timer(wait_time).timeout
-	damage_zone_collison.disabled = true
+	var damage_zone_collision = deal_damage_zone.get_node("CollisionShape2D")
+	damage_zone_collision.disabled = false
+	attack_hit_this_frame = false
 
 func set_damage(attack_type):
 	var current_damage_to_deal: int
@@ -208,9 +267,20 @@ func set_damage(attack_type):
 
 func _on_animation_finished() -> void:
 	if current_attack and animated_sprite.animation == str(attack_type, "_attack"):
+		$DealDamageZone/CollisionShape2D.disabled = true
 		current_attack = false
 
 func update_animation(direction: float) -> void:
+	if dead:
+		if animated_sprite.animation != "death":
+			animated_sprite.play("death")
+		return
+	
+	if hurt_timer > 0:
+		if animated_sprite.animation != "hurt":
+			animated_sprite.play("hurt")
+		return
+	
 	# Don't let movement/idle animations override an active attack animation
 	if current_attack:
 		if direction > 0:
