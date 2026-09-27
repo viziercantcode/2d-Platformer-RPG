@@ -534,7 +534,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_pg0gw")
 }],
-"loop": 0,
+"loop": 1,
 "name": &"death",
 "speed": 9.0
 }, {
@@ -577,7 +577,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_dj0x0")
 }],
-"loop": 0,
+"loop": 1,
 "name": &"hurt",
 "speed": 5.0
 }, {
@@ -647,7 +647,6 @@ turbulence_enabled = true
 radius = 17.029387
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_r3axf"]
-radius = 13.0
 
 [node name="Player" type="CharacterBody2D" unique_id=506953172]
 script = ExtResource("1_8erm5")
@@ -655,7 +654,7 @@ script = ExtResource("1_8erm5")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=504513388]
 position = Vector2(-1, -33)
 sprite_frames = SubResource("SpriteFrames_avmpe")
-animation = &"Idle"
+animation = &"hurt"
 
 [node name="CollisonShape2D" type="CollisionShape2D" parent="." unique_id=1646836024]
 position = Vector2(3, -16)
@@ -680,7 +679,7 @@ debug_color = Color(3.706068e-06, 0.6364382, 0.40881905, 0.41960785)
 [node name="DealDamageZone" type="Area2D" parent="." unique_id=1629523948]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DealDamageZone" unique_id=665976889]
-position = Vector2(21, -17)
+position = Vector2(27, -17)
 shape = SubResource("CircleShape2D_r3axf")
 disabled = true
 debug_color = Color(0.99584323, 0, 0.20622629, 0.41960785)
