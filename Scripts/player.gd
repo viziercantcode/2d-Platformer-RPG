@@ -28,6 +28,9 @@ const DOUBLE_JUMP_FORCE = -300.0
 const MAX_FALL_SPEED = 400.0
 const GRAVITY = 1200.0
 
+# Used to detect an actual landing.
+var was_on_floor: bool = true
+
 # Air control
 const AIR_ACCELERATION = 500.0  # Reduced acceleration in air
 const AIR_FRICTION = 200.0  # Air resistance
@@ -42,6 +45,14 @@ const JUMP_BUFFER_TIME = 0.1  # Frames before landing you can press jump
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var dust: GPUParticles2D = $dust
 @onready var deal_damage_zone = $DealDamageZone
+
+@onready var slash1_sfx = $"Slash-1"
+@onready var slash2_sfx = $"Slash-2"
+@onready var jumpst_sfx = $JumpStart
+@onready var jumpend_sfx = $AudioStreamPlayer
+
+
+
 
 var coyote_timer: float = 0.0
 var jump_buffer_timer: float = 0.0
@@ -128,13 +139,22 @@ func _physics_process(delta: float) -> void:
 			
 			# Execute jump if conditions are met
 			if jump_buffer_timer > 0 and coyote_timer > 0:
+				# First jump
 				velocity.y = JUMP_FORCE
 				coyote_timer = 0.0
 				jump_buffer_timer = 0.0
+	
+				# Play jump sound immediately when the jump happens
+				jumpst_sfx.play()
+
 			elif jump_buffer_timer > 0 and can_double_jump:
+				# Double jump
 				velocity.y = DOUBLE_JUMP_FORCE
 				can_double_jump = false
 				jump_buffer_timer = 0.0
+	
+				# Play jump sound again for the second jump
+				jumpst_sfx.play()
 			
 			# Handle horizontal movement
 			if direction != 0:
@@ -153,18 +173,33 @@ func _physics_process(delta: float) -> void:
 				current_attack = true
 				if Input.is_action_just_pressed("Left_mouse") and is_on_floor():
 					attack_type = "single"
+					slash1_sfx.play()
 				elif Input.is_action_just_pressed("Right_mouse") and is_on_floor():
 					attack_type = "double"
+					slash2_sfx.play()
 				else:
 					attack_type = "air"
+					slash1_sfx.play()
+					
 				set_damage(attack_type)
 				handle_attack_animation(attack_type)
 				
 		update_animation(direction)
 	move_and_slide()
 
+<<<<<<< HEAD
 
 # # ENEMY TO PLAYER DAMAGE
+=======
+	# Detect an actual landing.
+	# This only triggers when the player changes from AIR -> FLOOR.
+	# Therefore, a double jump cannot accidentally trigger the landing sound.
+	if not was_on_floor and is_on_floor():
+		jumpend_sfx.play()
+
+	# Remember the floor state for the next frame.
+	was_on_floor = is_on_floor()
+>>>>>>> 1c52e04d073017d1cbf04a10fd139a8d16c94a5c
 
 func check_hitbox():
 	
@@ -289,8 +324,8 @@ func update_animation(direction: float) -> void:
 			animated_sprite.flip_h = true
 		return
 
+	# Flip sprite based on movement direction
 	if not is_dashing:
-		# Flip sprite based on direction
 		if direction > 0:
 			animated_sprite.flip_h = false
 			deal_damage_zone.scale.x = 1
@@ -300,20 +335,37 @@ func update_animation(direction: float) -> void:
 
 	var target_animation: String = "Idle"
 
-	# Determine animation state
+	# ------------------------------------------------
+	# Determine which animation should be playing
+	# ------------------------------------------------
+
 	if is_dashing:
 		target_animation = "Dash"
+
 	elif not is_on_floor():
+
+		# Player is moving upward
 		if velocity.y < -50:
 			target_animation = "Jump_start"
-		elif velocity.y >= -50 and velocity.y <= 50:
+
+		# Player is near the highest point of the jump
+		elif velocity.y <= 50:
 			target_animation = "Jump_middle"
+
+		# Player is falling
 		else:
 			target_animation = "Jump_end"
+
 	elif direction != 0:
 		target_animation = "Run"
+
 	else:
 		target_animation = "Idle"
+
+
+	# ------------------------------------------------
+	# Change animation only when the animation changes
+	# ------------------------------------------------
 
 	if animated_sprite.animation != target_animation:
 		animated_sprite.play(target_animation)

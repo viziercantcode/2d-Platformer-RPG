@@ -1,18 +1,22 @@
 [gd_scene format=3 uid="uid://d0o81vbctgpmt"]
 
-[ext_resource type="Texture2D" uid="uid://dueql6yvi7sc6" path="res://Assets/Character/Samurai/Sprites/ATTACK 2.png" id="1_3smsa"]
+[ext_resource type="Texture2D" uid="uid://cn0p0cj2aaiu1" path="res://Assets/Character/Samurai/Sprites/ATTACK 2.png" id="1_3smsa"]
 [ext_resource type="Script" uid="uid://cdowsj38t8whi" path="res://Scripts/player.gd" id="1_8erm5"]
-[ext_resource type="Texture2D" uid="uid://68b3yk1idwct" path="res://Assets/Character/Samurai/Sprites/IDLE.png" id="1_fkybt"]
-[ext_resource type="Texture2D" uid="uid://dxdirpeu0v81x" path="res://Assets/Character/Samurai/Sprites/JUMP-START.png" id="2_x3wgy"]
-[ext_resource type="Texture2D" uid="uid://e3bkjutglwd1" path="res://Assets/Character/Samurai/Sprites/JUMP-TRANSITION.png" id="3_3smsa"]
-[ext_resource type="Texture2D" uid="uid://cytgbdl8rh6um" path="res://Assets/Character/Samurai/Sprites/DASH.png" id="3_f1ek2"]
-[ext_resource type="Texture2D" uid="uid://b3fmchr047yiv" path="res://Assets/Character/Samurai/Sprites/JUMP-FALL.png" id="4_8erm5"]
-[ext_resource type="Texture2D" uid="uid://bkiu4yup3yrmu" path="res://Assets/Character/Samurai/Sprites/RUN.png" id="5_f1ek2"]
+[ext_resource type="Texture2D" uid="uid://cehrn2idks8ab" path="res://Assets/Character/Samurai/Sprites/IDLE.png" id="1_fkybt"]
+[ext_resource type="Texture2D" uid="uid://8egwj0omvks7" path="res://Assets/Character/Samurai/Sprites/JUMP-START.png" id="2_x3wgy"]
+[ext_resource type="Texture2D" uid="uid://deev6atbo1vj8" path="res://Assets/Character/Samurai/Sprites/JUMP-TRANSITION.png" id="3_3smsa"]
+[ext_resource type="Texture2D" uid="uid://du0c5ujfbuloi" path="res://Assets/Character/Samurai/Sprites/DASH.png" id="3_f1ek2"]
+[ext_resource type="Texture2D" uid="uid://bos0scbvu2xjs" path="res://Assets/Character/Samurai/Sprites/JUMP-FALL.png" id="4_8erm5"]
+[ext_resource type="Texture2D" uid="uid://be84j727vimu5" path="res://Assets/Character/Samurai/Sprites/RUN.png" id="5_f1ek2"]
 [ext_resource type="Texture2D" uid="uid://cey4jg5b72x1a" path="res://Assets/Character/Sprite-0002-export.png" id="7_3smsa"]
-[ext_resource type="Texture2D" uid="uid://ddxejcmxwaum3" path="res://Assets/Character/Samurai/Sprites/AIR ATTACK.png" id="8_gymyn"]
-[ext_resource type="Texture2D" uid="uid://b66jsg14a47xq" path="res://Assets/Character/Samurai/Sprites/ATTACK 1.png" id="9_pu2lt"]
-[ext_resource type="Texture2D" uid="uid://cbg7h4jy74lq6" path="res://Assets/Character/Samurai/Sprites/DEATH.png" id="9_ukyrk"]
-[ext_resource type="Texture2D" uid="uid://daha0di17m8uy" path="res://Assets/Character/Samurai/Sprites/HURT.png" id="11_ukyrk"]
+[ext_resource type="Texture2D" uid="uid://dsltgq8wilrio" path="res://Assets/Character/Samurai/Sprites/AIR ATTACK.png" id="8_gymyn"]
+[ext_resource type="Texture2D" uid="uid://csiy6anskunhj" path="res://Assets/Character/Samurai/Sprites/ATTACK 1.png" id="9_pu2lt"]
+[ext_resource type="Texture2D" uid="uid://dhqprfxo2dwbj" path="res://Assets/Character/Samurai/Sprites/DEATH.png" id="9_ukyrk"]
+[ext_resource type="Texture2D" uid="uid://b3lq6jr034ndi" path="res://Assets/Character/Samurai/Sprites/HURT.png" id="11_ukyrk"]
+[ext_resource type="AudioStream" uid="uid://dqg7ir0ouahw3" path="res://Assets/SFX/sword-slash-1.mp3" id="14_7dp3o"]
+[ext_resource type="AudioStream" uid="uid://c6fc2wc1grogl" path="res://Assets/SFX/sword-slash-2.mp3" id="15_h4iuc"]
+[ext_resource type="AudioStream" uid="uid://o6x2jd1lcnml" path="res://Assets/SFX/jump-start.mp3" id="16_fd4e3"]
+[ext_resource type="AudioStream" uid="uid://1adqikb3eqbn" path="res://Assets/SFX/jump-land.mp3" id="17_qqcod"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7ldla"]
 atlas = ExtResource("3_f1ek2")
@@ -680,3 +684,18 @@ position = Vector2(21, -17)
 shape = SubResource("CircleShape2D_r3axf")
 disabled = true
 debug_color = Color(0.99584323, 0, 0.20622629, 0.41960785)
+
+[node name="Slash-1" type="AudioStreamPlayer" parent="." unique_id=490772588]
+stream = ExtResource("14_7dp3o")
+volume_db = -0.812
+bus = &"SFX"
+
+[node name="Slash-2" type="AudioStreamPlayer" parent="." unique_id=989225095]
+stream = ExtResource("15_h4iuc")
+
+[node name="JumpStart" type="AudioStreamPlayer" parent="." unique_id=1993474172]
+stream = ExtResource("16_fd4e3")
+bus = &"SFX"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1073360656]
+stream = ExtResource("17_qqcod")
