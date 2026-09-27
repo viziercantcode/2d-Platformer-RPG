@@ -5,7 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://ks7turqyui7h" path="res://Assets/Platform/parallax-01.png" id="2_rymcx"]
 [ext_resource type="Texture2D" uid="uid://bly8brq3mdcd4" path="res://Assets/Platform/parallax-02.png" id="3_42s4r"]
 [ext_resource type="Texture2D" uid="uid://d57asgc6oxiq" path="res://Assets/Platform/parallax-03.png" id="4_kopta"]
-[ext_resource type="Texture2D" uid="uid://cgjmtdrykvvun" path="res://Assets/Platform/parallax-04.png" id="5_wi0l6"]
+[ext_resource type="Texture2D" uid="uid://cu4yl8e6746s4" path="res://Assets/Platform/parallax-04.png" id="5_wi0l6"]
+[ext_resource type="AudioStream" uid="uid://cavk6ek4stub7" path="res://Assets/SFX/in-game.mp3" id="7_42s4r"]
 
 [node name="Background" type="Node2D" unique_id=1292660756]
 
@@ -55,3 +56,9 @@ motion_mirroring = Vector2(1440, 0)
 position = Vector2(-730, -54)
 texture = ExtResource("5_wi0l6")
 centered = false
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=112799753]
+stream = ExtResource("7_42s4r")
+volume_db = -11.527
+autoplay = true
+bus = &"MainGame"

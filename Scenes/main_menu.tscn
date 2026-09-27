@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bw2j888hqooml" path="res://Assets/UI/options_hover.png" id="4_cp0ys"]
 [ext_resource type="Texture2D" uid="uid://u4nqs3hcex7q" path="res://Assets/UI/quit.png" id="5_yhxw7"]
 [ext_resource type="PackedScene" uid="uid://i5t3kb38uhjl" path="res://Scenes/Fade_transition.tscn" id="9_trj04"]
+[ext_resource type="AudioStream" uid="uid://dl8eyvwovstsi" path="res://Assets/SFX/main-menu-bgm.mp3" id="11_vr1f0"]
 
 [node name="main_menu" type="Node2D" unique_id=1106925953]
 script = ExtResource("1_28flt")
@@ -73,6 +74,12 @@ offset_right = 1224.0
 offset_bottom = 648.0
 
 [node name="Fade_timer" type="Timer" parent="Fade_transition" unique_id=1861652975]
+
+[node name="BGM" type="AudioStreamPlayer2D" parent="." unique_id=1001771189]
+stream = ExtResource("11_vr1f0")
+volume_db = -8.582
+autoplay = true
+bus = &"MainMenu_Bus"
 
 [connection signal="pressed" from="Button_manager/Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="Button_manager/Options" to="." method="_on_options_pressed"]
