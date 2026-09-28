@@ -1,105 +1,142 @@
 extends CharacterBody2D
 
-# Main player script: coordinates movement/combat and owns animation presentation.
+## Player coordinator.
+## Movement, health and combat are separate components 
+
+@export_category("Health")
+@export var player_health_max: int = 100
 
 var movement: PlayerMovement
 var combat: PlayerCombat
+var health: PlayerHealth
+var hitstop_controller: HitstopController
 
-var was_on_floor: bool = true
+var facing_direction: float = 1.0
+var was_on_floor := true
+var death_started := false
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var dust: GPUParticles2D = $dust
-@onready var deal_damage_zone = $DealDamageZone
-@onready var slash1_sfx = $"Slash-1"
-@onready var slash2_sfx = $"Slash-2"
-@onready var jumpst_sfx = $JumpStart
-@onready var jumpend_sfx = $AudioStreamPlayer
+@onready var deal_damage_zone: Area2D = $DealDamageZone
+@onready var slash1_sfx: AudioStreamPlayer = $"Slash-1"
+@onready var slash2_sfx: AudioStreamPlayer = $"Slash-2"
+@onready var jumpst_sfx: AudioStreamPlayer = $JumpStart
+@onready var jumpend_sfx: AudioStreamPlayer = $AudioStreamPlayer
 
 func _ready() -> void:
-	# Create the components at runtime, so no scene-file changes are required.
 	movement = PlayerMovement.new()
 	combat = PlayerCombat.new()
+	health = PlayerHealth.new()
+
 	add_child(movement)
 	add_child(combat)
+	add_child(health)
 
-	movement.setup(self, combat)
-	combat.setup(self)
+	health.health_max = player_health_max
+	health.setup(self)
+	combat.setup(self, health)
+	movement.setup(self, combat, health)
+
+	_hitstop_setup()
 
 	Global.playerBody = self
 	Global.playerAlive = true
-	combat.current_attack = false
-	combat.dead = false
 
 	animated_sprite.animation_finished.connect(_on_animation_finished)
+	set_facing(facing_direction)
+	combat.interrupt_for_hurt()
 
 func _physics_process(delta: float) -> void:
-	Global.playerDamageZone = deal_damage_zone
 	Global.playerHitbox = $PlayerHitbox
+	Global.playerDamageZone = deal_damage_zone
+	
+	# Health updates first, then combat, then movement
+	health.update(delta)
+	combat.update(delta)
+	var direction := movement.update(delta)
 
-	# Preserve the original order: hit detection/timers first, movement second,
-	# attack-input handling after movement.
-	combat.update_before_movement(delta)
-
-	var direction: float = 0.0
-	if not combat.dead:
-		direction = movement.update(delta)
-
-	combat.update_after_movement()
-	update_animation(direction)
 	move_and_slide()
+	_update_landing_audio()
+	update_animation(direction)
 
-	# Detect an actual landing: AIR -> FLOOR only.
-	if not was_on_floor and is_on_floor():
+func _update_landing_audio() -> void:
+	if not was_on_floor and is_on_floor() and not health.dead:
 		jumpend_sfx.play()
-
 	was_on_floor = is_on_floor()
 
-func _on_animation_finished() -> void:
-	combat.on_animation_finished()
+func set_facing(direction: float) -> void:
+	if direction == 0.0:
+		return
+	
+	# Flip sprite based on movement direction.
+	facing_direction = sign(direction)
+	animated_sprite.flip_h = facing_direction < 0.0
+	deal_damage_zone.scale.x = facing_direction
 
 func update_animation(direction: float) -> void:
-	if combat.dead:
+	if health.dead:
 		if animated_sprite.animation != "death":
+			animated_sprite.speed_scale = 1.0
 			animated_sprite.play("death")
 		return
 
-	if combat.hurt_timer > 0:
+	if health.hurt:
+		animated_sprite.speed_scale = 1.0
 		if animated_sprite.animation != "hurt":
 			animated_sprite.play("hurt")
 		return
 
-	# Don't let movement/idle animations override an active attack animation.
-	if combat.current_attack:
-		if direction > 0:
-			animated_sprite.flip_h = false
-		elif direction < 0:
-			animated_sprite.flip_h = true
+	if movement.is_dashing:
+		animated_sprite.speed_scale = 1.0
+		if animated_sprite.animation != "Dash":
+			animated_sprite.play("Dash")
 		return
 
-	# Flip sprite based on movement direction.
-	if not movement.is_dashing:
-		if direction > 0:
-			animated_sprite.flip_h = false
-			deal_damage_zone.scale.x = 1
-		elif direction < 0:
-			animated_sprite.flip_h = true
-			deal_damage_zone.scale.x = -1
+	if combat.is_attacking:
+		# Combat owns the attack animation. Movement must not overwrite it.
+		return
 
-	var target_animation: String = "Idle"
+	animated_sprite.speed_scale = 1.0
 
-	if movement.is_dashing:
-		target_animation = "Dash"
-	elif not is_on_floor():
-		if velocity.y < -50:
+	if direction > 0.0:
+		set_facing(1.0)
+	elif direction < 0.0:
+		set_facing(-1.0)
+
+	var target_animation := "Idle"
+
+	if not is_on_floor():
+		if velocity.y < -50.0:
 			target_animation = "Jump_start"
-		elif velocity.y <= 50:
+		elif velocity.y <= 50.0:
 			target_animation = "Jump_middle"
 		else:
 			target_animation = "Jump_end"
-	elif direction != 0:
+	elif direction != 0.0:
 		target_animation = "Run"
-	else:
-		target_animation = "Idle"
 
 	if animated_sprite.animation != target_animation:
 		animated_sprite.play(target_animation)
+
+func on_death_started() -> void:
+	if death_started:
+		return
+	death_started = true
+	velocity = Vector2.ZERO
+	animated_sprite.speed_scale = 1.0
+	animated_sprite.play("death")
+
+func _on_animation_finished() -> void:
+	if animated_sprite.animation == "death" and death_started:
+		queue_free()
+
+func _hitstop_setup() -> void:
+	var root := get_tree().root
+	var existing := root.get_node_or_null("CombatHitstop")
+	if existing is HitstopController:
+		hitstop_controller = existing
+		return
+
+	hitstop_controller = HitstopController.new()
+	hitstop_controller.name = "CombatHitstop"
+	root.add_child(hitstop_controller)
