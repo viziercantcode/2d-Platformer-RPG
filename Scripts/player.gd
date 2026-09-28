@@ -8,12 +8,14 @@ extends CharacterBody2D
 
 var movement: PlayerMovement
 var combat: PlayerCombat
+var footsteps: PlayerFootsteps
 var health: PlayerHealth
 var hitstop_controller: HitstopController
 
 var facing_direction: float = 1.0
 var was_on_floor := true
 var death_started := false
+var was_dashing := false
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var dust: GPUParticles2D = $dust
@@ -22,18 +24,23 @@ var death_started := false
 @onready var slash2_sfx: AudioStreamPlayer = $"Slash-2"
 @onready var jumpst_sfx: AudioStreamPlayer = $JumpStart
 @onready var jumpend_sfx: AudioStreamPlayer = $AudioStreamPlayer
+@onready var dash_sfx: AudioStreamPlayer = $Dash_sfx
+@onready var footst_sfx: AudioStreamPlayer = $Footst_sfx
 
 func _ready() -> void:
 	movement = PlayerMovement.new()
 	combat = PlayerCombat.new()
 	health = PlayerHealth.new()
+	footsteps = PlayerFootsteps.new()
 
 	add_child(movement)
 	add_child(combat)
 	add_child(health)
+	add_child(footsteps)
 
 	health.health_max = player_health_max
 	health.setup(self)
+	footsteps.setup(self)
 	combat.setup(self, health)
 	movement.setup(self, combat, health)
 
@@ -56,6 +63,10 @@ func _physics_process(delta: float) -> void:
 	var direction := movement.update(delta)
 
 	move_and_slide()
+	if movement.is_dashing and not was_dashing:
+		dash_sfx.play()
+	was_dashing = movement.is_dashing
+	footsteps.update(delta)
 	_update_landing_audio()
 	update_animation(direction)
 

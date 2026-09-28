@@ -117,7 +117,19 @@ func update(delta: float) -> void:
 	else:
 		_try_start_buffered_attack()
 
+func _mouse_click_is_ui_blocked() -> bool:
+	var current_scene := player.get_tree().current_scene
+	if current_scene == null:
+		return false
+	if current_scene.has_method("is_ui_mouse_click_blocked") and current_scene.is_ui_mouse_click_blocked():
+		return true
+	var settings_button := current_scene.get_node_or_null("HUD/SettingsButton")
+	return settings_button is Control and settings_button.is_visible_in_tree() and settings_button.get_global_rect().has_point(player.get_viewport().get_mouse_position())
 func _capture_attack_input() -> void:
+	if _mouse_click_is_ui_blocked():
+		buffered_attack = 0
+		input_buffer_timer = 0.0
+		return
 	if Input.is_action_just_pressed("Left_mouse"):
 		_buffer_attack(LIGHT)
 

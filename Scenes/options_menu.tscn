@@ -1,0 +1,176 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scripts/options_menu.gd" id="1_script"]
+[ext_resource type="FontFile" uid="uid://dplp6iacay57l" path="res://Assets/Font/Handjet-VariableFont_ELGR,ELSH,wght.ttf" id="2_font"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_slider"]
+color = Color(1, 1, 1, 1)
+thickness = 8
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_grabber"]
+color = Color(0.40597585, 0.5928883, 1, 1)
+thickness = 8
+
+[node name="OptionsMenu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Shade" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.62)
+mouse_filter = 0
+
+[node name="Center" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Panel" type="Panel" parent="Center"]
+custom_minimum_size = Vector2(760, 600)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Center/Panel"]
+offset_left = 24.0
+offset_top = 12.0
+offset_right = 736.0
+offset_bottom = 86.0
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 64
+text = "OPTIONS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AudioHeading" type="Label" parent="Center/Panel"]
+offset_left = 48.0
+offset_top = 92.0
+offset_right = 712.0
+offset_bottom = 138.0
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 36
+text = "AUDIO"
+vertical_alignment = 1
+
+[node name="MusicLabel" type="Label" parent="Center/Panel"]
+offset_left = 48.0
+offset_top = 143.0
+offset_right = 180.0
+offset_bottom = 191.0
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 30
+text = "Music"
+vertical_alignment = 1
+
+[node name="MusicSlider" type="HSlider" parent="Center/Panel"]
+offset_left = 184.0
+offset_top = 151.0
+offset_right = 570.0
+offset_bottom = 183.0
+theme_override_styles/slider = SubResource("StyleBoxLine_slider")
+theme_override_styles/grabber_area = SubResource("StyleBoxLine_grabber")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_grabber")
+max_value = 1.0
+step = 0.05
+value = 0.7
+
+[node name="MusicValue" type="Label" parent="Center/Panel"]
+offset_left = 590.0
+offset_top = 143.0
+offset_right = 712.0
+offset_bottom = 191.0
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 30
+text = "70%"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="SFXLabel" type="Label" parent="Center/Panel"]
+offset_left = 48.0
+offset_top = 203.0
+offset_right = 180.0
+offset_bottom = 251.0
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 30
+text = "Sound FX"
+vertical_alignment = 1
+
+[node name="SFXSlider" type="HSlider" parent="Center/Panel"]
+offset_left = 184.0
+offset_top = 211.0
+offset_right = 570.0
+offset_bottom = 243.0
+theme_override_styles/slider = SubResource("StyleBoxLine_slider")
+theme_override_styles/grabber_area = SubResource("StyleBoxLine_grabber")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_grabber")
+max_value = 1.0
+step = 0.05
+value = 0.85
+
+[node name="SFXValue" type="Label" parent="Center/Panel"]
+offset_left = 590.0
+offset_top = 203.0
+offset_right = 712.0
+offset_bottom = 251.0
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 30
+text = "85%"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="DisplayHeading" type="Label" parent="Center/Panel"]
+offset_left = 48.0
+offset_top = 268.0
+offset_right = 712.0
+offset_bottom = 314.0
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 36
+text = "DISPLAY"
+vertical_alignment = 1
+
+[node name="Fullscreen" type="CheckButton" parent="Center/Panel"]
+offset_left = 48.0
+offset_top = 314.0
+offset_right = 712.0
+offset_bottom = 364.0
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 30
+text = "Fullscreen"
+button_pressed = false
+
+[node name="Back" type="Button" parent="Center/Panel"]
+offset_left = 526.0
+offset_top = 514.0
+offset_right = 712.0
+offset_bottom = 564.0
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 30
+text = "Back"
+
+[node name="Reset" type="Button" parent="Center/Panel"]
+offset_left = 48.0
+offset_top = 514.0
+offset_right = 326.0
+offset_bottom = 564.0
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 30
+text = "Reset to Defaults"
+
+[connection signal="value_changed" from="Center/Panel/MusicSlider" to="." method="_on_music_changed"]
+[connection signal="value_changed" from="Center/Panel/SFXSlider" to="." method="_on_sfx_changed"]
+[connection signal="toggled" from="Center/Panel/Fullscreen" to="." method="_on_fullscreen_toggled"]
+[connection signal="pressed" from="Center/Panel/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="Center/Panel/Reset" to="." method="_on_reset_pressed"]
