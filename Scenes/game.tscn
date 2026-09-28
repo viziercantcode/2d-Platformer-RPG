@@ -8,6 +8,8 @@
 [ext_resource type="Script" uid="uid://cupmwwayfb05d" path="res://Scripts/reflection.gd" id="5_i6g32"]
 [ext_resource type="PackedScene" uid="uid://i5t3kb38uhjl" path="res://Scenes/Fade_transition.tscn" id="7_v158k"]
 [ext_resource type="PackedScene" uid="uid://b0vn2tyo5e0x0" path="res://Scenes/enemy1.tscn" id="8_v158k"]
+[ext_resource type="Texture2D" path="res://Assets/UI/setting_icon.png" id="9_settings"]
+[ext_resource type="PackedScene" path="res://Scenes/options_menu.tscn" id="10_options"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_o88mx"]
 
@@ -61,3 +63,22 @@ offset_left = -573.0
 offset_top = -352.0
 offset_right = 587.0
 offset_bottom = 288.0
+
+[node name="HUD" type="CanvasLayer" parent="."]
+process_mode = 3
+
+[node name="SettingsButton" type="TextureButton" parent="HUD"]
+offset_left = 18.0
+offset_top = 18.0
+offset_right = 54.0
+offset_bottom = 54.0
+ignore_texture_size = true
+stretch_mode = 5
+texture_normal = ExtResource("9_settings")
+tooltip_text = "Settings"
+
+[node name="OptionsMenu" parent="HUD" instance=ExtResource("10_options")]
+visible = false
+
+[connection signal="pressed" from="HUD/SettingsButton" to="." method="_on_settings_pressed"]
+[connection signal="closed" from="HUD/OptionsMenu" to="." method="_on_options_closed"]
