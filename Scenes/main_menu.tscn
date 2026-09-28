@@ -16,18 +16,19 @@
 script = ExtResource("1_28flt")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1961965781]
-position = Vector2(616, 336)
-scale = Vector2(0.3794672, 0.36522368)
+position = Vector2(576.355, 324.2)
+scale = Vector2(0.35211104, 0.35363585)
 texture = ExtResource("2_trj04")
 
 [node name="Label" type="Label" parent="." unique_id=949522821]
-offset_left = 200.0
+visible = false
+offset_left = 189.0
 offset_top = 208.0
-offset_right = 338.0
+offset_right = 345.0
 offset_bottom = 350.0
 theme_override_fonts/font = ExtResource("3_16hvj")
 theme_override_font_sizes/font_size = 22
-text = "Follow us on GitHub
+text = "Follow us on GitHub 
 @Viziercantcode
 @P1tuxn"
 horizontal_alignment = 1
@@ -40,9 +41,9 @@ offset_bottom = 40.0
 
 [node name="Quit" type="TextureButton" parent="Button_manager" unique_id=139818271]
 layout_mode = 0
-offset_left = 160.0
+offset_left = 146.0
 offset_top = 440.0
-offset_right = 881.0
+offset_right = 867.0
 offset_bottom = 598.0
 scale = Vector2(0.30042484, 0.30042484)
 texture_normal = ExtResource("5_yhxw7")
@@ -50,9 +51,9 @@ texture_hover = ExtResource("3_cp0ys")
 
 [node name="Options" type="TextureButton" parent="Button_manager" unique_id=2063824780]
 layout_mode = 0
-offset_left = 160.0
+offset_left = 146.0
 offset_top = 376.0
-offset_right = 881.0
+offset_right = 867.0
 offset_bottom = 534.0
 scale = Vector2(0.30042484, 0.30042484)
 texture_normal = ExtResource("3_opfnp")
@@ -60,9 +61,9 @@ texture_hover = ExtResource("4_cp0ys")
 
 [node name="Start" type="TextureButton" parent="Button_manager" unique_id=1473575355]
 layout_mode = 0
-offset_left = 160.0
+offset_left = 146.0
 offset_top = 312.0
-offset_right = 881.0
+offset_right = 867.0
 offset_bottom = 470.0
 scale = Vector2(0.30042484, 0.30042484)
 texture_normal = ExtResource("2_n45e2")
