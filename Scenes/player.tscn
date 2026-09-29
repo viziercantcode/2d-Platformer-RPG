@@ -824,6 +824,7 @@ scale = Vector2(1.234375, 1.296875)
 color = Color(1, 1, 0.59607846, 1)
 energy = 0.58
 shadow_enabled = true
+shadow_filter = 2
 texture = SubResource("GradientTexture2D_r3axf")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=504513388]

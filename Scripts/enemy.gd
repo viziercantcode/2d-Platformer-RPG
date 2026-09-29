@@ -19,13 +19,16 @@ class_name Enemy_1
 @export_category("Blood Particles")
 @export var blood_amount: int = 8
 @export var blood_lifetime: float = 0.32
+@export var blood_spread: float = 35.0
 @export var blood_speed_min: float = 130.0
 @export var blood_speed_max: float = 300.0
-@export var blood_spread: float = 35.0
 @export var blood_gravity: float = 620.0
-@export var blood_scale_min: float = 0.65
-@export var blood_scale_max: float = 1.20
-@export var blood_color: Color = Color(0.75, 0.05, 0.05, 1.0)
+@export var blood_direction_y: float = -0.20
+@export var blood_damping_min: float = 5.0
+@export var blood_damping_max: float = 12.0
+@export var blood_color: Color = Color(0.493, 0.101, 0.143, 1.0)
+@export var blood_scale_min: float = 0.6
+@export var blood_scale_max: float = 1.2
 
 var movement: EnemyMovement
 var combat: EnemyCombat
@@ -89,50 +92,22 @@ func health_blocked_for_attack() -> bool:
 	return combat.dead or combat.state == EnemyCombat.State.HURT or combat.state == EnemyCombat.State.ATTACK
 
 func spawn_blood_particles(attack_direction: float) -> void:
-	if blood_amount <= 0:
-		return
-
-	var particles := GPUParticles2D.new()
-	particles.one_shot = true
-	particles.amount = blood_amount
-	particles.lifetime = blood_lifetime
-	particles.explosiveness = 0.95
-	particles.local_coords = false
-	particles.position = global_position + Vector2(0.0, -30.0)
-	particles.visibility_rect = Rect2(-128, -128, 256, 256)
-
-	# A tiny white texture lets ParticleProcessMaterial tint the particles red.
-	var image := Image.create_empty(4, 4, false, Image.FORMAT_RGBA8)
-	image.fill(Color.WHITE)
-	particles.texture = ImageTexture.create_from_image(image)
-
-	var material := ParticleProcessMaterial.new()
-	material.particle_flag_disable_z = true
-	material.direction = Vector3(attack_direction, -0.20, 0.0)
-	material.spread = blood_spread
-	material.initial_velocity_min = blood_speed_min
-	material.initial_velocity_max = blood_speed_max
-	material.gravity = Vector3(0.0, blood_gravity, 0.0)
-	material.damping_min = 5.0
-	material.damping_max = 12.0
-	material.scale_min = blood_scale_min
-	material.scale_max = blood_scale_max
-	material.color = blood_color
-	particles.process_material = material
-
-	var parent := get_parent()
-	if parent == null:
-		return
-	parent.add_child(particles)
-	particles.global_position = global_position + Vector2(0.0, -30.0)
-	particles.emitting = true
-
-	var cleanup := Timer.new()
-	cleanup.one_shot = true
-	cleanup.wait_time = blood_lifetime + 0.10
-	cleanup.timeout.connect(particles.queue_free)
-	particles.add_child(cleanup)
-	cleanup.start()
+	var settings := {
+		"amount": blood_amount,
+		"lifetime": blood_lifetime,
+		"spread": blood_spread,
+		"speed_min": blood_speed_min,
+		"speed_max": blood_speed_max,
+		"gravity": blood_gravity,
+		"direction_y": blood_direction_y,
+		"damping_min": blood_damping_min,
+		"damping_max": blood_damping_max,
+		"color": blood_color,
+		"scale_min": blood_scale_min,
+		"scale_max": blood_scale_max
+	}
+	
+	BloodEffect.spawn(get_parent(), global_position + Vector2(0.0, -20.0), attack_direction, settings)
 
 func on_death_started() -> void:
 	if death_started:
