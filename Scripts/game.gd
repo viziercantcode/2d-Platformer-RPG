@@ -21,4 +21,3 @@ func _on_options_closed() -> void:
 
 func is_ui_mouse_click_blocked() -> bool:
 	return ui_mouse_click_blocked
-

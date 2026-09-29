@@ -1,6 +1,6 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://x3k50e87lqpn"]
 
-[ext_resource type="Script" path="res://Scripts/options_menu.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://d03ump8bs2kqs" path="res://Scripts/options_menu.gd" id="1_script"]
 [ext_resource type="FontFile" uid="uid://dplp6iacay57l" path="res://Assets/Font/Handjet-VariableFont_ELGR,ELSH,wght.ttf" id="2_font"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_slider"]
@@ -11,7 +11,7 @@ thickness = 8
 color = Color(0.40597585, 0.5928883, 1, 1)
 thickness = 8
 
-[node name="OptionsMenu" type="Control"]
+[node name="OptionsMenu" type="Control" unique_id=1783911367]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -21,7 +21,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_script")
 
-[node name="Shade" type="ColorRect" parent="."]
+[node name="Shade" type="ColorRect" parent="." unique_id=1286227781]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -29,22 +29,21 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.62)
-mouse_filter = 0
 
-[node name="Center" type="CenterContainer" parent="."]
+[node name="Center" type="CenterContainer" parent="." unique_id=2020116922]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
 
-[node name="Panel" type="Panel" parent="Center"]
+[node name="Panel" type="Panel" parent="Center" unique_id=1990602159]
 custom_minimum_size = Vector2(760, 600)
 layout_mode = 2
 
-[node name="Title" type="Label" parent="Center/Panel"]
+[node name="Title" type="Label" parent="Center/Panel" unique_id=422301234]
+layout_mode = 0
 offset_left = 24.0
 offset_top = 12.0
 offset_right = 736.0
@@ -55,27 +54,30 @@ text = "OPTIONS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="AudioHeading" type="Label" parent="Center/Panel"]
-offset_left = 48.0
-offset_top = 92.0
-offset_right = 712.0
-offset_bottom = 138.0
+[node name="AudioHeading" type="Label" parent="Center/Panel" unique_id=347207669]
+layout_mode = 0
+offset_left = 44.0
+offset_top = 88.0
+offset_right = 708.0
+offset_bottom = 134.0
 theme_override_fonts/font = ExtResource("2_font")
 theme_override_font_sizes/font_size = 36
 text = "AUDIO"
 vertical_alignment = 1
 
-[node name="MusicLabel" type="Label" parent="Center/Panel"]
-offset_left = 48.0
-offset_top = 143.0
-offset_right = 180.0
-offset_bottom = 191.0
+[node name="MusicLabel" type="Label" parent="Center/Panel" unique_id=901923581]
+layout_mode = 0
+offset_left = 44.0
+offset_top = 144.0
+offset_right = 176.0
+offset_bottom = 192.0
 theme_override_fonts/font = ExtResource("2_font")
 theme_override_font_sizes/font_size = 30
 text = "Music"
 vertical_alignment = 1
 
-[node name="MusicSlider" type="HSlider" parent="Center/Panel"]
+[node name="MusicSlider" type="HSlider" parent="Center/Panel" unique_id=844654493]
+layout_mode = 0
 offset_left = 184.0
 offset_top = 151.0
 offset_right = 570.0
@@ -87,7 +89,8 @@ max_value = 1.0
 step = 0.05
 value = 0.7
 
-[node name="MusicValue" type="Label" parent="Center/Panel"]
+[node name="MusicValue" type="Label" parent="Center/Panel" unique_id=965197154]
+layout_mode = 0
 offset_left = 590.0
 offset_top = 143.0
 offset_right = 712.0
@@ -98,17 +101,19 @@ text = "70%"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="SFXLabel" type="Label" parent="Center/Panel"]
-offset_left = 48.0
-offset_top = 203.0
-offset_right = 180.0
-offset_bottom = 251.0
+[node name="SFXLabel" type="Label" parent="Center/Panel" unique_id=1185445272]
+layout_mode = 0
+offset_left = 44.0
+offset_top = 200.0
+offset_right = 176.0
+offset_bottom = 248.0
 theme_override_fonts/font = ExtResource("2_font")
 theme_override_font_sizes/font_size = 30
 text = "Sound FX"
 vertical_alignment = 1
 
-[node name="SFXSlider" type="HSlider" parent="Center/Panel"]
+[node name="SFXSlider" type="HSlider" parent="Center/Panel" unique_id=2091092802]
+layout_mode = 0
 offset_left = 184.0
 offset_top = 211.0
 offset_right = 570.0
@@ -120,7 +125,8 @@ max_value = 1.0
 step = 0.05
 value = 0.85
 
-[node name="SFXValue" type="Label" parent="Center/Panel"]
+[node name="SFXValue" type="Label" parent="Center/Panel" unique_id=1483863872]
+layout_mode = 0
 offset_left = 590.0
 offset_top = 203.0
 offset_right = 712.0
@@ -131,27 +137,29 @@ text = "85%"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="DisplayHeading" type="Label" parent="Center/Panel"]
-offset_left = 48.0
-offset_top = 268.0
-offset_right = 712.0
-offset_bottom = 314.0
+[node name="DisplayHeading" type="Label" parent="Center/Panel" unique_id=1023527216]
+layout_mode = 0
+offset_left = 44.0
+offset_top = 264.0
+offset_right = 708.0
+offset_bottom = 310.0
 theme_override_fonts/font = ExtResource("2_font")
 theme_override_font_sizes/font_size = 36
 text = "DISPLAY"
 vertical_alignment = 1
 
-[node name="Fullscreen" type="CheckButton" parent="Center/Panel"]
-offset_left = 48.0
-offset_top = 314.0
-offset_right = 712.0
-offset_bottom = 364.0
+[node name="Fullscreen" type="CheckButton" parent="Center/Panel" unique_id=763649251]
+layout_mode = 0
+offset_left = 36.0
+offset_top = 320.0
+offset_right = 700.0
+offset_bottom = 370.0
 theme_override_fonts/font = ExtResource("2_font")
 theme_override_font_sizes/font_size = 30
 text = "Fullscreen"
-button_pressed = false
 
-[node name="Back" type="Button" parent="Center/Panel"]
+[node name="Back" type="Button" parent="Center/Panel" unique_id=488521443]
+layout_mode = 0
 offset_left = 526.0
 offset_top = 514.0
 offset_right = 712.0
@@ -160,7 +168,8 @@ theme_override_fonts/font = ExtResource("2_font")
 theme_override_font_sizes/font_size = 30
 text = "Back"
 
-[node name="Reset" type="Button" parent="Center/Panel"]
+[node name="Reset" type="Button" parent="Center/Panel" unique_id=183512397]
+layout_mode = 0
 offset_left = 48.0
 offset_top = 514.0
 offset_right = 326.0
