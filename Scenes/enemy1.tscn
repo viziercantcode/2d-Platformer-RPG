@@ -1,39 +1,7 @@
 [gd_scene format=3 uid="uid://b0vn2tyo5e0x0"]
 
 [ext_resource type="Script" uid="uid://bceimuwjpo8tk" path="res://Scripts/enemy.gd" id="1_1f0kj"]
-[ext_resource type="Texture2D" uid="uid://cey4jg5b72x1a" path="res://Assets/Character/Sprite-0002-export.png" id="2_nbjwd"]
 [ext_resource type="Texture2D" uid="uid://vw7bfrn0aqdj" path="res://Assets/Enemy/Bringer-of-Death-SpritSheet.png" id="3_4qy08"]
-
-[sub_resource type="Curve" id="Curve_b0lji"]
-_data = [Vector2(0.16666666, 0.21428573), 0.0, 0.0, 0, 0, Vector2(1, 0.7857144), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_pu2lt"]
-curve = SubResource("Curve_b0lji")
-
-[sub_resource type="Curve" id="Curve_ervnv"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.983871, 0.4017858), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_gymyn"]
-curve = SubResource("Curve_ervnv")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_31vpt"]
-particle_flag_disable_z = true
-angle_min = 5.000011
-angle_max = 15.0000105
-direction = Vector3(0, -1, 0)
-spread = 55.0
-initial_velocity_min = 20.0
-initial_velocity_max = 40.0
-gravity = Vector3(0, 75, 0)
-damping_min = 5.0
-damping_max = 10.0
-scale_min = 0.79999995
-scale_max = 1.1999999
-scale_curve = SubResource("CurveTexture_gymyn")
-alpha_curve = SubResource("CurveTexture_pu2lt")
-turbulence_enabled = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_apx2k"]
 atlas = ExtResource("3_4qy08")
@@ -345,17 +313,17 @@ size = Vector2(28, 45)
 [sub_resource type="CircleShape2D" id="CircleShape2D_gymyn"]
 radius = 38.013157
 
+[sub_resource type="Gradient" id="Gradient_mxdow"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_avmpe"]
+gradient = SubResource("Gradient_mxdow")
+fill = 1
+fill_from = Vector2(0.4809028, 0.47743055)
+fill_to = Vector2(0.828125, 0.296875)
+
 [node name="Enemy 1" type="CharacterBody2D" unique_id=848644838]
 script = ExtResource("1_1f0kj")
-
-[node name="dust" type="GPUParticles2D" parent="." unique_id=1358598637]
-visible = false
-scale = Vector2(0.715, 0.715)
-amount = 10
-texture = ExtResource("2_nbjwd")
-lifetime = 0.37
-fixed_fps = 60
-process_material = SubResource("ParticleProcessMaterial_31vpt")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=626149017]
 position = Vector2(0, -46)
@@ -368,7 +336,7 @@ offset = Vector2(-108, -46)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=368369851]
 visibility_layer = 5
-position = Vector2(0, -23)
+position = Vector2(-2, -21)
 shape = SubResource("RectangleShape2D_r3axf")
 one_way_collision = true
 one_way_collision_margin = 0.0
@@ -389,6 +357,13 @@ debug_color = Color(3.0322374e-06, 0.6436325, 0.31282482, 0.41960785)
 position = Vector2(-50, -29)
 shape = SubResource("CircleShape2D_gymyn")
 debug_color = Color(0.9958356, 0, 0.206357, 0.41960785)
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=736041186]
+position = Vector2(-3, -47)
+scale = Vector2(1.125, 1.0625)
+color = Color(1, 0, 0, 1)
+energy = 2.49
+texture = SubResource("GradientTexture2D_avmpe")
 
 [connection signal="timeout" from="DirectionTimer" to="." method="_on_direction_timer_timeout"]
 [connection signal="area_entered" from="EnemyHitbox" to="." method="_on_enemy_hurtbox_area_entered"]

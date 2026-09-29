@@ -22,6 +22,18 @@
 [ext_resource type="AudioStream" uid="uid://bybo4td6rb5wb" path="res://Assets/SFX/dashfx.mp3" id="100_dash"]
 [ext_resource type="AudioStream" uid="uid://cybbvql53pxsj" path="res://Assets/SFX/footsteps.mp3" id="101_steps"]
 
+[sub_resource type="Gradient" id="Gradient_olqyp"]
+offsets = PackedFloat32Array(0.03125, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_r3axf"]
+gradient = SubResource("Gradient_olqyp")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.90000004, 0.8)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_6yrdb"]
 atlas = ExtResource("2_fs7ks")
 region = Rect2(0, 0, 96, 96)
@@ -764,7 +776,7 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1rc8e"]
 radius = 4.0
-height = 32.0
+height = 40.0
 
 [sub_resource type="Curve" id="Curve_ukyrk"]
 _data = [Vector2(0.16666666, 0.21428573), 0.0, 0.0, 0, 0, Vector2(1, 0.7857144), 0.0, 0.0, 0, 0]
@@ -806,6 +818,14 @@ radius = 13.0
 [node name="Player" type="CharacterBody2D" unique_id=506953172]
 script = ExtResource("1_8erm5")
 
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=877726584]
+position = Vector2(2.000001, -13)
+scale = Vector2(1.234375, 1.296875)
+color = Color(1, 1, 0.59607846, 1)
+energy = 0.58
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_r3axf")
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=504513388]
 position = Vector2(-1, -33)
 sprite_frames = SubResource("SpriteFrames_avmpe")
@@ -818,9 +838,9 @@ one_way_collision = true
 
 [node name="dust" type="GPUParticles2D" parent="." unique_id=1081601247]
 scale = Vector2(0.715, 0.715)
-amount = 10
+amount = 6
 texture = ExtResource("7_3smsa")
-lifetime = 0.37
+lifetime = 0.33
 fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_x3wgy")
 

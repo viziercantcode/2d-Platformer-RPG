@@ -13,7 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://dl8eyvwovstsi" path="res://Assets/SFX/main-menu-bgm.mp3" id="11_vr1f0"]
 [ext_resource type="AudioStream" uid="uid://damr1klthromj" path="res://Assets/SFX/hoverr.wav" id="12_hover"]
 [ext_resource type="AudioStream" uid="uid://imjhqlk2o4ij" path="res://Assets/SFX/click.wav" id="13_click"]
-[ext_resource type="PackedScene" path="res://Scenes/options_menu.tscn" id="16_options"]
+[ext_resource type="PackedScene" uid="uid://x3k50e87lqpn" path="res://Scenes/options_menu.tscn" id="16_options"]
 
 [node name="main_menu" type="Node2D" unique_id=1106925953]
 script = ExtResource("1_28flt")
@@ -97,7 +97,6 @@ bus = &"SFX"
 [node name="OptionsLayer" type="CanvasLayer" parent="." unique_id=2129336069]
 
 [node name="OptionsMenu" parent="OptionsLayer" unique_id=1901881283 instance=ExtResource("16_options")]
-visible = false
 
 [connection signal="pressed" from="Button_manager/Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="Button_manager/Options" to="." method="_on_options_pressed"]
