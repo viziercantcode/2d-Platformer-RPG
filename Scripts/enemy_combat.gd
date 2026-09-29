@@ -134,13 +134,13 @@ func _check_attack_hit() -> void:
 		if area != player.get_node_or_null("PlayerHitbox"):
 			continue
 
-		var direction: float = signf(player.global_position.x - enemy.global_position.x)
+		var direction: float = sign(player.global_position.x - enemy.global_position.x)
 		if direction == 0.0:
 			direction = enemy.movement.facing_direction
 
 		var knockback := Vector2(direction * knockback_force, 0.0)
-
-		if player.health.take_damage(damage_to_deal, knockback):
+		
+		if player.health.take_damage(damage_to_deal, knockback, direction):
 			player_hit_this_attack = true
 
 func _finish_attack() -> void:

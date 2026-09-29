@@ -1,8 +1,8 @@
 extends Node
 class_name PlayerCombat
 
-const BUFFER_DURATION := 0.15
-const COMBO_RESET_TIME := 0.28
+const BUFFER_DURATION := 0.1
+const COMBO_RESET_TIME := 0.2
 const LIGHT_COMBO_COUNT := 3
 
 const ATTACK_LIGHT_1 := {

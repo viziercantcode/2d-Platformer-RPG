@@ -44,13 +44,15 @@ func can_receive_damage() -> bool:
 		return false
 	return true
 
-func take_damage(damage: int, knockback: Vector2) -> bool:
+func take_damage(damage: int, knockback: Vector2, attack_direction: float) -> bool:
 	if damage <= 0 or not can_receive_damage():
 		return false
 
 	health = max(health - damage, 0)
 	invulnerability_timer = hurt_invulnerability
-
+	
+	player.spawn_blood_particles(attack_direction)
+	
 	# Damage immediately cancels attacks and their hitbox.
 	if is_instance_valid(player.combat):
 		player.combat.interrupt_for_hurt()

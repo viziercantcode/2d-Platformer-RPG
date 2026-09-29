@@ -6,6 +6,20 @@ extends CharacterBody2D
 @export_category("Health")
 @export var player_health_max: int = 100
 
+@export_category("Blood Effects")
+@export var blood_amount: int = 4
+@export var blood_lifetime: float = 0.3
+@export var blood_spread: float = 20.0
+@export var blood_speed_min: float = 60.0
+@export var blood_speed_max: float = 180.0
+@export var blood_gravity: float = 500.0
+@export var blood_direction_y: float = -0.20
+@export var blood_damping_min: float = 5.0
+@export var blood_damping_max: float = 12.0
+@export var blood_color: Color = Color(1.0, 0.05, 0.05, 1.0)
+@export var blood_scale_min: float = 0.4
+@export var blood_scale_max: float = 0.8
+
 var movement: PlayerMovement
 var combat: PlayerCombat
 var footsteps: PlayerFootsteps
@@ -128,6 +142,24 @@ func update_animation(direction: float) -> void:
 
 	if animated_sprite.animation != target_animation:
 		animated_sprite.play(target_animation)
+
+func spawn_blood_particles(attack_direction: float) -> void:
+	var settings := {
+		"amount": blood_amount,
+		"lifetime": blood_lifetime,
+		"spread": blood_spread,
+		"speed_min": blood_speed_min,
+		"speed_max": blood_speed_max,
+		"gravity": blood_gravity,
+		"direction_y": blood_direction_y,
+		"damping_min": blood_damping_min,
+		"damping_max": blood_damping_max,
+		"color": blood_color,
+		"scale_min": blood_scale_min,
+		"scale_max": blood_scale_max
+	}
+	
+	BloodEffect.spawn(get_parent(), global_position + Vector2(0.0, -20.0), attack_direction, settings)
 
 func on_death_started() -> void:
 	if death_started:
