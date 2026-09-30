@@ -19,8 +19,8 @@
 script = ExtResource("1_28flt")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1961965781]
-position = Vector2(576.355, 324.2)
-scale = Vector2(0.35211104, 0.35363585)
+position = Vector2(575.8549, 324.2)
+scale = Vector2(0.3530301, 0.35363585)
 texture = ExtResource("2_trj04")
 
 [node name="Label" type="Label" parent="." unique_id=949522821]
@@ -95,6 +95,7 @@ stream = ExtResource("13_click")
 bus = &"SFX"
 
 [node name="OptionsLayer" type="CanvasLayer" parent="." unique_id=2129336069]
+visible = false
 
 [node name="OptionsMenu" parent="OptionsLayer" unique_id=1901881283 instance=ExtResource("16_options")]
 
