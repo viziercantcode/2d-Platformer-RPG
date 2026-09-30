@@ -17,7 +17,7 @@ const DASH_IFRAME_DURATION: float = 0.18
 const DASH_COOLDOWN: float = 0.35
 
 # Jump mechanics
-const JUMP_FORCE := -470
+const JUMP_FORCE := -450
 const DOUBLE_JUMP_FORCE := -400
 const MAX_FALL_SPEED := 400.0
 const GRAVITY := 1200.0
