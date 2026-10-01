@@ -1,10 +1,19 @@
 extends Node2D
 
 @onready var options_menu: OptionsMenu = $HUD/OptionsMenu
+
+# Health Bar
+@onready var player = $"Player 1"
+@onready var hp_bar: ProgressBar = $HUD/Control/HPBar
+@onready var hp_damage_bar: ProgressBar = $HUD/Control/HPDamageBar
+
+
 var ui_mouse_click_blocked := false
 
 func _ready() -> void:
 	$Fade_transition/AnimationPlayer.play("fade_out")
+	
+	player.health.setup_hp_bars(hp_bar, hp_damage_bar)
 
 func _process(_delta: float) -> void:
 	if ui_mouse_click_blocked and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and not Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
