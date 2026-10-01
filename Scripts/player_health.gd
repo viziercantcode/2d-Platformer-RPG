@@ -9,15 +9,32 @@ class_name PlayerHealth
 @export var hurt_invulnerability: float = 0.36
 
 var player: CharacterBody2D
-var health: int = 100
+var health: int
 var hurt_timer: float = 0.0
 var invulnerability_timer: float = 0.0
 var dead: bool = false
 var hurt: bool = false
 
+# HP Bar
+@export var hp_bar_smooth_speed: float = 1000.0
+@export var hp_damage_delay: float = 0.25
+@export var hp_damage_smooth_speed: float = 20.0
+
+var hp_bar: ProgressBar
+var hp_damage_bar: ProgressBar
+var displayed_health: float = 100.0
+var delayed_health: float = 100.0
+var damage_delay_timer: float = 0.0
+
+
 func setup(player_ref: CharacterBody2D) -> void:
 	player = player_ref
 	health = health_max
+	
+	displayed_health = health
+	delayed_health = health
+	damage_delay_timer = 0.0
+	
 	hurt_timer = 0.0
 	invulnerability_timer = 0.0
 	dead = false
@@ -32,6 +49,21 @@ func update(delta: float) -> void:
 
 	if hurt and hurt_timer <= 0.0 and not dead:
 		hurt = false
+	
+	# Smooth HP bar
+	displayed_health = move_toward(displayed_health, health, hp_bar_smooth_speed * delta)
+	
+	if hp_bar:
+		hp_bar.value = displayed_health
+	
+	# Delayed damage bar
+	if damage_delay_timer > 0.0:
+		damage_delay_timer -= delta
+	else:
+		delayed_health = move_toward(delayed_health, health, hp_damage_smooth_speed * delta)
+		
+		if hp_damage_bar:
+			hp_damage_bar.value = delayed_health
 
 func can_receive_damage() -> bool:
 	if dead:
@@ -49,6 +81,8 @@ func take_damage(damage: int, knockback: Vector2, attack_direction: float) -> bo
 		return false
 
 	health = max(health - damage, 0)
+	
+	damage_delay_timer = hp_damage_delay
 	invulnerability_timer = hurt_invulnerability
 	
 	player.spawn_blood_particles(attack_direction)
@@ -67,6 +101,19 @@ func take_damage(damage: int, knockback: Vector2, attack_direction: float) -> bo
 		hurt_timer = hurt_duration
 
 	return true
+
+func setup_hp_bars(front_bar: ProgressBar, damage_bar: ProgressBar) -> void:
+	hp_bar = front_bar
+	hp_damage_bar = damage_bar
+	
+	hp_bar.max_value = health_max
+	hp_damage_bar.max_value = health_max
+	
+	hp_bar.value = health
+	hp_damage_bar.value = health
+	displayed_health = health
+	delayed_health = health
+
 
 func start_death() -> void:
 	if dead:
