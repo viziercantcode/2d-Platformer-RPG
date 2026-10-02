@@ -34,6 +34,30 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.90000004, 0.8)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_m376e"]
+atlas = ExtResource("8_gymyn")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6b312"]
+atlas = ExtResource("8_gymyn")
+region = Rect2(96, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lisdf"]
+atlas = ExtResource("8_gymyn")
+region = Rect2(192, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n1x1j"]
+atlas = ExtResource("8_gymyn")
+region = Rect2(288, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c8b32"]
+atlas = ExtResource("8_gymyn")
+region = Rect2(384, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nj1g2"]
+atlas = ExtResource("8_gymyn")
+region = Rect2(480, 0, 96, 96)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_6yrdb"]
 atlas = ExtResource("2_fs7ks")
 region = Rect2(0, 0, 96, 96)
@@ -342,30 +366,6 @@ region = Rect2(1344, 0, 96, 96)
 atlas = ExtResource("5_f1ek2")
 region = Rect2(1440, 0, 96, 96)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_m376e"]
-atlas = ExtResource("8_gymyn")
-region = Rect2(0, 0, 96, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6b312"]
-atlas = ExtResource("8_gymyn")
-region = Rect2(96, 0, 96, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lisdf"]
-atlas = ExtResource("8_gymyn")
-region = Rect2(192, 0, 96, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_n1x1j"]
-atlas = ExtResource("8_gymyn")
-region = Rect2(288, 0, 96, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_c8b32"]
-atlas = ExtResource("8_gymyn")
-region = Rect2(384, 0, 96, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nj1g2"]
-atlas = ExtResource("8_gymyn")
-region = Rect2(480, 0, 96, 96)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_by7i4"]
 atlas = ExtResource("9_ukyrk")
 region = Rect2(0, 0, 96, 96)
@@ -420,6 +420,29 @@ region = Rect2(288, 0, 96, 96)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_avmpe"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m376e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6b312")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lisdf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n1x1j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c8b32")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nj1g2")
+}],
+"loop": 0,
+"name": &"Attack_air",
+"speed": 20.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_6yrdb")
@@ -703,29 +726,6 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_m376e")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6b312")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lisdf")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_n1x1j")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_c8b32")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nj1g2")
-}],
-"loop": 0,
-"name": &"air_attack",
-"speed": 20.0
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_by7i4")
 }, {
 "duration": 1.0,
@@ -831,7 +831,7 @@ texture = SubResource("GradientTexture2D_r3axf")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=504513388]
 position = Vector2(-1, -33)
 sprite_frames = SubResource("SpriteFrames_avmpe")
-animation = &"Attack_light_3"
+animation = &"hurt"
 
 [node name="CollisonShape2D" type="CollisionShape2D" parent="." unique_id=1646836024]
 position = Vector2(3, -16)

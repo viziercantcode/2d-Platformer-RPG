@@ -25,7 +25,7 @@ shader_parameter/fast_noise = SubResource("NoiseTexture2D_orua6")
 shader_parameter/speed = Vector2(0.03, 0.07)
 shader_parameter/wave_strength = 2.0
 shader_parameter/scale_y = 550.0
-shader_parameter/y_zoom = 0.8
+shader_parameter/y_zoom = 2.357948
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_jpyye"]
 
@@ -65,7 +65,7 @@ corner_radius_bottom_left = 4
 [node name="Game" type="Node2D" unique_id=856613315]
 script = ExtResource("1_1l0tm")
 
-[node name="enemy" parent="." unique_id=380204568 instance=ExtResource("1_wrm1d")]
+[node name="prison" parent="." unique_id=380204568 instance=ExtResource("1_wrm1d")]
 position = Vector2(1, 2)
 
 [node name="Player 1" parent="." unique_id=433096886 instance=ExtResource("1_qxrlw")]
