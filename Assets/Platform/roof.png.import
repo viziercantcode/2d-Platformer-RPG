@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c8t5s484m7gf0"
-path="res://.godot/imported/floors and roofst.png-70e7eb82fef79fa995f86495f4c6b861.ctex"
+uid="uid://d2j3ucdi6245t"
+path="res://.godot/imported/roof.png-ef8788d35b217e0952d9d0273ae4fc82.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Platform/floors and roofst.png"
-dest_files=["res://.godot/imported/floors and roofst.png-70e7eb82fef79fa995f86495f4c6b861.ctex"]
+source_file="res://Assets/Platform/roof.png"
+dest_files=["res://.godot/imported/roof.png-ef8788d35b217e0952d9d0273ae4fc82.ctex"]
 
 [params]
 
