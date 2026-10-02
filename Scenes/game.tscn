@@ -25,7 +25,7 @@ shader_parameter/fast_noise = SubResource("NoiseTexture2D_orua6")
 shader_parameter/speed = Vector2(0.03, 0.07)
 shader_parameter/wave_strength = 2.0
 shader_parameter/scale_y = 550.0
-shader_parameter/y_zoom = 2.357948
+shader_parameter/y_zoom = 0.79999995
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_jpyye"]
 
@@ -86,6 +86,7 @@ position = Vector2(-133, 0)
 position = Vector2(1, -2)
 
 [node name="Reflection" type="Sprite2D" parent="." unique_id=2017134479]
+visible = false
 z_index = 1
 material = SubResource("ShaderMaterial_jpyye")
 position = Vector2(0, 140.00002)
