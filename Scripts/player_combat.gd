@@ -1,8 +1,8 @@
 extends Node
 class_name PlayerCombat
 
-const BUFFER_DURATION := 0.1
-const COMBO_RESET_TIME := 0.2
+const BUFFER_DURATION := 0.2
+const COMBO_RESET_TIME := 0.3
 const LIGHT_COMBO_COUNT := 3
 
 const ATTACK_LIGHT_1 := {
@@ -21,7 +21,7 @@ const ATTACK_LIGHT_2 := {
 	"startup": 0.20,
 	"active": 0.10,
 	"recovery": 0.05,
-	"knockback": 165.0,
+	"knockback": 180.0,
 	"move_multiplier": 0.42,
 	"animation": "Attack_light_2",
 	"sfx": 1
@@ -32,7 +32,7 @@ const ATTACK_LIGHT_3 := {
 	"startup": 0.10,
 	"active": 0.10,
 	"recovery": 0.10,
-	"knockback": 185.0,
+	"knockback": 220.0,
 	"move_multiplier": 0.38,
 	"animation": "Attack_light_3",
 	"sfx": 2
@@ -49,6 +49,18 @@ const ATTACK_HEAVY := {
 	"sfx": 2,
 	"cooldown": 0.90
 }
+
+const ATTACK_AIR := {
+	"damage": 12,
+	"startup": 0.10,
+	"active": 0.12,
+	"recovery": 0.12,
+	"knockback": 160.0,
+	"move_multiplier": 0.60,
+	"animation": "Attack_air",
+	"sfx": 1
+}
+
 
 var player: CharacterBody2D
 var health: PlayerHealth
@@ -67,6 +79,7 @@ var hitbox_active: bool = false
 var combo_chain_timer: float = 0.0
 var input_buffer_timer: float = 0.0
 var buffered_attack: int = 0  # 0 none, 1 light, 2 heavy
+var light_cooldown_timer: float = 0.0
 var heavy_cooldown_timer: float = 0.0
 
 var current_attack_data: Dictionary = {}
@@ -74,6 +87,7 @@ var hit_targets: Dictionary = {}
 
 const LIGHT := 1
 const HEAVY := 2
+const AIR := 3
 
 func setup(player_ref: CharacterBody2D, health_ref: PlayerHealth) -> void:
 	player = player_ref
@@ -89,7 +103,10 @@ func update(delta: float) -> void:
 	if dead:
 		_disable_attack_hitbox()
 		return
-
+	
+	if light_cooldown_timer > 0.0:
+		light_cooldown_timer = max(light_cooldown_timer - delta, 0.0)
+	
 	if heavy_cooldown_timer > 0.0:
 		heavy_cooldown_timer = max(heavy_cooldown_timer - delta, 0.0)
 
@@ -131,7 +148,7 @@ func _capture_attack_input() -> void:
 		input_buffer_timer = 0.0
 		return
 	if Input.is_action_just_pressed("Left_mouse"):
-		_buffer_attack(LIGHT)
+		_buffer_attack(LIGHT if player.is_on_floor() else AIR)
 
 	if Input.is_action_just_pressed("Right_mouse"):
 		_buffer_attack(HEAVY)
@@ -145,6 +162,9 @@ func _try_start_buffered_attack() -> void:
 		return
 	if player.movement.is_dashing:
 		return
+	# Light and air attacks share same cooldown.
+	if buffered_attack != HEAVY and light_cooldown_timer > 0.0:
+		return  # keep the press buffered until the cooldown ends or the buffer expires
 
 	var queued := buffered_attack
 	buffered_attack = 0
@@ -157,8 +177,10 @@ func _try_start_buffered_attack() -> void:
 			# Do not carry a heavy input indefinitely through its cooldown.
 			combo_step = 0
 		return
-
-	_start_light_attack()
+	elif queued == AIR:
+		_start_air_attack()
+	else:
+		_start_light_attack()
 
 func _start_light_attack() -> void:
 	is_attacking = true
@@ -176,7 +198,8 @@ func _start_light_attack() -> void:
 		combo_step = 1
 
 	current_attack_data = _get_light_attack_data(combo_step)
-	current_attack_duration = _get_attack_total(current_attack_data)
+	current_attack_duration = maxf(_get_attack_total(current_attack_data), _get_animation_length(str(current_attack_data.animation)))
+	light_cooldown_timer = current_attack_duration
 	combo_chain_timer = 0.0
 
 	_set_attack_facing()
@@ -206,6 +229,30 @@ func _start_heavy_attack() -> void:
 	_play_attack_sfx(current_attack_data)
 	Global.playerDamageAmount = int(current_attack_data.damage)
 	Global.playerDamageZone = player.deal_damage_zone
+
+func _start_air_attack() -> void:
+	is_attacking = true
+	current_attack = true
+	is_heavy_attack = false
+	attack_type = "air"
+	attack_elapsed = 0.0
+	combo_step = 0
+	combo_chain_timer = 0.0
+	hit_targets.clear()
+	attack_hit_this_frame = false
+	_disable_attack_hitbox()
+
+	current_attack_data = ATTACK_AIR.duplicate()
+	current_attack_duration = maxf(
+		_get_attack_total(current_attack_data),
+		_get_animation_length(str(current_attack_data.animation))
+	)
+	light_cooldown_timer = current_attack_duration
+
+	_set_attack_facing()
+	_play_attack_animation(current_attack_data)
+	_play_attack_sfx(current_attack_data)
+
 
 func _get_light_attack_data(step: int) -> Dictionary:
 	match step:
@@ -249,25 +296,28 @@ func _finish_attack() -> void:
 	current_attack_duration = 0.0
 	current_attack_data = {}
 
-	# A buffered light attack chains immediately only if it was pressed recently.
 	if buffered_attack == LIGHT and input_buffer_timer > 0.0 and not health.hurt:
 		buffered_attack = 0
 		input_buffer_timer = 0.0
 		if combo_step < LIGHT_COMBO_COUNT:
-			_start_light_attack()
-			return
+			combo_chain_timer = COMBO_RESET_TIME
 		else:
 			combo_step = 0
-			_start_light_attack()
-			return
+		_start_light_attack()
+		return
 
-	# Heavy is a separate branch and resets the normal combo sequence.
 	if buffered_attack == HEAVY and input_buffer_timer > 0.0 and not health.hurt:
 		buffered_attack = 0
 		input_buffer_timer = 0.0
 		if heavy_cooldown_timer <= 0.0:
 			_start_heavy_attack()
 			return
+
+	if buffered_attack == AIR and input_buffer_timer > 0.0 and not health.hurt:
+		buffered_attack = 0
+		input_buffer_timer = 0.0
+		_start_air_attack()
+		return
 
 	buffered_attack = 0
 	input_buffer_timer = 0.0
@@ -364,6 +414,18 @@ func _play_attack_sfx(data: Dictionary) -> void:
 func request_hitstop(duration: float) -> void:
 	if is_instance_valid(player.hitstop_controller):
 		player.hitstop_controller.request(duration)
+
+func _get_animation_length(animation_name: String) -> float:
+	var frames = player.animated_sprite.sprite_frames
+	if frames == null or not frames.has_animation(animation_name):
+		return 0.0
+	var fps = frames.get_animation_speed(animation_name)
+	if fps <= 0.0:
+		return 0.0
+	var total := 0.0
+	for i in frames.get_frame_count(animation_name):
+		total += frames.get_frame_duration(animation_name, i)
+	return total / fps
 
 func on_animation_finished() -> void:
 	# Attack timing is controlled by attack_elapsed, not animation_finished.
