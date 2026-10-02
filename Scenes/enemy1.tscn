@@ -307,6 +307,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r3axf"]
 size = Vector2(20, 47)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jpyye"]
+size = Vector2(119, 82)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6odbf"]
 size = Vector2(28, 45)
 
@@ -328,9 +331,7 @@ script = ExtResource("1_1f0kj")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=626149017]
 position = Vector2(0, -46)
 sprite_frames = SubResource("SpriteFrames_avmpe")
-animation = &"deal_damage"
-frame = 9
-frame_progress = 1.0
+animation = &"walk"
 centered = false
 offset = Vector2(-108, -46)
 
@@ -343,6 +344,17 @@ one_way_collision_margin = 0.0
 
 [node name="DirectionTimer" type="Timer" parent="." unique_id=433438333]
 autostart = true
+
+[node name="PlayerDetectionRay" type="RayCast2D" parent="." unique_id=87624669]
+position = Vector2(0, -20)
+target_position = Vector2(-100, 0)
+
+[node name="PlayerDetectionArea" type="Area2D" parent="." unique_id=449511700]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectionArea" unique_id=1072269118]
+position = Vector2(32.5, -41)
+shape = SubResource("RectangleShape2D_jpyye")
 
 [node name="EnemyHitbox" type="Area2D" parent="." unique_id=1619404859]
 

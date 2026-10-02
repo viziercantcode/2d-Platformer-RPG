@@ -1,6 +1,9 @@
 extends CharacterBody2D
 class_name Enemy_1
 
+@export_category("Detection")
+@export var forward_detection_range: float = 200.0
+
 @export_category("Combat")
 @export var health_max: int = 100
 @export var damage_to_deal: int = 20
@@ -37,6 +40,8 @@ var death_started := false
 @onready var deal_damage_zone: Area2D = $EnemyDealDamageZone
 @onready var hitbox: CollisionShape2D = $EnemyHitbox/CollisionShape2D
 @onready var anim_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var player_detection_ray: RayCast2D = $PlayerDetectionRay
+@onready var player_detection_area: Area2D = $PlayerDetectionArea
 
 func _ready() -> void:
 	movement = EnemyMovement.new()
@@ -83,10 +88,42 @@ func handle_animation() -> void:
 		if anim_sprite.animation != "deal_damage":
 			anim_sprite.play("deal_damage")
 		return
+	
+	if absf(velocity.x) > 1.0:
+		if movement.is_enemy_chase:
+			anim_sprite.speed_scale = 1.35
+		else:
+			anim_sprite.speed_scale = 0.8
+		
+		if anim_sprite.animation != "walk" or not anim_sprite.is_playing():
+			anim_sprite.play("walk")
+	else:
+		anim_sprite.speed_scale = 1.0
+		
+		if anim_sprite.animation != "idle" or not anim_sprite.is_playing():
+			anim_sprite.play("idle")
 
-	anim_sprite.speed_scale = 1.0
-	if anim_sprite.animation != "walk" or not anim_sprite.is_playing():
-		anim_sprite.play("walk")
+
+func can_see_player() -> bool:
+	var player := Global.playerBody
+	
+	if not is_instance_valid(player) or player.health.dead:
+		return false
+	
+	var target := player.global_position + Vector2(0.0, player_detection_ray.position.y)
+	var offset := target - player_detection_ray.global_position
+	var player_is_in_front := signf(offset.x) == movement.facing_direction
+	
+	if player_is_in_front:
+		if offset.length() > forward_detection_range:
+			return false
+	elif not player_detection_area.overlaps_body(player):
+		return false
+		
+	player_detection_ray.target_position = player_detection_ray.to_local(target)
+	player_detection_ray.force_raycast_update()
+	
+	return player_detection_ray.get_collider() == player
 
 func health_blocked_for_attack() -> bool:
 	return combat.dead or combat.state == EnemyCombat.State.HURT or combat.state == EnemyCombat.State.ATTACK
@@ -120,14 +157,12 @@ func on_death_started() -> void:
 func enemy_direction_timer_reset() -> void:
 	var timer := get_node_or_null("DirectionTimer") as Timer
 	if timer != null:
-		timer.wait_time = choose([1.5, 2.0, 2.5])
+		timer.wait_time = choose([4.0,4.5, 5.0])
 
 func choose(array):
 	array.shuffle()
 	return array.front()
 
-# Keep existing scene signal wrappers. The actual hit detection is now polled
-# by the combat state machine, so these signals must not deal damage themselves.
 func _on_direction_timer_timeout() -> void:
 	movement.on_direction_timer_timeout()
 
