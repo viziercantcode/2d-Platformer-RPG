@@ -177,6 +177,7 @@ func _update_dash(delta: float) -> void:
 	var dash_speed: float = DASH_DISTANCE / (DASH_DURATION * 0.92)
 	
 	player.velocity.x = dash_direction * dash_speed * speed_factor
+	player.velocity.y *= 0.92
 
 	if dash_timer <= 0.0:
 		is_dashing = false

@@ -3,14 +3,24 @@ class_name EnemyMovement
 
 const GRAVITY := 900.0
 const SPEED := 42.0
+const ROAM_SPEED := 25.0
+const CHASE_SPEED := 55.0
 const AIR_FRICTION := 250.0
+
+const SEARCH_DURATION := 7.0
+
 
 var enemy: Enemy_1
 var combat: EnemyCombat
+
 var dir := Vector2.LEFT
 var facing_direction := -1.0
-var is_roaming := true
-var is_enemy_chase := true
+
+var is_enemy_chase := false
+
+var last_known_player_position := Vector2.ZERO
+var search_timer := 0.0
+
 
 func setup(enemy_ref: Enemy_1, combat_ref: EnemyCombat) -> void:
 	enemy = enemy_ref
@@ -41,7 +51,7 @@ func update(delta: float) -> void:
 		enemy.velocity.x = move_toward(enemy.velocity.x, 0.0, 260.0 * delta)
 		return
 
-	move_toward_player(delta, player)
+	update_ai(delta, player)
 
 func move_toward_player(delta: float, player: CharacterBody2D) -> void:
 	if not is_enemy_chase:
@@ -56,9 +66,20 @@ func move_toward_player(delta: float, player: CharacterBody2D) -> void:
 		return
 
 	facing_direction = sign(dx) if dx != 0.0 else facing_direction
-	enemy.velocity.x = move_toward(enemy.velocity.x, facing_direction * SPEED, 300.0 * delta)
+	enemy.velocity.x = move_toward(enemy.velocity.x, facing_direction * CHASE_SPEED, 300.0 * delta)
 	dir = Vector2(facing_direction, 0.0)
 	_apply_facing()
+
+func update_ai(delta: float, player: CharacterBody2D) -> void:
+	if enemy.can_see_player():
+		last_known_player_position = player.global_position
+		is_enemy_chase = true
+		search_timer = SEARCH_DURATION
+		move_toward_player(delta, player)
+	elif is_enemy_chase:
+		search(delta)
+	else:
+		roam(delta)
 
 func face_player() -> void:
 	var player := Global.playerBody
@@ -74,9 +95,10 @@ func _apply_facing() -> void:
 	if facing_direction == 0.0:
 		return
 
-	# This enemy sprite is authored facing left by default.
+	# This enemy sprite is facing left by default.
 	enemy.anim_sprite.scale.x = -1.0 if facing_direction > 0.0 else 1.0
 	enemy.deal_damage_zone.scale.x = -facing_direction
+	enemy.player_detection_area.scale.x = -facing_direction
 
 func on_direction_timer_timeout() -> void:
 	if not is_enemy_chase and combat.state == EnemyCombat.State.NORMAL:
@@ -88,3 +110,30 @@ func on_direction_timer_timeout() -> void:
 func choose(array):
 	array.shuffle()
 	return array.front()
+
+func roam(delta: float) -> void:
+	if combat.state == EnemyCombat.State.NORMAL:
+		enemy.velocity.x = move_toward(enemy.velocity.x, dir.x * ROAM_SPEED, 300.0 * delta)
+	else:
+		enemy.velocity.x = move_toward(enemy.velocity.x, 0.0, 400.0 * delta)
+	
+	facing_direction = sign(dir.x)
+	_apply_facing()
+
+func search(delta: float) -> void:
+	search_timer -= delta
+	
+	var dx := last_known_player_position.x - enemy.global_position.x
+	
+	if absf(dx) > 5.0:
+		facing_direction = sign(dx)
+		enemy.velocity.x = move_toward(enemy.velocity.x, facing_direction * SPEED, 300.0 * delta)
+		_apply_facing()
+	else:
+		enemy.velocity.x = move_toward(enemy.velocity.x, 0.0, 400.0 * delta)
+	
+	if search_timer <= 0.0:
+		is_enemy_chase = false
+		dir = Vector2(facing_direction, 0.0)
+		enemy.velocity.x = 0.0
+		
