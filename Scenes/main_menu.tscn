@@ -1,106 +1,192 @@
 [gd_scene format=3 uid="uid://cc7giitqcg48n"]
 
-[ext_resource type="Script" uid="uid://dev42wh5d1pb4" path="res://Scripts/main_menu.gd" id="1_28flt"]
-[ext_resource type="Texture2D" uid="uid://b4mk343wbh4qc" path="res://Assets/UI/start.png" id="2_n45e2"]
-[ext_resource type="Texture2D" uid="uid://coid3563281tu" path="res://Assets/UI/20260924_001133.png" id="2_trj04"]
-[ext_resource type="FontFile" uid="uid://dplp6iacay57l" path="res://Assets/Font/Handjet-VariableFont_ELGR,ELSH,wght.ttf" id="3_16hvj"]
-[ext_resource type="Texture2D" uid="uid://c1372r5e47bhr" path="res://Assets/UI/start_hover.png" id="3_ce3w2"]
-[ext_resource type="Texture2D" uid="uid://butvac2en1hi8" path="res://Assets/UI/quit_hover.png" id="3_cp0ys"]
-[ext_resource type="Texture2D" uid="uid://c6cft7euma35r" path="res://Assets/UI/options.png" id="3_opfnp"]
-[ext_resource type="Texture2D" uid="uid://bw2j888hqooml" path="res://Assets/UI/options_hover.png" id="4_cp0ys"]
-[ext_resource type="Texture2D" uid="uid://u4nqs3hcex7q" path="res://Assets/UI/quit.png" id="5_yhxw7"]
-[ext_resource type="PackedScene" uid="uid://i5t3kb38uhjl" path="res://Scenes/Fade_transition.tscn" id="9_trj04"]
-[ext_resource type="AudioStream" uid="uid://dl8eyvwovstsi" path="res://Assets/SFX/main-menu-bgm.mp3" id="11_vr1f0"]
-[ext_resource type="AudioStream" uid="uid://damr1klthromj" path="res://Assets/SFX/hoverr.wav" id="12_hover"]
-[ext_resource type="AudioStream" uid="uid://imjhqlk2o4ij" path="res://Assets/SFX/click.wav" id="13_click"]
-[ext_resource type="PackedScene" uid="uid://x3k50e87lqpn" path="res://Scenes/options_menu.tscn" id="16_options"]
+[ext_resource type="Script" uid="uid://dev42wh5d1pb4" path="res://Scripts/main_menu.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://coid3563281tu" path="res://Assets/UI/20260924_001133.png" id="2_background"]
+[ext_resource type="PackedScene" uid="uid://i5t3kb38uhjl" path="res://Scenes/Fade_transition.tscn" id="3_fade"]
+[ext_resource type="AudioStream" uid="uid://dl8eyvwovstsi" path="res://Assets/SFX/main-menu-bgm.mp3" id="4_music"]
+[ext_resource type="AudioStream" uid="uid://damr1klthromj" path="res://Assets/SFX/hoverr.wav" id="5_hover"]
+[ext_resource type="AudioStream" uid="uid://biux84yjv5doe" path="res://Assets/SFX/newwclico.wav" id="6_click"]
+[ext_resource type="PackedScene" uid="uid://x3k50e87lqpn" path="res://Scenes/options_menu.tscn" id="7_options"]
+[ext_resource type="FontFile" uid="uid://cs58t8fryx7aa" path="res://Assets/Font/TrajanPro-Regular.ttf" id="8_font"]
+[ext_resource type="Texture2D" uid="uid://s35vo3spp1k1" path="res://Assets/UI/wa_left.png" id="9_arrow_left"]
+[ext_resource type="Texture2D" uid="uid://dmouwsk2axc6p" path="res://Assets/UI/wa_right.png" id="10_arrow_right"]
 
 [node name="main_menu" type="Node2D" unique_id=1106925953]
-script = ExtResource("1_28flt")
+script = ExtResource("1_script")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1961965781]
 position = Vector2(575.8549, 324.2)
 scale = Vector2(0.3530301, 0.35363585)
-texture = ExtResource("2_trj04")
+texture = ExtResource("2_background")
 
-[node name="Label" type="Label" parent="." unique_id=949522821]
-visible = false
-offset_left = 189.0
-offset_top = 208.0
-offset_right = 345.0
-offset_bottom = 350.0
-theme_override_fonts/font = ExtResource("3_16hvj")
-theme_override_font_sizes/font_size = 22
-text = "Follow us on GitHub 
-@Viziercantcode
-@P1tuxn"
-horizontal_alignment = 1
-
-[node name="Button_manager" type="Control" parent="." unique_id=583087635]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Quit" type="TextureButton" parent="Button_manager" unique_id=139818271]
-layout_mode = 0
-offset_left = 146.0
-offset_top = 440.0
-offset_right = 867.0
-offset_bottom = 598.0
-scale = Vector2(0.30042484, 0.30042484)
-texture_normal = ExtResource("5_yhxw7")
-texture_hover = ExtResource("3_cp0ys")
-
-[node name="Options" type="TextureButton" parent="Button_manager" unique_id=2063824780]
-layout_mode = 0
-offset_left = 146.0
-offset_top = 376.0
-offset_right = 867.0
-offset_bottom = 534.0
-scale = Vector2(0.30042484, 0.30042484)
-texture_normal = ExtResource("3_opfnp")
-texture_hover = ExtResource("4_cp0ys")
-
-[node name="Start" type="TextureButton" parent="Button_manager" unique_id=1473575355]
-layout_mode = 0
-offset_left = 146.0
-offset_top = 312.0
-offset_right = 867.0
-offset_bottom = 470.0
-scale = Vector2(0.30042484, 0.30042484)
-texture_normal = ExtResource("2_n45e2")
-texture_hover = ExtResource("3_ce3w2")
-
-[node name="Fade_transition" parent="." unique_id=636216178 instance=ExtResource("9_trj04")]
-visible = false
+[node name="Fade_transition" parent="." unique_id=636216178 instance=ExtResource("3_fade")]
 offset_right = 1224.0
 offset_bottom = 648.0
 
-[node name="Fade_timer" type="Timer" parent="Fade_transition" unique_id=1861652975]
+[node name="Fade_timer" type="Timer" parent="Fade_transition" unique_id=559363172]
 
-[node name="BGM" type="AudioStreamPlayer2D" parent="." unique_id=1001771189]
-stream = ExtResource("11_vr1f0")
+[node name="BGM" type="AudioStreamPlayer2D" parent="." unique_id=1334200067]
+stream = ExtResource("4_music")
 volume_db = -8.582
 autoplay = true
 bus = &"MainMenu_Bus"
 
-[node name="Hover_sfx" type="AudioStreamPlayer" parent="." unique_id=619423098]
-stream = ExtResource("12_hover")
+[node name="Hover_sfx" type="AudioStreamPlayer" parent="." unique_id=2057112975]
+stream = ExtResource("5_hover")
 volume_db = -16.467
 bus = &"SFX"
 
-[node name="Click_sfx" type="AudioStreamPlayer" parent="." unique_id=144507571]
-stream = ExtResource("13_click")
+[node name="Click_sfx" type="AudioStreamPlayer" parent="." unique_id=1390985780]
+stream = ExtResource("6_click")
 bus = &"SFX"
 
-[node name="OptionsLayer" type="CanvasLayer" parent="." unique_id=2129336069]
+[node name="MenuLayer" type="CanvasLayer" parent="." unique_id=2038067283]
+
+[node name="MenuRoot" type="Control" parent="MenuLayer" unique_id=194220574]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ButtonCenter" type="CenterContainer" parent="MenuLayer/MenuRoot" unique_id=1328194623]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.31
+anchor_bottom = 1.0
+offset_left = 105.0
+offset_top = -2.0
+offset_right = 47.880005
+offset_bottom = 154.0
+
+[node name="MenuButtons" type="VBoxContainer" parent="MenuLayer/MenuRoot/ButtonCenter" unique_id=1415843241]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="StartGameButton" type="Button" parent="MenuLayer/MenuRoot/ButtonCenter/MenuButtons" unique_id=1640594215]
+custom_minimum_size = Vector2(300, 58)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("8_font")
+theme_override_font_sizes/font_size = 25
+text = "Start Game"
+
+[node name="HoverArrowLeft" type="TextureRect" parent="MenuLayer/MenuRoot/ButtonCenter/MenuButtons/StartGameButton" unique_id=1082873082]
+visible = false
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -108.0
+offset_top = -18.0
+offset_right = -52.0
+offset_bottom = 18.0
+mouse_filter = 2
+texture = ExtResource("9_arrow_left")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HoverArrowRight" type="TextureRect" parent="MenuLayer/MenuRoot/ButtonCenter/MenuButtons/StartGameButton" unique_id=561029593]
+visible = false
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 52.0
+offset_top = -18.0
+offset_right = 108.0
+offset_bottom = 18.0
+mouse_filter = 2
+texture = ExtResource("10_arrow_right")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="OptionsButton" type="Button" parent="MenuLayer/MenuRoot/ButtonCenter/MenuButtons" unique_id=1655849860]
+custom_minimum_size = Vector2(300, 58)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("8_font")
+theme_override_font_sizes/font_size = 25
+text = "Options"
+
+[node name="HoverArrowLeft" type="TextureRect" parent="MenuLayer/MenuRoot/ButtonCenter/MenuButtons/OptionsButton" unique_id=13898346]
+visible = false
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -82.0
+offset_top = -18.0
+offset_right = -26.0
+offset_bottom = 18.0
+mouse_filter = 2
+texture = ExtResource("9_arrow_left")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HoverArrowRight" type="TextureRect" parent="MenuLayer/MenuRoot/ButtonCenter/MenuButtons/OptionsButton" unique_id=240221035]
+visible = false
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 26.0
+offset_top = -18.0
+offset_right = 82.0
+offset_bottom = 18.0
+mouse_filter = 2
+texture = ExtResource("10_arrow_right")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="QuitGameButton" type="Button" parent="MenuLayer/MenuRoot/ButtonCenter/MenuButtons" unique_id=311654544]
+custom_minimum_size = Vector2(300, 58)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("8_font")
+theme_override_font_sizes/font_size = 25
+text = "Quit Game"
+
+[node name="HoverArrowLeft" type="TextureRect" parent="MenuLayer/MenuRoot/ButtonCenter/MenuButtons/QuitGameButton" unique_id=192223550]
+visible = false
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -103.0
+offset_top = -18.0
+offset_right = -47.0
+offset_bottom = 18.0
+mouse_filter = 2
+texture = ExtResource("9_arrow_left")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HoverArrowRight" type="TextureRect" parent="MenuLayer/MenuRoot/ButtonCenter/MenuButtons/QuitGameButton" unique_id=1895914111]
+visible = false
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 47.0
+offset_top = -18.0
+offset_right = 103.0
+offset_bottom = 18.0
+mouse_filter = 2
+texture = ExtResource("10_arrow_right")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="OptionsLayer" type="CanvasLayer" parent="." unique_id=1883161531]
+layer = 2
+
+[node name="OptionsMenu" parent="OptionsLayer" unique_id=1500560024 instance=ExtResource("7_options")]
 visible = false
 
-[node name="OptionsMenu" parent="OptionsLayer" unique_id=1901881283 instance=ExtResource("16_options")]
-
-[connection signal="pressed" from="Button_manager/Quit" to="." method="_on_quit_pressed"]
-[connection signal="pressed" from="Button_manager/Options" to="." method="_on_options_pressed"]
-[connection signal="pressed" from="Button_manager/Start" to="." method="_on_start_pressed"]
 [connection signal="timeout" from="Fade_transition/Fade_timer" to="." method="_on_fade_timer_timeout"]
 [connection signal="closed" from="OptionsLayer/OptionsMenu" to="." method="_on_options_closed"]
