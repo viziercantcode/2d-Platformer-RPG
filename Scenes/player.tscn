@@ -19,6 +19,7 @@
 [ext_resource type="AudioStream" uid="uid://c6fc2wc1grogl" path="res://Assets/SFX/sword-slash-2.mp3" id="15_h4iuc"]
 [ext_resource type="AudioStream" uid="uid://o6x2jd1lcnml" path="res://Assets/SFX/jump-start.mp3" id="16_fd4e3"]
 [ext_resource type="AudioStream" uid="uid://1adqikb3eqbn" path="res://Assets/SFX/jump-land.mp3" id="17_qqcod"]
+[ext_resource type="AudioStream" uid="uid://cavk6ek4stub7" path="res://Assets/SFX/in-game.mp3" id="22_wpjfl"]
 [ext_resource type="AudioStream" uid="uid://bybo4td6rb5wb" path="res://Assets/SFX/dashfx.mp3" id="100_dash"]
 [ext_resource type="AudioStream" uid="uid://cybbvql53pxsj" path="res://Assets/SFX/footsteps.mp3" id="101_steps"]
 
@@ -831,7 +832,7 @@ texture = SubResource("GradientTexture2D_r3axf")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=504513388]
 position = Vector2(-1, -33)
 sprite_frames = SubResource("SpriteFrames_avmpe")
-animation = &"hurt"
+animation = &"Idle"
 
 [node name="CollisonShape2D" type="CollisionShape2D" parent="." unique_id=1646836024]
 position = Vector2(3, -16)
@@ -885,3 +886,9 @@ bus = &"SFX"
 [node name="Footst_sfx" type="AudioStreamPlayer" parent="." unique_id=107571738]
 stream = ExtResource("101_steps")
 bus = &"SFX"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=978099676]
+stream = ExtResource("22_wpjfl")
+volume_db = -11.527
+autoplay = true
+bus = &"MainGame"
