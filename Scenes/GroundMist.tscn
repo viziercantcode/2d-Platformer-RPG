@@ -26,7 +26,8 @@ turbulence_influence_max = 0.020000001
 [node name="GroundMist" type="Node2D" unique_id=1551584838]
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1039432250]
-lifetime = 3.0
+emitting = false
+lifetime = 600.0
 randomness = 1.0
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_orua6")
