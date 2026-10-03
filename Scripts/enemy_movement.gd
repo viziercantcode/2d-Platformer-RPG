@@ -9,6 +9,10 @@ const AIR_FRICTION := 250.0
 
 const SEARCH_DURATION := 7.0
 
+const GROUND_AHEAD_DISTANCE := 46.0
+const GROUND_AHEAD_DROP := 14.0
+const WALL_AHEAD_DISTANCE := 56.0
+
 
 var enemy: Enemy_1
 var combat: EnemyCombat
@@ -52,6 +56,7 @@ func update(delta: float) -> void:
 		return
 
 	update_ai(delta, player)
+	check_for_obstacles()
 
 func move_toward_player(delta: float, player: CharacterBody2D) -> void:
 	if not is_enemy_chase:
@@ -99,6 +104,21 @@ func _apply_facing() -> void:
 	enemy.anim_sprite.scale.x = -1.0 if facing_direction > 0.0 else 1.0
 	enemy.deal_damage_zone.scale.x = -facing_direction
 	enemy.player_detection_area.scale.x = -facing_direction
+	enemy.ground_ahead_ray.target_position = Vector2(facing_direction * GROUND_AHEAD_DISTANCE, GROUND_AHEAD_DROP)
+	enemy.wall_ahead_ray.target_position = Vector2(facing_direction * WALL_AHEAD_DISTANCE, 0.0)
+
+func check_for_obstacles() -> void:
+	if not enemy.is_on_floor() or enemy.velocity.x == 0.0:
+		return
+
+	enemy.ground_ahead_ray.force_raycast_update()
+	enemy.wall_ahead_ray.force_raycast_update()
+
+	if not enemy.ground_ahead_ray.is_colliding() or enemy.wall_ahead_ray.is_colliding():
+		facing_direction *= -1.0
+		dir = Vector2(facing_direction, 0.0)
+		enemy.velocity.x = 0.0
+		_apply_facing()
 
 func on_direction_timer_timeout() -> void:
 	if not is_enemy_chase and combat.state == EnemyCombat.State.NORMAL:
