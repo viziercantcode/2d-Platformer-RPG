@@ -776,7 +776,7 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1rc8e"]
-radius = 4.0
+radius = 18.0
 height = 40.0
 
 [sub_resource type="Curve" id="Curve_ukyrk"]
@@ -835,7 +835,7 @@ sprite_frames = SubResource("SpriteFrames_avmpe")
 animation = &"Idle"
 
 [node name="CollisonShape2D" type="CollisionShape2D" parent="." unique_id=1646836024]
-position = Vector2(3, -16)
+position = Vector2(-1, -16)
 shape = SubResource("CapsuleShape2D_1rc8e")
 one_way_collision = true
 
@@ -843,7 +843,7 @@ one_way_collision = true
 scale = Vector2(0.715, 0.715)
 amount = 6
 texture = ExtResource("7_3smsa")
-lifetime = 0.33
+lifetime = 0.63
 fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_x3wgy")
 
