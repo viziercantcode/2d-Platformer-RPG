@@ -41,6 +41,8 @@ var death_started := false
 @onready var hitbox: CollisionShape2D = $EnemyHitbox/CollisionShape2D
 @onready var anim_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var player_detection_ray: RayCast2D = $PlayerDetectionRay
+@onready var ground_ahead_ray: RayCast2D = $GroundAheadRay
+@onready var wall_ahead_ray: RayCast2D = $WallAheadRay
 @onready var player_detection_area: Area2D = $PlayerDetectionArea
 
 func _ready() -> void:

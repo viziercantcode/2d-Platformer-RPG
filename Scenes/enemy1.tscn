@@ -349,6 +349,13 @@ autostart = true
 position = Vector2(0, -20)
 target_position = Vector2(-100, 0)
 
+[node name="GroundAheadRay" type="RayCast2D" parent="." unique_id=87624670]
+target_position = Vector2(-46, 14)
+
+[node name="WallAheadRay" type="RayCast2D" parent="." unique_id=87624671]
+position = Vector2(0, -21)
+target_position = Vector2(-56, 0)
+
 [node name="PlayerDetectionArea" type="Area2D" parent="." unique_id=449511700]
 collision_mask = 2
 
