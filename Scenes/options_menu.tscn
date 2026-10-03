@@ -1,15 +1,10 @@
 [gd_scene format=3 uid="uid://x3k50e87lqpn"]
 
 [ext_resource type="Script" uid="uid://d03ump8bs2kqs" path="res://Scripts/options_menu.gd" id="1_script"]
-[ext_resource type="FontFile" uid="uid://dplp6iacay57l" path="res://Assets/Font/Handjet-VariableFont_ELGR,ELSH,wght.ttf" id="2_font"]
-
-[sub_resource type="StyleBoxLine" id="StyleBoxLine_slider"]
-color = Color(1, 1, 1, 1)
-thickness = 8
-
-[sub_resource type="StyleBoxLine" id="StyleBoxLine_grabber"]
-color = Color(0.40597585, 0.5928883, 1, 1)
-thickness = 8
+[ext_resource type="FontFile" uid="uid://cs58t8fryx7aa" path="res://Assets/Font/TrajanPro-Regular.ttf" id="2_font"]
+[ext_resource type="Texture2D" uid="uid://c6eqytxiiu00" path="res://Assets/UI/line_w.png" id="3_divider"]
+[ext_resource type="Texture2D" uid="uid://s35vo3spp1k1" path="res://Assets/UI/wa_left.png" id="4_arrow_left"]
+[ext_resource type="Texture2D" uid="uid://dmouwsk2axc6p" path="res://Assets/UI/wa_right.png" id="5_arrow_right"]
 
 [node name="OptionsMenu" type="Control" unique_id=1783911367]
 process_mode = 3
@@ -21,16 +16,16 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_script")
 
-[node name="Shade" type="ColorRect" parent="." unique_id=1286227781]
+[node name="Shade" type="ColorRect" parent="." unique_id=1743320887]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.62)
+color = Color(0.008, 0.015, 0.025, 0.82)
 
-[node name="Center" type="CenterContainer" parent="." unique_id=2020116922]
+[node name="Center" type="CenterContainer" parent="." unique_id=1116911891]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -38,148 +33,633 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Panel" type="Panel" parent="Center" unique_id=1990602159]
-custom_minimum_size = Vector2(760, 600)
+[node name="SettingsPanel" type="PanelContainer" parent="Center" unique_id=775131038]
+custom_minimum_size = Vector2(1000, 580)
 layout_mode = 2
 
-[node name="Title" type="Label" parent="Center/Panel" unique_id=422301234]
-layout_mode = 0
-offset_left = 24.0
-offset_top = 12.0
-offset_right = 736.0
-offset_bottom = 86.0
+[node name="Margins" type="MarginContainer" parent="Center/SettingsPanel" unique_id=1595450230]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 24
+
+[node name="Columns" type="HBoxContainer" parent="Center/SettingsPanel/Margins" unique_id=1740820376]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="Navigation" type="VBoxContainer" parent="Center/SettingsPanel/Margins/Columns" unique_id=394621522]
+custom_minimum_size = Vector2(235, 0)
+layout_mode = 2
+theme_override_constants/separation = 9
+
+[node name="NavHeading" type="Label" parent="Center/SettingsPanel/Margins/Columns/Navigation" unique_id=713774148]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
 theme_override_fonts/font = ExtResource("2_font")
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 32
 text = "OPTIONS"
+vertical_alignment = 1
+
+[node name="GameButton" type="Button" parent="Center/SettingsPanel/Margins/Columns/Navigation" unique_id=392271915]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 16
+text = "Game"
+alignment = 0
+
+[node name="HoverLeft" type="TextureRect" parent="Center/SettingsPanel/Margins/Columns/Navigation/GameButton" unique_id=2145466214]
+visible = false
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -16.0
+offset_right = 24.0
+offset_bottom = 16.0
+mouse_filter = 2
+texture = ExtResource("4_arrow_left")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HoverRight" type="TextureRect" parent="Center/SettingsPanel/Margins/Columns/Navigation/GameButton" unique_id=1262026140]
+visible = false
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -16.0
+offset_right = 24.0
+offset_bottom = 16.0
+mouse_filter = 2
+texture = ExtResource("5_arrow_right")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="AudioButton" type="Button" parent="Center/SettingsPanel/Margins/Columns/Navigation" unique_id=769944618]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 16
+text = "Audio"
+alignment = 0
+
+[node name="HoverLeft" type="TextureRect" parent="Center/SettingsPanel/Margins/Columns/Navigation/AudioButton" unique_id=63194499]
+visible = false
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -16.0
+offset_right = 24.0
+offset_bottom = 16.0
+mouse_filter = 2
+texture = ExtResource("4_arrow_left")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HoverRight" type="TextureRect" parent="Center/SettingsPanel/Margins/Columns/Navigation/AudioButton" unique_id=1219121136]
+visible = false
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -16.0
+offset_right = 24.0
+offset_bottom = 16.0
+mouse_filter = 2
+texture = ExtResource("5_arrow_right")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VideoButton" type="Button" parent="Center/SettingsPanel/Margins/Columns/Navigation" unique_id=395188856]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 16
+text = "Video"
+alignment = 0
+
+[node name="HoverLeft" type="TextureRect" parent="Center/SettingsPanel/Margins/Columns/Navigation/VideoButton" unique_id=1039522803]
+visible = false
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -16.0
+offset_right = 24.0
+offset_bottom = 16.0
+mouse_filter = 2
+texture = ExtResource("4_arrow_left")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HoverRight" type="TextureRect" parent="Center/SettingsPanel/Margins/Columns/Navigation/VideoButton" unique_id=1089619046]
+visible = false
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -16.0
+offset_right = 24.0
+offset_bottom = 16.0
+mouse_filter = 2
+texture = ExtResource("5_arrow_right")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ControllerButton" type="Button" parent="Center/SettingsPanel/Margins/Columns/Navigation" unique_id=716180140]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 16
+text = "Controller"
+alignment = 0
+
+[node name="HoverLeft" type="TextureRect" parent="Center/SettingsPanel/Margins/Columns/Navigation/ControllerButton" unique_id=1236936952]
+visible = false
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -16.0
+offset_right = 24.0
+offset_bottom = 16.0
+mouse_filter = 2
+texture = ExtResource("4_arrow_left")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HoverRight" type="TextureRect" parent="Center/SettingsPanel/Margins/Columns/Navigation/ControllerButton" unique_id=1817929315]
+visible = false
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -16.0
+offset_right = 24.0
+offset_bottom = 16.0
+mouse_filter = 2
+texture = ExtResource("5_arrow_right")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="KeyboardButton" type="Button" parent="Center/SettingsPanel/Margins/Columns/Navigation" unique_id=1077262112]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 16
+text = "Keyboard"
+alignment = 0
+
+[node name="HoverLeft" type="TextureRect" parent="Center/SettingsPanel/Margins/Columns/Navigation/KeyboardButton" unique_id=1213308604]
+visible = false
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -16.0
+offset_right = 24.0
+offset_bottom = 16.0
+mouse_filter = 2
+texture = ExtResource("4_arrow_left")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HoverRight" type="TextureRect" parent="Center/SettingsPanel/Margins/Columns/Navigation/KeyboardButton" unique_id=927318486]
+visible = false
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -16.0
+offset_right = 24.0
+offset_bottom = 16.0
+mouse_filter = 2
+texture = ExtResource("5_arrow_right")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="NavSpacer" type="Control" parent="Center/SettingsPanel/Margins/Columns/Navigation" unique_id=1037251996]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="BackButton" type="Button" parent="Center/SettingsPanel/Margins/Columns/Navigation" unique_id=409177232]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 16
+text = "Back"
+alignment = 0
+
+[node name="HoverLeft" type="TextureRect" parent="Center/SettingsPanel/Margins/Columns/Navigation/BackButton" unique_id=466586356]
+visible = false
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -16.0
+offset_right = 24.0
+offset_bottom = 16.0
+mouse_filter = 2
+texture = ExtResource("4_arrow_left")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HoverRight" type="TextureRect" parent="Center/SettingsPanel/Margins/Columns/Navigation/BackButton" unique_id=1109577134]
+visible = false
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -16.0
+offset_right = 24.0
+offset_bottom = 16.0
+mouse_filter = 2
+texture = ExtResource("5_arrow_right")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Separator" type="ColorRect" parent="Center/SettingsPanel/Margins/Columns" unique_id=1931328302]
+custom_minimum_size = Vector2(1, 0)
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+color = Color(0.68, 0.75, 0.78, 0.28)
+
+[node name="Right" type="MarginContainer" parent="Center/SettingsPanel/Margins/Columns" unique_id=609192165]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_right = 2
+
+[node name="Pages" type="Control" parent="Center/SettingsPanel/Margins/Columns/Right" unique_id=1517719849]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="GamePage" type="VBoxContainer" parent="Center/SettingsPanel/Margins/Columns/Right/Pages" unique_id=467961616]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+
+[node name="Heading" type="Label" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/GamePage" unique_id=120894772]
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 28
+text = "GAME OPTIONS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="AudioHeading" type="Label" parent="Center/Panel" unique_id=347207669]
-layout_mode = 0
-offset_left = 44.0
-offset_top = 88.0
-offset_right = 708.0
-offset_bottom = 134.0
+[node name="Divider" type="TextureRect" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/GamePage" unique_id=1159619301]
+custom_minimum_size = Vector2(650, 50)
+layout_mode = 2
+texture = ExtResource("3_divider")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="LanguageRow" type="HBoxContainer" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/GamePage" unique_id=2036738342]
+custom_minimum_size = Vector2(0, 54)
+layout_mode = 2
+
+[node name="LanguageLabel" type="Label" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/GamePage/LanguageRow" unique_id=358397542]
+layout_mode = 2
 theme_override_fonts/font = ExtResource("2_font")
-theme_override_font_sizes/font_size = 36
-text = "AUDIO"
+theme_override_font_sizes/font_size = 19
+text = "LANGUAGE"
 vertical_alignment = 1
 
-[node name="MusicLabel" type="Label" parent="Center/Panel" unique_id=901923581]
-layout_mode = 0
-offset_left = 44.0
-offset_top = 144.0
-offset_right = 176.0
-offset_bottom = 192.0
+[node name="Spacer" type="Control" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/GamePage/LanguageRow" unique_id=1149375210]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LanguageSelector" type="OptionButton" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/GamePage/LanguageRow" unique_id=1829678537]
+custom_minimum_size = Vector2(250, 46)
+layout_mode = 2
+size_flags_horizontal = 8
 theme_override_fonts/font = ExtResource("2_font")
-theme_override_font_sizes/font_size = 30
-text = "Music"
+theme_override_font_sizes/font_size = 16
+selected = 0
+item_count = 1
+popup/item_0/text = "English"
+popup/item_0/id = 0
+
+[node name="GameNote" type="Label" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/GamePage" unique_id=1548626224]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 15
+text = "More language preferences will be added later."
+
+[node name="GameSpacer" type="Control" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/GamePage" unique_id=1530977122]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Footer" type="HBoxContainer" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/GamePage" unique_id=68331935]
+layout_mode = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="ResetButton" type="Button" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/GamePage/Footer" unique_id=780304653]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 16
+text = "Reset Default"
+
+[node name="AudioPage" type="VBoxContainer" parent="Center/SettingsPanel/Margins/Columns/Right/Pages" unique_id=799775795]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+
+[node name="Heading" type="Label" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/AudioPage" unique_id=2144794546]
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 28
+text = "AUDIO OPTIONS"
+horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MusicSlider" type="HSlider" parent="Center/Panel" unique_id=844654493]
-layout_mode = 0
-offset_left = 184.0
-offset_top = 151.0
-offset_right = 570.0
-offset_bottom = 183.0
-theme_override_styles/slider = SubResource("StyleBoxLine_slider")
-theme_override_styles/grabber_area = SubResource("StyleBoxLine_grabber")
-theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_grabber")
+[node name="Divider" type="TextureRect" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/AudioPage" unique_id=1643650085]
+custom_minimum_size = Vector2(650, 50)
+layout_mode = 2
+texture = ExtResource("3_divider")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="MasterRow" type="HBoxContainer" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/AudioPage" unique_id=1837834162]
+custom_minimum_size = Vector2(0, 55)
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Label" type="Label" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/AudioPage/MasterRow" unique_id=557760893]
+custom_minimum_size = Vector2(112, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 18
+text = "MASTER"
+
+[node name="Slider" type="HSlider" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/AudioPage/MasterRow" unique_id=69386075]
+custom_minimum_size = Vector2(260, 32)
+layout_mode = 2
+size_flags_horizontal = 3
 max_value = 1.0
-step = 0.05
+step = 0.01
+value = 1.0
+
+[node name="Percentage" type="Label" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/AudioPage/MasterRow" unique_id=1802003155]
+custom_minimum_size = Vector2(58, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 16
+text = "100%"
+horizontal_alignment = 2
+
+[node name="MusicRow" type="HBoxContainer" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/AudioPage" unique_id=521903637]
+custom_minimum_size = Vector2(0, 55)
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Label" type="Label" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/AudioPage/MusicRow" unique_id=1111539385]
+custom_minimum_size = Vector2(112, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 18
+text = "MUSIC"
+
+[node name="Slider" type="HSlider" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/AudioPage/MusicRow" unique_id=1820315570]
+custom_minimum_size = Vector2(260, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
 value = 0.7
 
-[node name="MusicValue" type="Label" parent="Center/Panel" unique_id=965197154]
-layout_mode = 0
-offset_left = 590.0
-offset_top = 143.0
-offset_right = 712.0
-offset_bottom = 191.0
+[node name="Percentage" type="Label" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/AudioPage/MusicRow" unique_id=9266868]
+custom_minimum_size = Vector2(58, 0)
+layout_mode = 2
 theme_override_fonts/font = ExtResource("2_font")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 16
 text = "70%"
 horizontal_alignment = 2
-vertical_alignment = 1
 
-[node name="SFXLabel" type="Label" parent="Center/Panel" unique_id=1185445272]
-layout_mode = 0
-offset_left = 44.0
-offset_top = 200.0
-offset_right = 176.0
-offset_bottom = 248.0
+[node name="SfxRow" type="HBoxContainer" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/AudioPage" unique_id=1647927231]
+custom_minimum_size = Vector2(0, 55)
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Label" type="Label" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/AudioPage/SfxRow" unique_id=1144892692]
+custom_minimum_size = Vector2(112, 0)
+layout_mode = 2
 theme_override_fonts/font = ExtResource("2_font")
-theme_override_font_sizes/font_size = 30
-text = "Sound FX"
-vertical_alignment = 1
+theme_override_font_sizes/font_size = 18
+text = "SFX"
 
-[node name="SFXSlider" type="HSlider" parent="Center/Panel" unique_id=2091092802]
-layout_mode = 0
-offset_left = 184.0
-offset_top = 211.0
-offset_right = 570.0
-offset_bottom = 243.0
-theme_override_styles/slider = SubResource("StyleBoxLine_slider")
-theme_override_styles/grabber_area = SubResource("StyleBoxLine_grabber")
-theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_grabber")
+[node name="Slider" type="HSlider" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/AudioPage/SfxRow" unique_id=1691680879]
+custom_minimum_size = Vector2(260, 32)
+layout_mode = 2
+size_flags_horizontal = 3
 max_value = 1.0
-step = 0.05
+step = 0.01
 value = 0.85
 
-[node name="SFXValue" type="Label" parent="Center/Panel" unique_id=1483863872]
-layout_mode = 0
-offset_left = 590.0
-offset_top = 203.0
-offset_right = 712.0
-offset_bottom = 251.0
+[node name="Percentage" type="Label" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/AudioPage/SfxRow" unique_id=1377741090]
+custom_minimum_size = Vector2(58, 0)
+layout_mode = 2
 theme_override_fonts/font = ExtResource("2_font")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 16
 text = "85%"
 horizontal_alignment = 2
+
+[node name="AudioSpacer" type="Control" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/AudioPage" unique_id=837031767]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Footer" type="HBoxContainer" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/AudioPage" unique_id=982538251]
+layout_mode = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="ResetButton" type="Button" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/AudioPage/Footer" unique_id=655701557]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 16
+text = "Reset Default"
+
+[node name="VideoPage" type="VBoxContainer" parent="Center/SettingsPanel/Margins/Columns/Right/Pages" unique_id=1208042446]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+
+[node name="Heading" type="Label" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/VideoPage" unique_id=220525873]
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 28
+text = "VIDEO OPTIONS"
+horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="DisplayHeading" type="Label" parent="Center/Panel" unique_id=1023527216]
-layout_mode = 0
-offset_left = 44.0
-offset_top = 264.0
-offset_right = 708.0
-offset_bottom = 310.0
+[node name="Divider" type="TextureRect" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/VideoPage" unique_id=901276504]
+custom_minimum_size = Vector2(650, 50)
+layout_mode = 2
+texture = ExtResource("3_divider")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ResolutionRow" type="HBoxContainer" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/VideoPage" unique_id=1061593071]
+custom_minimum_size = Vector2(0, 54)
+layout_mode = 2
+
+[node name="ResolutionLabel" type="Label" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/VideoPage/ResolutionRow" unique_id=1783835796]
+layout_mode = 2
 theme_override_fonts/font = ExtResource("2_font")
-theme_override_font_sizes/font_size = 36
-text = "DISPLAY"
+theme_override_font_sizes/font_size = 18
+text = "RESOLUTION"
+
+[node name="ResolutionSpacer" type="Control" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/VideoPage/ResolutionRow" unique_id=274395902]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ResolutionSelector" type="OptionButton" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/VideoPage/ResolutionRow" unique_id=1413249432]
+custom_minimum_size = Vector2(250, 46)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 16
+
+[node name="FullscreenToggle" type="CheckButton" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/VideoPage" unique_id=2042873070]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 17
+text = "FULLSCREEN"
+
+[node name="VideoSpacer" type="Control" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/VideoPage" unique_id=1981928909]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Footer" type="HBoxContainer" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/VideoPage" unique_id=1533771524]
+layout_mode = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="ResetButton" type="Button" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/VideoPage/Footer" unique_id=366735976]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 16
+text = "Reset Default"
+
+[node name="ControllerPage" type="VBoxContainer" parent="Center/SettingsPanel/Margins/Columns/Right/Pages" unique_id=237699537]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+
+[node name="Heading" type="Label" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/ControllerPage" unique_id=1893071856]
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 28
+text = "CONTROLLER OPTIONS"
+horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Fullscreen" type="CheckButton" parent="Center/Panel" unique_id=763649251]
-layout_mode = 0
-offset_left = 36.0
-offset_top = 320.0
-offset_right = 700.0
-offset_bottom = 370.0
-theme_override_fonts/font = ExtResource("2_font")
-theme_override_font_sizes/font_size = 30
-text = "Fullscreen"
+[node name="Divider" type="TextureRect" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/ControllerPage" unique_id=335216310]
+custom_minimum_size = Vector2(650, 50)
+layout_mode = 2
+texture = ExtResource("3_divider")
+expand_mode = 1
+stretch_mode = 5
 
-[node name="Back" type="Button" parent="Center/Panel" unique_id=488521443]
-layout_mode = 0
-offset_left = 526.0
-offset_top = 514.0
-offset_right = 712.0
-offset_bottom = 564.0
+[node name="Note" type="Label" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/ControllerPage" unique_id=54564186]
+layout_mode = 2
+size_flags_vertical = 3
 theme_override_fonts/font = ExtResource("2_font")
-theme_override_font_sizes/font_size = 30
-text = "Back"
+theme_override_font_sizes/font_size = 18
+text = "Controller bindings will be added later."
 
-[node name="Reset" type="Button" parent="Center/Panel" unique_id=183512397]
-layout_mode = 0
-offset_left = 48.0
-offset_top = 514.0
-offset_right = 326.0
-offset_bottom = 564.0
+[node name="Footer" type="HBoxContainer" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/ControllerPage" unique_id=381116956]
+layout_mode = 2
+alignment = 1
+
+[node name="KeyboardPage" type="VBoxContainer" parent="Center/SettingsPanel/Margins/Columns/Right/Pages" unique_id=155546233]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+
+[node name="Heading" type="Label" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/KeyboardPage" unique_id=1154858454]
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
 theme_override_fonts/font = ExtResource("2_font")
-theme_override_font_sizes/font_size = 30
-text = "Reset to Defaults"
+theme_override_font_sizes/font_size = 28
+text = "KEYBOARD OPTIONS"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[connection signal="value_changed" from="Center/Panel/MusicSlider" to="." method="_on_music_changed"]
-[connection signal="value_changed" from="Center/Panel/SFXSlider" to="." method="_on_sfx_changed"]
-[connection signal="toggled" from="Center/Panel/Fullscreen" to="." method="_on_fullscreen_toggled"]
-[connection signal="pressed" from="Center/Panel/Back" to="." method="_on_back_pressed"]
-[connection signal="pressed" from="Center/Panel/Reset" to="." method="_on_reset_pressed"]
+[node name="Divider" type="TextureRect" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/KeyboardPage" unique_id=1972773659]
+custom_minimum_size = Vector2(650, 50)
+layout_mode = 2
+texture = ExtResource("3_divider")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Note" type="Label" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/KeyboardPage" unique_id=1070251884]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 18
+text = "Keyboard bindings will be added later."
+
+[node name="Footer" type="HBoxContainer" parent="Center/SettingsPanel/Margins/Columns/Right/Pages/KeyboardPage" unique_id=874220299]
+layout_mode = 2
+alignment = 1
