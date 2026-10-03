@@ -1,11 +1,3 @@
 [gd_scene format=3 uid="uid://cwyxopp5jpkqn"]
 
-[ext_resource type="AudioStream" uid="uid://cavk6ek4stub7" path="res://Assets/SFX/in-game.mp3" id="7_42s4r"]
-
 [node name="Background" type="Node2D" unique_id=1292660756]
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=112799753]
-stream = ExtResource("7_42s4r")
-volume_db = -11.527
-autoplay = true
-bus = &"MainGame"

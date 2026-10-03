@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://cb5mg8smhh257"]
+
+[sub_resource type="Curve" id="Curve_34wtv"]
+_data = [Vector2(0.0052083284, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_o88mx"]
+curve = SubResource("Curve_34wtv")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_orua6"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(100, 3, 1)
+direction = Vector3(0.1, -1, 0)
+spread = 20.0
+initial_velocity_min = 5.0
+initial_velocity_max = 15.0
+gravity = Vector3(0, -3, 0)
+color = Color(0.3956208, 0.3956208, 0.39562076, 1)
+alpha_curve = SubResource("CurveTexture_o88mx")
+turbulence_enabled = true
+turbulence_noise_strength = 0.01
+turbulence_influence_min = 0.0
+turbulence_influence_max = 0.020000001
+
+[node name="GroundMist" type="Node2D" unique_id=1551584838]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1039432250]
+emitting = false
+lifetime = 600.0
+randomness = 1.0
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_orua6")
