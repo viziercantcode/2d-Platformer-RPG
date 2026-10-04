@@ -161,10 +161,9 @@ func spawn_blood_particles(attack_direction: float) -> void:
 	}
 	
 	BloodEffect.spawn(get_parent(), global_position + Vector2(0.0, -20.0), attack_direction, settings)
-	spawn_hit_effect(attack_direction)
 
-func spawn_hit_effect(attack_direction: float) -> void:
-	HitEffect.spawn(get_parent(), global_position + Vector2(0.0, -20.0), attack_direction)
+func spawn_hurt_effect(attack_direction: float) -> void:
+	HurtEffect.spawn(get_parent(), global_position + Vector2(0.0, -20.0), attack_direction)
 
 func on_death_started() -> void:
 	if death_started:
