@@ -832,7 +832,7 @@ texture = SubResource("GradientTexture2D_r3axf")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=504513388]
 position = Vector2(-1, -33)
 sprite_frames = SubResource("SpriteFrames_avmpe")
-animation = &"Idle"
+animation = &"Jump_start"
 
 [node name="CollisonShape2D" type="CollisionShape2D" parent="." unique_id=1646836024]
 position = Vector2(-1, -16)
