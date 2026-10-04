@@ -848,6 +848,7 @@ fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_x3wgy")
 
 [node name="PlayerHitbox" type="Area2D" parent="." unique_id=1658804512]
+collision_layer = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHitbox" unique_id=1051608948]
 position = Vector2(2, -16)

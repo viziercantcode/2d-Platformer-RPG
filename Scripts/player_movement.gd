@@ -15,6 +15,7 @@ const DASH_ACC_TIME: float = 0.04
 const DASH_DEC_TIME: float = 0.04
 const DASH_IFRAME_DURATION: float = 0.18
 const DASH_COOLDOWN: float = 0.35
+signal dash_finished
 
 # Jump mechanics
 const JUMP_FORCE := -480
@@ -183,6 +184,7 @@ func _update_dash(delta: float) -> void:
 		is_dashing = false
 		dash_cooldown_timer = DASH_COOLDOWN
 		player.velocity.x = 0.0
+		dash_finished.emit()
 
 func is_dash_invulnerable() -> bool:
 	return is_dashing and dash_invulnerability_timer > 0.0
