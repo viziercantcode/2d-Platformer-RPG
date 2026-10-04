@@ -1,0 +1,89 @@
+[gd_scene format=3 uid="uid://cgfh11i0sj82e"]
+
+[ext_resource type="Shader" uid="uid://b8h7feym5tbqg" path="res://Shaders/blur.gdshader" id="1_rvkjt"]
+[ext_resource type="Texture2D" uid="uid://duvj8ktfr8yoh" path="res://Assets/HurtStreak.png" id="2_6iwwo"]
+[ext_resource type="Texture2D" uid="uid://dck5706guv0h5" path="res://Assets/Sphere.png" id="3_ckysy"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nltnr"]
+shader = ExtResource("1_rvkjt")
+shader_parameter/blur_amount = 6.0
+
+[sub_resource type="Curve" id="Curve_qc7bn"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_orua6"]
+curve = SubResource("Curve_qc7bn")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jpyye"]
+particle_flag_align_y = true
+particle_flag_disable_z = true
+angle_min = 1.0728835e-05
+angle_max = 1.0728835e-05
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_min = 200.0
+initial_velocity_max = 400.0
+gravity = Vector3(0, 0, 0)
+damping_min = 100.00001
+damping_max = 200.00002
+scale_curve = SubResource("CurveTexture_orua6")
+
+[sub_resource type="Curve" id="Curve_ctwie"]
+_data = [Vector2(0, 0.55384624), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_o88mx"]
+curve = SubResource("Curve_ctwie")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_orua6"]
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+gravity = Vector3(0, -120, 0)
+radial_accel_min = -2.2351742e-06
+radial_accel_max = -2.2351742e-06
+damping_min = 10.0
+damping_max = 12.000001
+scale_min = 0.59999996
+scale_curve = SubResource("CurveTexture_o88mx")
+turbulence_enabled = true
+turbulence_noise_strength = 12.0
+turbulence_influence_min = 0.120000005
+turbulence_influence_max = 0.15
+
+[node name="HurtEffect" type="Node2D" unique_id=825896446]
+
+[node name="Sparks" type="GPUParticles2D" parent="." unique_id=2023311737]
+material = SubResource("ShaderMaterial_nltnr")
+emitting = false
+amount = 100
+texture = ExtResource("2_6iwwo")
+lifetime = 0.3
+one_shot = true
+preprocess = 0.03
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_jpyye")
+
+[node name="Sparks2" type="GPUParticles2D" parent="." unique_id=2133612544]
+material = SubResource("ShaderMaterial_nltnr")
+emitting = false
+amount = 100
+texture = ExtResource("2_6iwwo")
+lifetime = 0.3
+one_shot = true
+preprocess = 0.03
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_jpyye")
+
+[node name="Glow" type="GPUParticles2D" parent="." unique_id=897341346]
+emitting = false
+amount = 12
+texture = ExtResource("3_ckysy")
+lifetime = 0.7
+one_shot = true
+explosiveness = 0.9
+randomness = 0.3
+process_material = SubResource("ParticleProcessMaterial_orua6")

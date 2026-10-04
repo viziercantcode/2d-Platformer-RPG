@@ -86,10 +86,16 @@ func take_damage(damage: int, knockback: Vector2, attack_direction: float) -> bo
 	invulnerability_timer = hurt_invulnerability
 	
 	player.spawn_blood_particles(attack_direction)
+	player.spawn_hurt_effect(attack_direction)
 	
 	# Damage immediately cancels attacks and their hitbox.
 	if is_instance_valid(player.combat):
+		player.combat.request_hitstop(0.3)
 		player.combat.interrupt_for_hurt()
+
+	var camera := player.get_node_or_null("Camera2D")
+	if camera != null and camera.has_method("shake"):
+		camera.shake(4.0)
 
 	# Hurt knockback has priority over normal movement.
 	player.velocity = knockback

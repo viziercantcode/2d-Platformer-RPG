@@ -817,7 +817,7 @@ radius = 17.029387
 radius = 13.0
 
 [node name="Player" type="CharacterBody2D" unique_id=506953172]
-collision_mask = 3
+collision_layer = 2
 script = ExtResource("1_8erm5")
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=877726584]

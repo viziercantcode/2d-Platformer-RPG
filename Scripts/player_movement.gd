@@ -9,7 +9,7 @@ const AIR_ACCELERATION := 500.0
 const AIR_FRICTION := 220.0
 
 # Dash mechanics
-const DASH_DISTANCE: float = 130.0
+const DASH_DISTANCE: float = 150.0
 const DASH_DURATION: float = 0.22
 const DASH_ACC_TIME: float = 0.04
 const DASH_DEC_TIME: float = 0.04

@@ -326,6 +326,8 @@ fill_from = Vector2(0.4809028, 0.47743055)
 fill_to = Vector2(0.828125, 0.296875)
 
 [node name="Enemy 1" type="CharacterBody2D" unique_id=848644838]
+collision_layer = 4
+collision_mask = 1
 script = ExtResource("1_1f0kj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=626149017]
@@ -346,13 +348,16 @@ one_way_collision_margin = 0.0
 autostart = true
 
 [node name="PlayerDetectionRay" type="RayCast2D" parent="." unique_id=87624669]
+collision_mask = 3
 position = Vector2(0, -20)
 target_position = Vector2(-100, 0)
 
 [node name="GroundAheadRay" type="RayCast2D" parent="." unique_id=87624670]
+collision_mask = 1
 target_position = Vector2(-46, 14)
 
 [node name="WallAheadRay" type="RayCast2D" parent="." unique_id=87624671]
+collision_mask = 1
 position = Vector2(0, -21)
 target_position = Vector2(-56, 0)
 
