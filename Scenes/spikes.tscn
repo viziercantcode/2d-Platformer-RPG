@@ -11,6 +11,7 @@ size = Vector2(214, 20)
 
 [node name="spikes" type="StaticBody2D" unique_id=2128356084]
 script = ExtResource("1_gwqs2")
+knockback = 400.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=471735506]
 texture = ExtResource("1_a5dqs")

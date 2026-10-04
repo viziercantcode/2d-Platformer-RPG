@@ -364,6 +364,7 @@ position = Vector2(32.5, -41)
 shape = SubResource("RectangleShape2D_jpyye")
 
 [node name="EnemyHitbox" type="Area2D" parent="." unique_id=1619404859]
+collision_layer = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitbox" unique_id=1867626392]
 position = Vector2(-3, -23)

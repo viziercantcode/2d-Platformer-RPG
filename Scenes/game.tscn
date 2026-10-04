@@ -60,11 +60,9 @@ corner_radius_bottom_left = 4
 script = ExtResource("1_1l0tm")
 
 [node name="prison" parent="." unique_id=380204568 instance=ExtResource("1_wrm1d")]
-position = Vector2(1, 2)
 
 [node name="Player 1" parent="." unique_id=433096886 instance=ExtResource("1_qxrlw")]
 z_index = 2
-position = Vector2(1.552124, 0.53015137)
 scale = Vector2(0.99999994, 1)
 
 [node name="Camera2D" type="Camera2D" parent="Player 1" unique_id=24078457]
@@ -76,7 +74,7 @@ script = ExtResource("4_o5yvi")
 
 [node name="Enemy 1" parent="." unique_id=848644838 instance=ExtResource("8_v158k")]
 z_index = 2
-position = Vector2(-133, 0)
+position = Vector2(-114, -4)
 
 [node name="FogParallax" type="Parallax2D" parent="." unique_id=1213801502]
 scroll_scale = Vector2(1.3, 1)
