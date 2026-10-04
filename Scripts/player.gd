@@ -77,6 +77,7 @@ func _physics_process(delta: float) -> void:
 	var direction := movement.update(delta)
 
 	move_and_slide()
+
 	if movement.is_dashing and not was_dashing:
 		dash_sfx.play()
 	was_dashing = movement.is_dashing

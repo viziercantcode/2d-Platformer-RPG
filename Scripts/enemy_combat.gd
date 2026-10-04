@@ -223,3 +223,18 @@ func _set_attack_hitbox_enabled(enabled: bool) -> void:
 func on_animation_finished() -> void:
 	if enemy.anim_sprite.animation == "death" and dead:
 		enemy.queue_free()
+
+func kill_from_spikes() -> void:
+	if dead:
+		return
+	#handling death anims for eneemy
+	dead = true
+	state = State.DEAD
+	taking_damage = false
+	is_dealing_damage = false
+	can_damage_player = false
+	player_hit_this_attack = false
+	_set_attack_hitbox_enabled(false)
+
+	enemy.velocity = Vector2.ZERO
+	enemy.on_death_started()

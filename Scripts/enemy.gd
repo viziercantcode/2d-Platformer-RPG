@@ -70,6 +70,7 @@ func _physics_process(delta: float) -> void:
 	combat.update(delta)
 	movement.update(delta)
 	handle_animation()
+
 	move_and_slide()
 
 func handle_animation() -> void:
@@ -172,11 +173,6 @@ func choose(array):
 func _on_direction_timer_timeout() -> void:
 	movement.on_direction_timer_timeout()
 
-func _on_enemy_hurtbox_area_entered(_area: Area2D) -> void:
-	pass
-
-func _on_enemy_deal_damage_zone_area_entered(_area: Area2D) -> void:
-	pass
 
 func _on_animation_finished() -> void:
 	combat.on_animation_finished()
