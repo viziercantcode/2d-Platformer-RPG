@@ -16,7 +16,7 @@ class_name Enemy_1
 @export var hurt_invulnerability: float = 0.04
 @export var knockback_force: float = 180.0
 @export var knockback_up_force: float = 45.0
-@export var hitstop_on_hurt: float = 0.07
+@export var hitstop_on_hurt: float = 0.1
 @export var default_hitstop: float = 0.06
 
 @export_category("Blood Particles")
