@@ -100,7 +100,7 @@ func update(delta: float) -> void:
 		return
 
 	dead = health.dead
-	if dead:
+	if dead or health.healing:
 		_disable_attack_hitbox()
 		return
 	

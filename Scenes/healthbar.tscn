@@ -34,8 +34,8 @@ mouse_filter = 2
 layout_mode = 0
 offset_right = 167.5
 offset_bottom = 25.0
-color = Color(0.96, 0.97, 1, 0.82)
 mouse_filter = 2
+color = Color(0.96, 0.97, 1, 0.82)
 
 [node name="FillClip" type="Control" parent="." unique_id=1263067053]
 clip_contents = true
