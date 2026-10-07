@@ -32,6 +32,7 @@ script = ExtResource("1_1l0tm")
 [node name="Player 1" parent="." unique_id=433096886 instance=ExtResource("1_qxrlw")]
 z_index = 2
 scale = Vector2(0.99999994, 1)
+player_health_max = 200
 
 [node name="Camera2D" type="Camera2D" parent="Player 1" unique_id=24078457]
 position = Vector2(-3.5521243, -57.53015)

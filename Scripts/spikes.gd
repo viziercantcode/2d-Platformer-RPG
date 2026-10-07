@@ -67,3 +67,4 @@ func _damage_player(player: CharacterBody2D) -> void:
 	var knockback_velocity: Vector2 = Vector2(direction * 100.0, -400.0)
 
 	player.health.take_damage(damage, knockback_velocity, player.facing_direction)
+	

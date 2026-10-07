@@ -106,6 +106,9 @@ func update_animation(direction: float) -> void:
 			animated_sprite.play("death")
 		return
 
+	if health.healing:
+		return
+
 	if health.hurt:
 		animated_sprite.speed_scale = 1.0
 		if animated_sprite.animation != "hurt":
@@ -176,6 +179,8 @@ func on_death_started() -> void:
 func _on_animation_finished() -> void:
 	if animated_sprite.animation == "death" and death_started:
 		queue_free()
+	elif health.healing and animated_sprite.animation in ["Healing", "Healing_no_effect"]:
+		health.finish_healing()
 
 func _hitstop_setup() -> void:
 	var root := get_tree().root

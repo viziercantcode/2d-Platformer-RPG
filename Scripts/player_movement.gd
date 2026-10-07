@@ -47,7 +47,7 @@ func setup(player_ref: CharacterBody2D, combat_ref: PlayerCombat, health_ref: Pl
 	health = health_ref
 
 func update(delta: float) -> float:
-	if health.dead:
+	if health.dead or health.healing:
 		cancel_dash()
 		player.velocity = Vector2.ZERO
 		return 0.0
