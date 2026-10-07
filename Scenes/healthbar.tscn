@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://dmapjky8ka6pi"]
+
+[ext_resource type="Script" uid="uid://dcgykm33go72b" path="res://Scripts/healthbar.gd" id="1_bngtt"]
+[ext_resource type="Texture2D" uid="uid://87bd51rodqbd" path="res://Assets/UI/skulls_outer.png" id="2_frame"]
+[ext_resource type="Texture2D" uid="uid://cwwwu85qr3iyg" path="res://Assets/UI/skulls (2).png" id="3_fill"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fill"]
+atlas = ExtResource("3_fill")
+region = Rect2(32, 42, 67, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_frame"]
+atlas = ExtResource("2_frame")
+region = Rect2(31, 25, 71, 14)
+
+[node name="Healthbar" type="Control" unique_id=1263067052]
+custom_minimum_size = Vector2(177.5, 35)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 177.5
+offset_bottom = 35.0
+script = ExtResource("1_bngtt")
+
+[node name="TrailClip" type="Control" parent="." unique_id=1263067056]
+z_index = 1
+clip_contents = true
+anchors_preset = 0
+offset_left = 25.0
+offset_top = 5.0
+offset_right = 192.5
+offset_bottom = 30.0
+mouse_filter = 2
+
+[node name="Trail" type="ColorRect" parent="TrailClip" unique_id=1263067057]
+layout_mode = 0
+offset_right = 167.5
+offset_bottom = 25.0
+color = Color(0.96, 0.97, 1, 0.82)
+mouse_filter = 2
+
+[node name="FillClip" type="Control" parent="." unique_id=1263067053]
+clip_contents = true
+anchors_preset = 0
+offset_left = 25.0
+offset_top = 5.0
+offset_right = 192.5
+offset_bottom = 30.0
+mouse_filter = 2
+
+[node name="Fill" type="TextureRect" parent="FillClip" unique_id=1263067054]
+texture_filter = 1
+layout_mode = 0
+offset_right = 167.5
+offset_bottom = 25.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_fill")
+expand_mode = 1
+
+[node name="Frame" type="TextureRect" parent="." unique_id=1263067055]
+z_index = 2
+texture_filter = 1
+layout_mode = 0
+offset_right = 177.5
+offset_bottom = 35.0
+scale = Vector2(1.1, 1)
+mouse_filter = 2
+texture = SubResource("AtlasTexture_frame")
+expand_mode = 1

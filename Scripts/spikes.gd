@@ -8,9 +8,18 @@ extends StaticBody2D
 
 func _ready() -> void:
 	damage_area.area_entered.connect(_on_damage_area_entered)
+	damage_area.body_entered.connect(_on_damage_body_entered)
 
+
+func _physics_process(_delta: float) -> void:
+	# Poll overlap as a fallback if area_entered was missed during initialization.
+	for area in damage_area.get_overlapping_areas():
+		_handle_overlapping_area(area)
 
 func _on_damage_area_entered(area: Area2D) -> void:
+	_handle_overlapping_area(area)
+
+func _handle_overlapping_area(area: Area2D) -> void:
 #for enemy
 	if area.name == "EnemyHitbox":
 		var enemy := area.get_parent() as Enemy_1
@@ -23,9 +32,18 @@ func _on_damage_area_entered(area: Area2D) -> void:
 	var player: CharacterBody2D = area.get_parent() as CharacterBody2D
 	if player == null:
 		return
+	_handle_player_contact(player)
+
+func _on_damage_body_entered(body: Node2D) -> void:
+	var player := body as CharacterBody2D
+	if player != null:
+		_handle_player_contact(player)
+
+func _handle_player_contact(player: CharacterBody2D) -> void:
 	if player.movement.is_dashing:
-		if not player.movement.dash_finished.is_connected(_on_player_dash_finished):
-			player.movement.dash_finished.connect(_on_player_dash_finished.bind(player), CONNECT_ONE_SHOT)
+		var finished_callback := _on_player_dash_finished.bind(player)
+		if not player.movement.dash_finished.is_connected(finished_callback):
+			player.movement.dash_finished.connect(finished_callback, CONNECT_ONE_SHOT)
 		return
 	_damage_player(player)
 
