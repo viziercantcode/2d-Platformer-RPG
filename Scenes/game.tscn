@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://b0vn2tyo5e0x0" path="res://Scenes/enemy1.tscn" id="8_v158k"]
 [ext_resource type="Texture2D" uid="uid://beleh2xhwym2x" path="res://Assets/UI/setting_icon.png" id="9_settings"]
 [ext_resource type="PackedScene" uid="uid://x3k50e87lqpn" path="res://Scenes/options_menu.tscn" id="10_options"]
+[ext_resource type="PackedScene" uid="uid://dmapjky8ka6pi" path="res://Scenes/healthbar.tscn" id="11_healthbar"]
 
 [sub_resource type="Gradient" id="Gradient_o88mx"]
 offsets = PackedFloat32Array(0.17548077, 1)
@@ -22,39 +23,6 @@ color_ramp = SubResource("Gradient_o88mx")
 seamless = true
 normalize = false
 seamless_blend_skirt = 0.272
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o5yvi"]
-bg_color = Color(0.1319848, 0.1319848, 0.13198474, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.8963674, 0.89636743, 0.89636725, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-expand_margin_left = 1.0
-expand_margin_top = 1.0
-expand_margin_right = 1.0
-expand_margin_bottom = 1.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rku1e"]
-bg_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1phco"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rfjv2"]
-bg_color = Color(0.41732398, 0.78412706, 0.4653356, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
 
 [node name="Game" type="Node2D" unique_id=856613315]
 script = ExtResource("1_1l0tm")
@@ -109,38 +77,26 @@ stretch_mode = 5
 [node name="OptionsMenu" parent="HUD" unique_id=1179669944 instance=ExtResource("10_options")]
 visible = false
 
-[node name="Control" type="Control" parent="HUD" unique_id=386695553]
+[node name="HUDLayout" type="Control" parent="HUD" unique_id=379883600]
 layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Healthbar" parent="HUD/HUDLayout" unique_id=1263067052 instance=ExtResource("11_healthbar")]
+layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -20.0
-offset_right = 150.0
+offset_left = 20.0
+offset_top = -59.0
+offset_right = 197.5
+offset_bottom = -24.0
+grow_horizontal = 0
 grow_vertical = 0
-
-[node name="HPDamageBar" type="ProgressBar" parent="HUD/Control" unique_id=81275616]
-z_index = 1
-layout_mode = 0
-offset_left = 50.0
-offset_top = -50.0
-offset_right = 350.0
-offset_bottom = -30.0
-theme_override_styles/background = SubResource("StyleBoxFlat_o5yvi")
-theme_override_styles/fill = SubResource("StyleBoxFlat_rku1e")
-value = 100.0
-show_percentage = false
-
-[node name="HPBar" type="ProgressBar" parent="HUD/Control" unique_id=347792973]
-z_index = 1
-layout_mode = 0
-offset_left = 50.0
-offset_top = -50.0
-offset_right = 350.0
-offset_bottom = -30.0
-theme_override_styles/background = SubResource("StyleBoxFlat_1phco")
-theme_override_styles/fill = SubResource("StyleBoxFlat_rfjv2")
-value = 50.0
-show_percentage = false
 
 [connection signal="pressed" from="HUD/SettingsButton" to="." method="_on_settings_pressed"]
 [connection signal="closed" from="HUD/OptionsMenu" to="." method="_on_options_closed"]
