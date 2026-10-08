@@ -27,6 +27,7 @@ Global="*uid://da1qkd8a3tmm2"
 
 window/size/mode=3
 window/stretch/mode="canvas_items"
+window/vsync/vsync_mode=0
 
 [input]
 
