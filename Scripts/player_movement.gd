@@ -1,9 +1,6 @@
 extends Node
 class_name PlayerMovement
 
-## Movement state machine. Health and combat remain separate components, but
-## can temporarily restrict movement through their public state properties.
-
 enum MovementState { IDLE, RUN, JUMP, FALL, DASH }
 
 @export_category("Ground Movement")
@@ -24,6 +21,7 @@ enum MovementState { IDLE, RUN, JUMP, FALL, DASH }
 @export var dash_iframe_duration := 0.18
 @export var dash_cooldown := 0.35
 
+# Forgiving input mechanics
 const COYOTE_TIME := 0.10
 const JUMP_BUFFER_TIME := 0.10
 signal dash_finished
