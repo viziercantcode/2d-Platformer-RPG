@@ -29,17 +29,17 @@ func _handle_overlapping_area(area: Area2D) -> void:
 #for player
 	if area.name != "PlayerHitbox":
 		return
-	var player: CharacterBody2D = area.get_parent() as CharacterBody2D
+	var player: Player = area.get_parent() as Player
 	if player == null:
 		return
 	_handle_player_contact(player)
 
 func _on_damage_body_entered(body: Node2D) -> void:
-	var player := body as CharacterBody2D
+	var player := body as Player
 	if player != null:
 		_handle_player_contact(player)
 
-func _handle_player_contact(player: CharacterBody2D) -> void:
+func _handle_player_contact(player: Player) -> void:
 	if player.movement.is_dashing:
 		var finished_callback := _on_player_dash_finished.bind(player)
 		if not player.movement.dash_finished.is_connected(finished_callback):
@@ -48,7 +48,7 @@ func _handle_player_contact(player: CharacterBody2D) -> void:
 	_damage_player(player)
 
 
-func _on_player_dash_finished(player: CharacterBody2D) -> void:
+func _on_player_dash_finished(player: Player) -> void:
 #for dash invulneberlity
 	if not is_instance_valid(player):
 		return
@@ -58,7 +58,7 @@ func _on_player_dash_finished(player: CharacterBody2D) -> void:
 	_damage_player(player)
 
 
-func _damage_player(player: CharacterBody2D) -> void:
+func _damage_player(player: Player) -> void:
 	if not player.health.can_receive_damage():
 		return
 

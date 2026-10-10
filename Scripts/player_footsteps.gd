@@ -11,11 +11,11 @@ const MIN_PITCH := 0.94
 const MAX_PITCH := 1.08
 const ACCELERATION_PITCH_BONUS := 0.025
 
-var player: CharacterBody2D
+var player: Player
 var step_timer := 0.0
 var previous_horizontal_speed := 0.0
 
-func setup(player_ref: CharacterBody2D) -> void:
+func setup(player_ref: Player) -> void:
 	player = player_ref
 	previous_horizontal_speed = absf(player.velocity.x)
 
@@ -38,11 +38,11 @@ func update(delta: float) -> void:
 			player.footst_sfx.stop()
 		return
 
-	var speed_ratio := clampf(horizontal_speed / PlayerMovement.MAX_SPEED, 0.0, 1.0)
+	var speed_ratio := clampf(horizontal_speed / player.movement.max_speed, 0.0, 1.0)
 	var interval := lerpf(SLOW_STEP_INTERVAL, FAST_STEP_INTERVAL, speed_ratio)
 	# Acceleration makes the next step arrive a little sooner, capped to avoid
 	# footstep bursts from sudden velocity changes or frame-rate spikes.
-	var acceleration_ratio := clampf(acceleration / PlayerMovement.ACCELERATION, 0.0, 1.0)
+	var acceleration_ratio := clampf(acceleration / player.movement.acceleration, 0.0, 1.0)
 	interval *= 1.0 - 0.06 * acceleration_ratio
 
 	step_timer -= delta

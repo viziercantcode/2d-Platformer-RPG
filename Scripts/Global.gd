@@ -5,7 +5,7 @@ var playerHitbox: Area2D
 
 var playerDamageZone: Area2D
 var playerDamageAmount: int
-var playerBody: CharacterBody2D
+var playerBody: Player
 
 var enemyDamageZone: Area2D
 var enemyDamageAmount: int

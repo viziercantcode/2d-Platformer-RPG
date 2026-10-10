@@ -15,7 +15,9 @@ func shake(amount: float) -> void:
 	shake_strength = max(shake_strength, amount)
 
 func _process(delta: float) -> void:
-	var player = get_parent()
+	var player := get_parent() as Player
+	if player == null:
+		return
 	
 	
 	target_offset.x = player.facing_direction * look_ahead_distance

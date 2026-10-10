@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://cr7t2qe7kh8sh"]
+
+[ext_resource type="Texture2D" uid="uid://bakwd6g47gvqc" path="res://Assets/Jump Particles/Fall 01.png" id="1_ink8u"]
+[ext_resource type="Texture2D" uid="uid://ckmenix6xreqt" path="res://Assets/Jump Particles/Fall 02.png" id="2_uxsqb"]
+[ext_resource type="Texture2D" uid="uid://byxffwuws15eg" path="res://Assets/Jump Particles/Fall 03.png" id="3_ykbug"]
+[ext_resource type="Texture2D" uid="uid://b5g7cxqy668po" path="res://Assets/Jump Particles/Fall 04.png" id="4_vtf8e"]
+[ext_resource type="Texture2D" uid="uid://di66hgla486ej" path="res://Assets/Jump Particles/Fall 05.png" id="5_d4n6j"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_irj4p"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ink8u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uxsqb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ykbug")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_vtf8e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_d4n6j")
+}],
+"loop": 0,
+"name": &"land",
+"speed": 15.0
+}]
+
+[node name="LandEffect" type="Node2D" unique_id=233810669]
+
+[node name="LandEffect" type="AnimatedSprite2D" parent="." unique_id=1334287269]
+position = Vector2(0, -10)
+sprite_frames = SubResource("SpriteFrames_irj4p")
+animation = &"land"

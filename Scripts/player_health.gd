@@ -10,7 +10,7 @@ const HEALING_AMOUNT: float = 0.75
 @export var healing_duration: float = 1.0
 @export var no_of_heals: int = 1
 
-var player: CharacterBody2D
+var player: Player
 var health: int
 var hurt_timer: float = 0.0
 var invulnerability_timer: float = 0.0
@@ -25,7 +25,7 @@ var healing_elapsed: float = 0.0
 var hp_bar: Healthbar
 
 
-func setup(player_ref: CharacterBody2D) -> void:
+func setup(player_ref: Player) -> void:
 	player = player_ref
 	health = health_max
 	

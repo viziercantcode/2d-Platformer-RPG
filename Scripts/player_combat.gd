@@ -62,7 +62,7 @@ const ATTACK_AIR := {
 }
 
 
-var player: CharacterBody2D
+var player: Player
 var health: PlayerHealth
 
 var attack_type: String = ""
@@ -89,7 +89,7 @@ const LIGHT := 1
 const HEAVY := 2
 const AIR := 3
 
-func setup(player_ref: CharacterBody2D, health_ref: PlayerHealth) -> void:
+func setup(player_ref: Player, health_ref: PlayerHealth) -> void:
 	player = player_ref
 	health = health_ref
 	_disable_attack_hitbox()
