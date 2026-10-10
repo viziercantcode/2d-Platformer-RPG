@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://cey4jg5b72x1a" path="res://Assets/Character/Sprite-0002-export.png" id="7_3smsa"]
 [ext_resource type="Texture2D" uid="uid://djmyffpa1saj7" path="res://Assets/Character/Samurai/Sprites/HEALING.png" id="8_bi64h"]
 [ext_resource type="Texture2D" uid="uid://ddxejcmxwaum3" path="res://Assets/Character/Samurai/Sprites/AIR ATTACK.png" id="8_gymyn"]
+[ext_resource type="Texture2D" uid="uid://ch8vavd3sf5vr" path="res://Assets/Character/Samurai/Sprites/CLIMBING.png" id="8_p1odr"]
 [ext_resource type="Texture2D" uid="uid://3jb2g08i686e" path="res://Assets/Character/Samurai/Sprites/HEALING NO EFFECT.png" id="9_2ijsl"]
 [ext_resource type="Texture2D" uid="uid://b66jsg14a47xq" path="res://Assets/Character/Samurai/Sprites/ATTACK 1.png" id="9_pu2lt"]
 [ext_resource type="Texture2D" uid="uid://cbg7h4jy74lq6" path="res://Assets/Character/Samurai/Sprites/DEATH.png" id="9_ukyrk"]
@@ -196,6 +197,30 @@ region = Rect2(384, 0, 96, 96)
 [sub_resource type="AtlasTexture" id="AtlasTexture_4grkl"]
 atlas = ExtResource("4_igrcy")
 region = Rect2(480, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lvpu8"]
+atlas = ExtResource("8_p1odr")
+region = Rect2(192, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iw8ov"]
+atlas = ExtResource("8_p1odr")
+region = Rect2(288, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s5ecd"]
+atlas = ExtResource("8_p1odr")
+region = Rect2(384, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ccf0"]
+atlas = ExtResource("8_p1odr")
+region = Rect2(480, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uh6ff"]
+atlas = ExtResource("8_p1odr")
+region = Rect2(576, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ihrpn"]
+atlas = ExtResource("8_p1odr")
+region = Rect2(672, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7ldla"]
 atlas = ExtResource("3_f1ek2")
@@ -424,6 +449,10 @@ region = Rect2(96, 0, 96, 96)
 [sub_resource type="AtlasTexture" id="AtlasTexture_wpjfl"]
 atlas = ExtResource("2_x3wgy")
 region = Rect2(192, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4rjh6"]
+atlas = ExtResource("8_p1odr")
+region = Rect2(96, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vfarp"]
 atlas = ExtResource("5_f1ek2")
@@ -690,15 +719,38 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_lvpu8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iw8ov")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s5ecd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6ccf0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uh6ff")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ihrpn")
+}],
+"loop": 0,
+"name": &"Climb",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_7ldla")
 }, {
-"duration": 1.5,
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_r7t2e")
 }, {
-"duration": 4.0,
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_e6mvm")
 }, {
-"duration": 2.0,
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_57lvd")
 }, {
 "duration": 1.0,
@@ -896,6 +948,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_4rjh6")
+}],
+"loop": 0,
+"name": &"Ledge_grab",
+"speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_vfarp")
 }, {
 "duration": 1.0,
@@ -998,8 +1058,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1rc8e"]
-radius = 18.0
-height = 40.0
+radius = 9.0
+height = 36.0
 
 [sub_resource type="Curve" id="Curve_ukyrk"]
 _data = [Vector2(0.16666666, 0.21428573), 0.0, 0.0, 0, 0, Vector2(1, 0.7857144), 0.0, 0.0, 0, 0]
@@ -1052,12 +1112,10 @@ shadow_enabled = true
 shadow_filter = 2
 texture = SubResource("GradientTexture2D_r3axf")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=504513388]
+[node name="Character" type="AnimatedSprite2D" parent="." unique_id=504513388]
 position = Vector2(-1, -33)
 sprite_frames = SubResource("SpriteFrames_avmpe")
-animation = &"Healing"
-frame = 14
-frame_progress = 1.0
+animation = &"Dash"
 
 [node name="CollisonShape2D" type="CollisionShape2D" parent="." unique_id=1646836024]
 position = Vector2(-1, -16)

@@ -58,7 +58,7 @@ func update(delta: float) -> void:
 	update_ai(delta, player)
 	check_for_obstacles()
 
-func move_toward_player(delta: float, player: CharacterBody2D) -> void:
+func move_toward_player(delta: float, player: Player) -> void:
 	if not is_enemy_chase:
 		enemy.velocity.x = move_toward(enemy.velocity.x, 0.0, 250.0 * delta)
 		return
@@ -75,7 +75,7 @@ func move_toward_player(delta: float, player: CharacterBody2D) -> void:
 	dir = Vector2(facing_direction, 0.0)
 	_apply_facing()
 
-func update_ai(delta: float, player: CharacterBody2D) -> void:
+func update_ai(delta: float, player: Player) -> void:
 	if enemy.can_see_player():
 		last_known_player_position = player.global_position
 		is_enemy_chase = true

@@ -1,7 +1,12 @@
 extends CharacterBody2D
+class_name Player
 
 ## Player coordinator.
 ## Movement, health and combat are separate components 
+
+const JUMP_EFFECT_SCENE: PackedScene = preload("res://Scenes/VFX/jump_effect.tscn")
+const DOUBLE_JUMP_EFFECT_SCENE: PackedScene = preload("res://Scenes/VFX/double_jump_effect.tscn")
+const LAND_EFFECT_SCENE: PackedScene = preload("res://Scenes/VFX/land_effect.tscn")
 
 @export_category("Health")
 @export var player_health_max: int = 100
@@ -31,7 +36,7 @@ var was_on_floor := true
 var death_started := false
 var was_dashing := false
 
-@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var animated_sprite: AnimatedSprite2D = $Character
 @onready var dust: GPUParticles2D = $dust
 @onready var deal_damage_zone: Area2D = $DealDamageZone
 @onready var slash1_sfx: AudioStreamPlayer = $"Slash-1"
@@ -88,7 +93,28 @@ func _physics_process(delta: float) -> void:
 func _update_landing_audio() -> void:
 	if not was_on_floor and is_on_floor() and not health.dead:
 		jumpend_sfx.play()
+		play_land_effect()
 	was_on_floor = is_on_floor()
+
+func play_jump_effect(is_double_jump: bool) -> void:
+	_spawn_player_effect(DOUBLE_JUMP_EFFECT_SCENE if is_double_jump else JUMP_EFFECT_SCENE)
+
+func play_land_effect() -> void:
+	_spawn_player_effect(LAND_EFFECT_SCENE)
+
+func _spawn_player_effect(effect_scene: PackedScene) -> void:
+	var effect := effect_scene.instantiate() as Node2D
+	var effect_parent := get_tree().current_scene if get_tree().current_scene != null else get_parent()
+	effect_parent.add_child(effect)
+	effect.global_position = global_position
+
+	var effect_sprite := effect.get_node_or_null(NodePath(String(effect.name))) as AnimatedSprite2D
+	if effect_sprite == null:
+		effect.queue_free()
+		return
+
+	effect_sprite.animation_finished.connect(effect.queue_free)
+	effect_sprite.play()
 
 func set_facing(direction: float) -> void:
 	if direction == 0.0:
@@ -133,16 +159,14 @@ func update_animation(direction: float) -> void:
 		set_facing(-1.0)
 
 	var target_animation := "Idle"
-
-	if not is_on_floor():
-		if velocity.y < -50.0:
-			target_animation = "Jump_start"
-		elif velocity.y <= 50.0:
-			target_animation = "Jump_middle"
-		else:
-			target_animation = "Jump_end"
-	elif direction != 0.0:
+	if movement.state == PlayerMovement.MovementState.RUN:
 		target_animation = "Run"
+	if movement.state == PlayerMovement.MovementState.JUMP:
+		target_animation = "Jump_start" if velocity.y < -50.0 else "Jump_middle"
+	if movement.state == PlayerMovement.MovementState.FALL:
+		target_animation = "Jump_end"
+	if movement.state == PlayerMovement.MovementState.DASH:
+		target_animation = "Dash"
 
 	if animated_sprite.animation != target_animation:
 		animated_sprite.play(target_animation)

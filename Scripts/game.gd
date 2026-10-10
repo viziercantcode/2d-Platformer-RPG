@@ -2,7 +2,7 @@ extends Node2D
 
 @onready var options_menu: OptionsMenu = $HUD/OptionsMenu
 
-@onready var player = $"Player 1"
+@onready var player: Player = $"Player 1"
 @onready var hp_bar: Healthbar = $HUD/HUDLayout/Healthbar
 
 

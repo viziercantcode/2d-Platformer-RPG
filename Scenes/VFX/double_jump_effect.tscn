@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://c1kvc1o6cbg14"]
+
+[ext_resource type="Texture2D" uid="uid://cevik4ugw71u3" path="res://Assets/Jump Particles/SmokeParticles.png" id="1_oaxuk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cq7w1"]
+atlas = ExtResource("1_oaxuk")
+region = Rect2(0, 640, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ho16k"]
+atlas = ExtResource("1_oaxuk")
+region = Rect2(64, 640, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o712r"]
+atlas = ExtResource("1_oaxuk")
+region = Rect2(128, 640, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hfnjl"]
+atlas = ExtResource("1_oaxuk")
+region = Rect2(192, 640, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uxqhi"]
+atlas = ExtResource("1_oaxuk")
+region = Rect2(256, 640, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vbb78"]
+atlas = ExtResource("1_oaxuk")
+region = Rect2(320, 640, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7anab"]
+atlas = ExtResource("1_oaxuk")
+region = Rect2(384, 640, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q7v0o"]
+atlas = ExtResource("1_oaxuk")
+region = Rect2(448, 640, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gc6xv"]
+atlas = ExtResource("1_oaxuk")
+region = Rect2(512, 640, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_473p5"]
+atlas = ExtResource("1_oaxuk")
+region = Rect2(576, 640, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vy4eg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cq7w1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ho16k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o712r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hfnjl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uxqhi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vbb78")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7anab")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q7v0o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gc6xv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_473p5")
+}],
+"loop": 0,
+"name": &"double_jump",
+"speed": 15.0
+}]
+
+[node name="DoubleJumpEffect" type="Node2D" unique_id=2137735650]
+
+[node name="DoubleJumpEffect" type="AnimatedSprite2D" parent="." unique_id=822461968]
+scale = Vector2(0.8, 0.8)
+sprite_frames = SubResource("SpriteFrames_vy4eg")
+animation = &"double_jump"
