@@ -83,10 +83,11 @@ animations = [{
 [node name="DashEffect" type="Node2D" unique_id=104152357]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=651854730]
+position = Vector2(3.5762787e-07, -9.536743e-07)
 rotation = -2.3561945
 scale = Vector2(0.75, 0.75)
 sprite_frames = SubResource("SpriteFrames_jpyye")
 animation = &"dash"
-frame = 9
+frame = 8
 frame_progress = 1.0
 offset = Vector2(45, -10)
