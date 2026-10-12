@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://di66hgla486ej"
-path="res://.godot/imported/Fall 05.png-d6306a9861035701b9defbf01b2efe0f.ctex"
+uid="uid://ba6jj5ap7hss2"
+path="res://.godot/imported/Jump 01.png-fffd21eb149cda95fefc6a8945176631.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Jump Particles/Fall 05.png"
-dest_files=["res://.godot/imported/Fall 05.png-d6306a9861035701b9defbf01b2efe0f.ctex"]
+source_file="res://Assets/Particles/Jump 01.png"
+dest_files=["res://.godot/imported/Jump 01.png-fffd21eb149cda95fefc6a8945176631.ctex"]
 
 [params]
 

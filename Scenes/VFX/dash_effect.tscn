@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://dscdak487amto"]
+
+[ext_resource type="Texture2D" uid="uid://bisboskyrq1b8" path="res://Assets/Particles/448.png" id="1_eeo2y"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qduvh"]
+atlas = ExtResource("1_eeo2y")
+region = Rect2(0, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ow1m"]
+atlas = ExtResource("1_eeo2y")
+region = Rect2(64, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oukv0"]
+atlas = ExtResource("1_eeo2y")
+region = Rect2(128, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3eisf"]
+atlas = ExtResource("1_eeo2y")
+region = Rect2(192, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3s2l6"]
+atlas = ExtResource("1_eeo2y")
+region = Rect2(256, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dl7n5"]
+atlas = ExtResource("1_eeo2y")
+region = Rect2(320, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x27mn"]
+atlas = ExtResource("1_eeo2y")
+region = Rect2(384, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j5sgu"]
+atlas = ExtResource("1_eeo2y")
+region = Rect2(448, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5u4gu"]
+atlas = ExtResource("1_eeo2y")
+region = Rect2(512, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ew4l"]
+atlas = ExtResource("1_eeo2y")
+region = Rect2(576, 320, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jpyye"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qduvh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ow1m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oukv0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3eisf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3s2l6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dl7n5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x27mn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j5sgu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5u4gu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ew4l")
+}],
+"loop": 0,
+"name": &"dash",
+"speed": 20.0
+}]
+
+[node name="DashEffect" type="Node2D" unique_id=104152357]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=651854730]
+rotation = -2.3561945
+scale = Vector2(0.75, 0.75)
+sprite_frames = SubResource("SpriteFrames_jpyye")
+animation = &"dash"
+frame = 9
+frame_progress = 1.0
+offset = Vector2(45, -10)
