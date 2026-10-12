@@ -1,0 +1,95 @@
+[gd_scene format=3 uid="uid://ch0ves0c0ff4w"]
+
+[ext_resource type="Texture2D" uid="uid://ctvwpkdciyhka" path="res://Assets/Platform/Torch Animated.png" id="1_51l4n"]
+[ext_resource type="Script" uid="uid://ijge8e78myhi" path="res://Scripts/props/point_light_2d.gd" id="2_gubgl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wxqja"]
+atlas = ExtResource("1_51l4n")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n5812"]
+atlas = ExtResource("1_51l4n")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f6py3"]
+atlas = ExtResource("1_51l4n")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hpr04"]
+atlas = ExtResource("1_51l4n")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yu7bb"]
+atlas = ExtResource("1_51l4n")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6g3da"]
+atlas = ExtResource("1_51l4n")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y67td"]
+atlas = ExtResource("1_51l4n")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t2hdj"]
+atlas = ExtResource("1_51l4n")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r3axf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wxqja")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n5812")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f6py3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hpr04")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yu7bb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6g3da")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y67td")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t2hdj")
+}],
+"loop": 2,
+"name": &"torch",
+"speed": 10.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_gubgl"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_r3axf"]
+gradient = SubResource("Gradient_gubgl")
+fill = 1
+fill_from = Vector2(0.5017361, 0.4878472)
+fill_to = Vector2(0.7829861, 0.8107639)
+
+[node name="torches" type="Node2D" unique_id=1245482804]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=168465641]
+scale = Vector2(0.7326231, 1.0996536)
+sprite_frames = SubResource("SpriteFrames_r3axf")
+animation = &"torch"
+autoplay = "torch"
+frame_progress = 0.19318163
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1176875571]
+position = Vector2(-2, -12)
+scale = Vector2(1.1888678, 1.1888678)
+energy = 1.7
+texture = SubResource("GradientTexture2D_r3axf")
+script = ExtResource("2_gubgl")
+flicker_amount = 0.2
+flicker_speed = 15.0

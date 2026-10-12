@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://3bneuru53ukg"]
+
+[ext_resource type="Texture2D" uid="uid://dg5qs0ybwj5jl" path="res://Assets/Platform/lift.png" id="1_vvyo4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r3axf"]
+size = Vector2(209, 37)
+
+[sub_resource type="Animation" id="Animation_myvba"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 382)]
+}
+
+[sub_resource type="Animation" id="Animation_vvyo4"]
+resource_name = "lift"
+length = 5.1
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5.0666666),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 632)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_anqd2"]
+_data = {
+&"RESET": SubResource("Animation_myvba"),
+&"lift": SubResource("Animation_vvyo4")
+}
+
+[node name="Moving Platform" type="Node2D" unique_id=1936425050]
+
+[node name="AnimatableBody2D" type="AnimatableBody2D" parent="." unique_id=900762229]
+position = Vector2(1, 382)
+
+[node name="Sprite2D" type="Sprite2D" parent="AnimatableBody2D" unique_id=1700267611]
+position = Vector2(105, -330)
+texture = ExtResource("1_vvyo4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatableBody2D" unique_id=1486354026]
+position = Vector2(104, 39)
+shape = SubResource("RectangleShape2D_r3axf")
+debug_color = Color(0.996592, 0.99639875, 0.9965703, 0.41960785)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimatableBody2D" unique_id=335860265]
+libraries/ = SubResource("AnimationLibrary_anqd2")
+autoplay = &"lift"

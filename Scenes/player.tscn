@@ -1059,8 +1059,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1rc8e"]
-radius = 9.0
-height = 36.0
+radius = 17.0
+height = 42.0
 
 [sub_resource type="Curve" id="Curve_ukyrk"]
 _data = [Vector2(0.16666666, 0.21428573), 0.0, 0.0, 0, 0, Vector2(1, 0.7857144), 0.0, 0.0, 0, 0]
@@ -1116,15 +1116,15 @@ texture = SubResource("GradientTexture2D_r3axf")
 [node name="Character" type="AnimatedSprite2D" parent="." unique_id=504513388]
 position = Vector2(-1, -33)
 sprite_frames = SubResource("SpriteFrames_avmpe")
-animation = &"Dash"
+animation = &"Idle"
 
 [node name="LedgeWallCast" type="RayCast2D" parent="." unique_id=1646836025]
 position = Vector2(0, -21)
-target_position = Vector2(18, 0)
+target_position = Vector2(26, 0)
 
 [node name="LedgeClearCast" type="RayCast2D" parent="." unique_id=1646836026]
 position = Vector2(0, -30)
-target_position = Vector2(18, 0)
+target_position = Vector2(26, 0)
 
 [node name="CollisonShape2D" type="CollisionShape2D" parent="." unique_id=1646836024]
 position = Vector2(-1, -16)
@@ -1140,6 +1140,7 @@ fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_x3wgy")
 
 [node name="PlayerHitbox" type="Area2D" parent="." unique_id=1658804512]
+visible = false
 collision_layer = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHitbox" unique_id=1051608948]
@@ -1148,6 +1149,7 @@ shape = SubResource("CircleShape2D_avmpe")
 debug_color = Color(3.706068e-06, 0.6364382, 0.40881905, 0.41960785)
 
 [node name="DealDamageZone" type="Area2D" parent="." unique_id=1629523948]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DealDamageZone" unique_id=665976889]
 position = Vector2(21, -17)
