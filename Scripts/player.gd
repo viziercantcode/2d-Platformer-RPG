@@ -35,8 +35,12 @@ var facing_direction: float = 1.0
 var was_on_floor := true
 var death_started := false
 var was_dashing := false
+var was_ledge_hanging := false
+var dash_afterimage_timer := 0.0
+var point_light_default_position := Vector2.ZERO
 
 @onready var animated_sprite: AnimatedSprite2D = $Character
+@onready var point_light: PointLight2D = $PointLight2D
 @onready var dust: GPUParticles2D = $dust
 @onready var deal_damage_zone: Area2D = $DealDamageZone
 @onready var slash1_sfx: AudioStreamPlayer = $"Slash-1"
@@ -45,6 +49,7 @@ var was_dashing := false
 @onready var jumpend_sfx: AudioStreamPlayer = $AudioStreamPlayer
 @onready var dash_sfx: AudioStreamPlayer = $Dash_sfx
 @onready var footst_sfx: AudioStreamPlayer = $Footst_sfx
+@onready var dash_effect: Node2D = $DashEffect
 
 func _ready() -> void:
 	movement = PlayerMovement.new()
@@ -70,7 +75,19 @@ func _ready() -> void:
 
 	animated_sprite.animation_finished.connect(_on_animation_finished)
 	set_facing(facing_direction)
+	point_light_default_position = point_light.position
 	combat.interrupt_for_hurt()
+
+func _hitstop_setup() -> void:
+	var root := get_tree().root
+	var existing := root.get_node_or_null("CombatHitstop")
+	if existing is HitstopController:
+		hitstop_controller = existing
+		return
+
+	hitstop_controller = HitstopController.new()
+	hitstop_controller.name = "CombatHitstop"
+	root.add_child(hitstop_controller)
 
 func _physics_process(delta: float) -> void:
 	Global.playerHitbox = $PlayerHitbox
@@ -80,6 +97,21 @@ func _physics_process(delta: float) -> void:
 	health.update(delta)
 	combat.update(delta)
 	var direction := movement.update(delta)
+	point_light.enabled = true
+	var light_target_position := point_light_default_position
+	if movement.is_ledge_hanging or movement.is_climbing:
+		# Keep the light away from the wall through the entire climb.
+		light_target_position += Vector2(-facing_direction * 12.0, 0.0)
+	if movement.is_ledge_hanging and not was_ledge_hanging:
+		# Snap to the wall-safe position on the first hanging frame.
+		point_light.position = light_target_position
+	else:
+		# Keep the smooth return after climbing has completed.
+		point_light.position = point_light.position.lerp(
+			light_target_position,
+			1.0 - exp(-12.0 * delta)
+		)
+	was_ledge_hanging = movement.is_ledge_hanging
 
 	move_and_slide()
 
@@ -89,6 +121,46 @@ func _physics_process(delta: float) -> void:
 	footsteps.update(delta)
 	_update_landing_audio()
 	update_animation(direction)
+	_update_dash_afterimage(delta)
+
+func _update_dash_afterimage(delta: float) -> void:
+	if not movement.is_dashing:
+		dash_afterimage_timer = 0.0
+		return
+
+	dash_afterimage_timer -= delta
+	if dash_afterimage_timer > 0.0:
+		return
+
+	dash_afterimage_timer = 0.06
+	_spawn_dash_afterimage()
+
+func _spawn_dash_afterimage() -> void:
+	var texture := animated_sprite.sprite_frames.get_frame_texture(
+		animated_sprite.animation,
+		animated_sprite.frame
+	)
+	if texture == null:
+		return
+
+	var afterimage := Sprite2D.new()
+	afterimage.texture = texture
+	afterimage.centered = animated_sprite.centered
+	afterimage.offset = animated_sprite.offset
+	afterimage.flip_h = animated_sprite.flip_h
+	afterimage.flip_v = animated_sprite.flip_v
+	afterimage.modulate = Color(1.0, 1.0, 1.0, 0.75)
+	afterimage.z_index = animated_sprite.z_index
+
+	var effect_parent := get_tree().current_scene if get_tree().current_scene != null else get_parent()
+	effect_parent.add_child(afterimage)
+	afterimage.global_position = animated_sprite.global_position
+	afterimage.global_rotation = animated_sprite.global_rotation
+	afterimage.global_scale = animated_sprite.global_scale
+
+	var visible_tween: Tween = afterimage.create_tween().set_trans(Tween.TRANS_SINE)
+	visible_tween.finished.connect(afterimage.queue_free)
+	visible_tween.tween_property(afterimage, "modulate:a", 0.0, 0.36)
 
 func _update_landing_audio() -> void:
 	if not was_on_floor and is_on_floor() and not health.dead:
@@ -102,13 +174,26 @@ func play_jump_effect(is_double_jump: bool) -> void:
 func play_land_effect() -> void:
 	_spawn_player_effect(LAND_EFFECT_SCENE)
 
+func play_dash_effect(dash_direction: float) -> void:
+	var direction_scale := -1.0 if dash_direction < 0.0 else 1.0
+	dash_effect.rotation = 0.0
+	dash_effect.scale = Vector2(direction_scale, 1.0)
+	for child in dash_effect.get_children():
+		if child is AnimatedSprite2D:
+			child.stop()
+			child.frame = 0
+			child.play()
+			return
+
 func _spawn_player_effect(effect_scene: PackedScene) -> void:
 	var effect := effect_scene.instantiate() as Node2D
 	var effect_parent := get_tree().current_scene if get_tree().current_scene != null else get_parent()
 	effect_parent.add_child(effect)
 	effect.global_position = global_position
 
-	var effect_sprite := effect.get_node_or_null(NodePath(String(effect.name))) as AnimatedSprite2D
+	var effect_sprite := effect.get_node_or_null("AnimatedSprite2D") as AnimatedSprite2D
+	if effect_sprite == null:
+		effect_sprite = effect.get_node_or_null(NodePath(String(effect.name))) as AnimatedSprite2D
 	if effect_sprite == null:
 		effect.queue_free()
 		return
@@ -145,6 +230,18 @@ func update_animation(direction: float) -> void:
 		animated_sprite.speed_scale = 1.0
 		if animated_sprite.animation != "Dash":
 			animated_sprite.play("Dash")
+		return
+
+	if movement.is_ledge_hanging:
+		animated_sprite.speed_scale = 1.0
+		if animated_sprite.animation != "Ledge_grab":
+			animated_sprite.play("Ledge_grab")
+		return
+
+	if movement.is_climbing:
+		animated_sprite.speed_scale = 1.0
+		if animated_sprite.animation != "Climb":
+			animated_sprite.play("Climb")
 		return
 
 	if combat.is_attacking:
@@ -205,14 +302,3 @@ func _on_animation_finished() -> void:
 		queue_free()
 	elif health.healing and animated_sprite.animation in ["Healing", "Healing_no_effect"]:
 		health.finish_healing()
-
-func _hitstop_setup() -> void:
-	var root := get_tree().root
-	var existing := root.get_node_or_null("CombatHitstop")
-	if existing is HitstopController:
-		hitstop_controller = existing
-		return
-
-	hitstop_controller = HitstopController.new()
-	hitstop_controller.name = "CombatHitstop"
-	root.add_child(hitstop_controller)

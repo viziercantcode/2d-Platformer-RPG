@@ -98,6 +98,9 @@ func update(delta: float) -> void:
 	# Checks if player and health exists
 	if not is_instance_valid(player) or not is_instance_valid(health):
 		return
+	if player.movement != null and player.movement.is_ledge_locked:
+		interrupt_for_hurt()
+		return
 
 	dead = health.dead
 	if dead or health.healing:
