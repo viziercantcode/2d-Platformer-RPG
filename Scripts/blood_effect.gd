@@ -46,10 +46,3 @@ static func spawn(parent: Node, position: Vector2, direction: float, settings: D
 
 	particles.add_child(cleanup)
 	cleanup.start()
-
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-func _process(delta: float) -> void:
-	pass

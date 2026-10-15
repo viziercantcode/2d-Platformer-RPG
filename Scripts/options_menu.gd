@@ -251,7 +251,7 @@ func _set_sidebar_hover(button: Button, arrows: Array, hovered: bool) -> void:
 func _style_slider(slider: HSlider) -> void:
 	var track := StyleBoxLine.new()
 	track.color = Color(0.38, 0.44, 0.48, 0.9)
-	track.thickness = 3.0
+	track.thickness = 3
 	slider.add_theme_stylebox_override("slider", track)
 	var grabber := StyleBoxFlat.new()
 	grabber.bg_color = Color(0.86, 0.92, 0.97)

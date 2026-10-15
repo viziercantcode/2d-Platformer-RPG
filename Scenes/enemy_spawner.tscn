@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://besgo1phks47y"]
+
+[ext_resource type="Script" uid="uid://8bsfdkdg00u6" path="res://Scripts/enemy_spawner.gd" id="1_4l55s"]
+
+[node name="EnemySpawner" type="Marker2D" unique_id=816859130]
+script = ExtResource("1_4l55s")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=777336424]
+rect = Rect2(-100, -100, 300, 200)

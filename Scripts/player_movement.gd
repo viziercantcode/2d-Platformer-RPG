@@ -57,7 +57,7 @@ var original_collision_layer := 0
 var original_collision_mask := 0
 var original_floor_snap_length := 0.0
 var ledge_wall_cast: RayCast2D
-var ledge_clear_cast: RayCast2D
+var ledge_clear_cast: ShapeCast2D
 var player_collision_shape: CollisionShape2D
 
 var is_dashing: bool:
@@ -81,7 +81,7 @@ func setup(player_ref: Player, combat_ref: PlayerCombat, health_ref: PlayerHealt
 	combat = combat_ref
 	health = health_ref
 	ledge_wall_cast = player.get_node_or_null("LedgeWallCast") as RayCast2D
-	ledge_clear_cast = player.get_node_or_null("LedgeClearCast") as RayCast2D
+	ledge_clear_cast = player.get_node_or_null("LedgeClearCast") as ShapeCast2D
 	player_collision_shape = player.get_node_or_null("CollisonShape2D") as CollisionShape2D
 	original_collision_layer = player.collision_layer
 	original_collision_mask = player.collision_mask
@@ -170,7 +170,7 @@ func _update_ledge_cast_direction() -> void:
 	ledge_wall_cast.target_position.x = absf(ledge_wall_cast.target_position.x) * player.facing_direction
 	ledge_clear_cast.target_position.x = absf(ledge_clear_cast.target_position.x) * player.facing_direction
 	ledge_wall_cast.force_raycast_update()
-	ledge_clear_cast.force_raycast_update()
+	ledge_clear_cast.force_shapecast_update()
 
 func _try_grab_ledge() -> bool:
 	if ledge_wall_cast == null or ledge_clear_cast == null:
