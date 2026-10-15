@@ -1058,6 +1058,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jpyye"]
+size = Vector2(10, 10)
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1rc8e"]
 radius = 17.0
 height = 42.0
@@ -1122,8 +1125,9 @@ animation = &"Idle"
 position = Vector2(0, -21)
 target_position = Vector2(35, 0)
 
-[node name="LedgeClearCast" type="RayCast2D" parent="." unique_id=1646836026]
-position = Vector2(0, -30)
+[node name="LedgeClearCast" type="ShapeCast2D" parent="." unique_id=856775017]
+position = Vector2(0, -32)
+shape = SubResource("RectangleShape2D_jpyye")
 target_position = Vector2(35, 0)
 collision_mask = 2
 

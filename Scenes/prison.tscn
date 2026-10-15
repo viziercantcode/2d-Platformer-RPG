@@ -11,9 +11,11 @@
 [ext_resource type="Texture2D" uid="uid://cq6ivixeh2qc6" path="res://Assets/Platform/floor textures 1.png" id="8_hwd74"]
 [ext_resource type="PackedScene" uid="uid://cr0vlpbvjfosv" path="res://Scenes/spikes.tscn" id="9_6t8aa"]
 [ext_resource type="PackedScene" uid="uid://3bneuru53ukg" path="res://Scenes/moving_platform.tscn" id="9_afb76"]
-[ext_resource type="PackedScene" uid="uid://besgo1phks47y" path="res://Scenes/enemy_spawner.tscn" id="11_0nyt0"]
-[ext_resource type="PackedScene" uid="uid://b0vn2tyo5e0x0" path="res://Scenes/enemy1.tscn" id="12_fm3uu"]
 [ext_resource type="PackedScene" uid="uid://bbqbmla61qs17" path="res://Scenes/moving_plaform_horizontal.tscn" id="11_0nyt0"]
+[ext_resource type="PackedScene" uid="uid://besgo1phks47y" path="res://Scenes/enemy_spawner.tscn" id="12_0nyt0"]
+[ext_resource type="PackedScene" uid="uid://b0vn2tyo5e0x0" path="res://Scenes/enemy1.tscn" id="13_fm3uu"]
+[ext_resource type="Shader" uid="uid://c0cnfrvfbddut" path="res://Shaders/reflection.gdshader" id="13_y0lmg"]
+[ext_resource type="Script" uid="uid://cupmwwayfb05d" path="res://Scripts/reflection.gd" id="14_x1nol"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0wopx"]
 texture = ExtResource("3_g3ypg")
@@ -230,6 +232,23 @@ gradient = SubResource("Gradient_kul6x")
 fill = 1
 fill_from = Vector2(0.47743055, 0.9079861)
 fill_to = Vector2(0.081597224, 0.13368055)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_x05to"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_1puky"]
+noise = SubResource("FastNoiseLite_x05to")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6msus"]
+shader = ExtResource("13_y0lmg")
+shader_parameter/CAST_COLOR = Color(0.12941177, 0.21176471, 0, 1)
+shader_parameter/fast_noise = SubResource("NoiseTexture2D_1puky")
+shader_parameter/speed = Vector2(0.03, 0.07)
+shader_parameter/wave_strength = 2.0
+shader_parameter/scale_y = 240.0
+shader_parameter/y_zoom = 1.6105102
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_jpyye"]
 
 [node name="prison" type="Node2D" unique_id=145927011]
 
@@ -499,6 +518,14 @@ scale = Vector2(1.1707588, 1.4141495)
 skew = 0.012217305
 texture = SubResource("GradientTexture2D_1c2jx")
 
+[node name="Acid" type="Sprite2D" parent="." unique_id=1392035030]
+visible = false
+material = SubResource("ShaderMaterial_6msus")
+position = Vector2(-2695, 660)
+scale = Vector2(1190, 120.62498)
+texture = SubResource("CanvasTexture_jpyye")
+script = ExtResource("14_x1nol")
+
 [node name="Blanks" type="CanvasGroup" parent="." unique_id=929383540]
 
 [node name="Polygon2D" type="Polygon2D" parent="Blanks" unique_id=1019925973]
@@ -512,18 +539,18 @@ polygon = PackedVector2Array(340, 360, 340, 810, 1240, 810, 1240, 360)
 
 [node name="EnemySpawners" type="Node2D" parent="." unique_id=212082025]
 
-[node name="EnemySpawner" parent="EnemySpawners" unique_id=816859130 instance=ExtResource("11_0nyt0")]
+[node name="EnemySpawner" parent="EnemySpawners" unique_id=816859130 instance=ExtResource("12_0nyt0")]
 position = Vector2(484, -59)
-enemy_scene = ExtResource("12_fm3uu")
+enemy_scene = ExtResource("13_fm3uu")
 
-[node name="EnemySpawner2" parent="EnemySpawners" unique_id=677904485 instance=ExtResource("11_0nyt0")]
+[node name="EnemySpawner2" parent="EnemySpawners" unique_id=677904485 instance=ExtResource("12_0nyt0")]
 position = Vector2(848, -77)
-enemy_scene = ExtResource("12_fm3uu")
+enemy_scene = ExtResource("13_fm3uu")
 
-[node name="EnemySpawner3" parent="EnemySpawners" unique_id=608041968 instance=ExtResource("11_0nyt0")]
+[node name="EnemySpawner3" parent="EnemySpawners" unique_id=608041968 instance=ExtResource("12_0nyt0")]
 position = Vector2(818, 267)
-enemy_scene = ExtResource("12_fm3uu")
+enemy_scene = ExtResource("13_fm3uu")
 
-[node name="EnemySpawner4" parent="EnemySpawners" unique_id=1625093141 instance=ExtResource("11_0nyt0")]
+[node name="EnemySpawner4" parent="EnemySpawners" unique_id=1625093141 instance=ExtResource("12_0nyt0")]
 position = Vector2(976, 266)
-enemy_scene = ExtResource("12_fm3uu")
+enemy_scene = ExtResource("13_fm3uu")

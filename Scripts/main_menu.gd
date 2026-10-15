@@ -30,10 +30,10 @@ func _configure_menu_button(button: Button, action: Callable) -> void:
 	button.add_theme_color_override("font_hover_color", Color(1.0, 1.0, 1.0, 1.0))
 	button.add_theme_color_override("font_focus_color", Color(1.0, 1.0, 1.0, 1.0))
 	button.add_theme_color_override("font_pressed_color", Color(1.0, 1.0, 1.0, 1.0))
-	button.add_theme_stylebox_override("normal", _make_button_style(false, false))
-	button.add_theme_stylebox_override("hover", _make_button_style(true, false))
-	button.add_theme_stylebox_override("focus", _make_button_style(true, false))
-	button.add_theme_stylebox_override("pressed", _make_button_style(false, true))
+	button.add_theme_stylebox_override("normal", _make_button_style(false))
+	button.add_theme_stylebox_override("hover", _make_button_style(true))
+	button.add_theme_stylebox_override("focus", _make_button_style(true))
+	button.add_theme_stylebox_override("pressed", _make_button_style(false))
 	var left_arrow: TextureRect = button.get_node("HoverArrowLeft")
 	var right_arrow: TextureRect = button.get_node("HoverArrowRight")
 	var label_width := MENU_FONT.get_string_size(button.text, HORIZONTAL_ALIGNMENT_LEFT, -1, 25).x
@@ -48,20 +48,13 @@ func _configure_menu_button(button: Button, action: Callable) -> void:
 	button.pressed.connect(action)
 
 
-func _make_button_style(is_hovered: bool, is_pressed: bool) -> StyleBoxFlat:
+func _make_button_style(is_hovered: bool) -> StyleBoxFlat:
 	var style := StyleBoxFlat.new()
 	style.bg_color = Color(0.0, 0.0, 0.0, 0.0)
 	if is_hovered:
 		style.shadow_color = Color(0.92, 0.96, 1.0, 0.18)
 		style.shadow_size = 10
 		style.shadow_offset = Vector2.ZERO
-	#if is_pressed:
-		#style.bg_color = Color(0.58, 0.66, 0.7, 0.24)
-	#style.border_color = Color(0.91, 0.82, 0.63, 0.84)
-	#style.border_width_left = 3 if is_pressed else 0
-	#style.set_corner_radius_all(3)
-	#style.content_margin_left = 18.0
-	#style.content_margin_right = 12.0
 	return style
 
 
