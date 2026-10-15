@@ -218,8 +218,6 @@ func _set_attack_hitbox_enabled(enabled: bool) -> void:
 		return
 	var collision := enemy.deal_damage_zone.get_node_or_null("CollisionShape2D") as CollisionShape2D
 	if collision != null:
-		# Attack cancellation can happen from an Area2D callback while Godot is
-		# flushing queries; defer the physics-server mutation.
 		collision.set_deferred("disabled", not enabled)
 
 func on_animation_finished() -> void:
