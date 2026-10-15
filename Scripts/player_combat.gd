@@ -330,7 +330,7 @@ func _enable_attack_hitbox() -> void:
 	var collision := player.deal_damage_zone.get_node_or_null("CollisionShape2D") as CollisionShape2D
 	if collision == null:
 		return
-	collision.disabled = false
+	collision.set_deferred("disabled", false)
 	hitbox_active = true
 
 func _disable_attack_hitbox() -> void:
@@ -338,7 +338,7 @@ func _disable_attack_hitbox() -> void:
 		return
 	var collision := player.deal_damage_zone.get_node_or_null("CollisionShape2D") as CollisionShape2D
 	if collision != null:
-		collision.disabled = true
+		collision.set_deferred("disabled", true)
 	hitbox_active = false
 
 func _check_attack_hits() -> void:

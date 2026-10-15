@@ -116,6 +116,7 @@ func finish_healing() -> void:
 		hp_bar.set_health(health)
 	healing = false
 
+
 func take_damage(damage: int, knockback: Vector2, attack_direction: float) -> bool:
 	if damage <= 0 or not can_receive_damage():
 		return false
@@ -137,7 +138,7 @@ func take_damage(damage: int, knockback: Vector2, attack_direction: float) -> bo
 	
 	# Damage immediately cancels attacks and their hitbox.
 	if is_instance_valid(player.combat):
-		player.combat.request_hitstop(0.3)
+		player.combat.request_hitstop(0.1)
 		player.combat.interrupt_for_hurt()
 
 	var camera := player.get_node_or_null("Camera2D")

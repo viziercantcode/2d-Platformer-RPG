@@ -308,7 +308,7 @@ animations = [{
 size = Vector2(20, 47)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jpyye"]
-size = Vector2(119, 82)
+size = Vector2(119, 52)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6odbf"]
 size = Vector2(28, 45)
@@ -327,13 +327,14 @@ fill_to = Vector2(0.828125, 0.296875)
 
 [node name="Enemy 1" type="CharacterBody2D" unique_id=848644838]
 collision_layer = 4
-collision_mask = 1
 script = ExtResource("1_1f0kj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=626149017]
 position = Vector2(0, -46)
 sprite_frames = SubResource("SpriteFrames_avmpe")
-animation = &"walk"
+animation = &"deal_damage"
+frame = 5
+frame_progress = 0.80740964
 centered = false
 offset = Vector2(-108, -46)
 
@@ -348,16 +349,14 @@ one_way_collision_margin = 0.0
 autostart = true
 
 [node name="PlayerDetectionRay" type="RayCast2D" parent="." unique_id=87624669]
-collision_mask = 3
 position = Vector2(0, -20)
 target_position = Vector2(-100, 0)
+collision_mask = 3
 
 [node name="GroundAheadRay" type="RayCast2D" parent="." unique_id=87624670]
-collision_mask = 1
 target_position = Vector2(-46, 14)
 
 [node name="WallAheadRay" type="RayCast2D" parent="." unique_id=87624671]
-collision_mask = 1
 position = Vector2(0, -21)
 target_position = Vector2(-56, 0)
 
@@ -365,7 +364,7 @@ target_position = Vector2(-56, 0)
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectionArea" unique_id=1072269118]
-position = Vector2(32.5, -41)
+position = Vector2(50, -40)
 shape = SubResource("RectangleShape2D_jpyye")
 
 [node name="EnemyHitbox" type="Area2D" parent="." unique_id=1619404859]
@@ -379,7 +378,8 @@ debug_color = Color(3.0322374e-06, 0.6436325, 0.31282482, 0.41960785)
 [node name="EnemyDealDamageZone" type="Area2D" parent="." unique_id=569864832]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDealDamageZone" unique_id=470944420]
-position = Vector2(-50, -29)
+position = Vector2(-35, -29)
+scale = Vector2(1.1, 1)
 shape = SubResource("CircleShape2D_gymyn")
 debug_color = Color(0.9958356, 0, 0.206357, 0.41960785)
 
@@ -391,5 +391,3 @@ energy = 2.49
 texture = SubResource("GradientTexture2D_avmpe")
 
 [connection signal="timeout" from="DirectionTimer" to="." method="_on_direction_timer_timeout"]
-[connection signal="area_entered" from="EnemyHitbox" to="." method="_on_enemy_hurtbox_area_entered"]
-[connection signal="area_entered" from="EnemyDealDamageZone" to="." method="_on_enemy_deal_damage_zone_area_entered"]

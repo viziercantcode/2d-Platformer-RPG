@@ -160,7 +160,7 @@ func _spawn_dash_afterimage() -> void:
 
 	var visible_tween: Tween = afterimage.create_tween().set_trans(Tween.TRANS_SINE)
 	visible_tween.finished.connect(afterimage.queue_free)
-	visible_tween.tween_property(afterimage, "modulate:a", 0.0, 0.36)
+	visible_tween.tween_property(afterimage, "modulate:a", 0.0, 0.18)
 
 func _update_landing_audio() -> void:
 	if not was_on_floor and is_on_floor() and not health.dead:

@@ -59,6 +59,8 @@ func _on_player_dash_finished(player: Player) -> void:
 
 
 func _damage_player(player: Player) -> void:
+	player.movement.can_double_jump = true
+
 	if not player.health.can_receive_damage():
 		return
 
