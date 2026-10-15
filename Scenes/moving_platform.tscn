@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://3bneuru53ukg"]
 
 [ext_resource type="Texture2D" uid="uid://dg5qs0ybwj5jl" path="res://Assets/Platform/lift.png" id="1_vvyo4"]
+[ext_resource type="PackedScene" uid="uid://ch0ves0c0ff4w" path="res://Scenes/props/torches.tscn" id="2_anqd2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r3axf"]
 size = Vector2(209, 37)
@@ -52,8 +53,14 @@ position = Vector2(1, 382)
 position = Vector2(105, -330)
 texture = ExtResource("1_vvyo4")
 
+[node name="torches" parent="AnimatableBody2D" unique_id=1245482804 instance=ExtResource("2_anqd2")]
+position = Vector2(23, 29)
+
+[node name="torches2" parent="AnimatableBody2D" unique_id=924553932 instance=ExtResource("2_anqd2")]
+position = Vector2(186, 28)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatableBody2D" unique_id=1486354026]
-position = Vector2(104, 39)
+position = Vector2(104, 37)
 shape = SubResource("RectangleShape2D_r3axf")
 debug_color = Color(0.996592, 0.99639875, 0.9965703, 0.41960785)
 

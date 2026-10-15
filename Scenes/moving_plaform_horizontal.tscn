@@ -1,0 +1,186 @@
+[gd_scene format=3 uid="uid://bbqbmla61qs17"]
+
+[ext_resource type="Texture2D" uid="uid://csn24xofeld16" path="res://Assets/Platform/chain.png" id="1_iegfb"]
+[ext_resource type="Texture2D" uid="uid://bl4dtbet8n10b" path="res://Assets/Platform/props/Gear 6 - Silver_spritesheet.png" id="2_m6ocn"]
+[ext_resource type="Texture2D" uid="uid://bteg2vokpcefi" path="res://Assets/Platform/movingplat.png" id="3_qnxii"]
+[ext_resource type="PackedScene" uid="uid://ch0ves0c0ff4w" path="res://Scenes/props/torches.tscn" id="4_m6ocn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rsakh"]
+atlas = ExtResource("2_m6ocn")
+region = Rect2(0, 0, 26, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5xtc1"]
+atlas = ExtResource("2_m6ocn")
+region = Rect2(26, 0, 26, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xcne2"]
+atlas = ExtResource("2_m6ocn")
+region = Rect2(52, 0, 26, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_647ta"]
+atlas = ExtResource("2_m6ocn")
+region = Rect2(78, 0, 26, 26)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r3axf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rsakh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5xtc1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xcne2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_647ta")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fc7xw"]
+size = Vector2(197.5, 31.5)
+
+[sub_resource type="Animation" id="Animation_tbc0e"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationPlayer:speed_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.6]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(300, -1)]
+}
+
+[sub_resource type="Animation" id="Animation_x0kbl"]
+resource_name = "movingplat2"
+length = 5.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationPlayer:speed_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.2333333, 3.8333333, 5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.6, 1.0, 1.0, 0.5999999999999996]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(347, -2), Vector2(-328, -2)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_chr16"]
+_data = {
+&"RESET": SubResource("Animation_tbc0e"),
+&"movingplat2": SubResource("Animation_x0kbl")
+}
+
+[node name="MovingPlaformHorizontal" type="Node2D" unique_id=761830128]
+
+[node name="Chains" type="Node2D" parent="." unique_id=1415145745]
+
+[node name="Chains" type="Sprite2D" parent="Chains" unique_id=1834948621]
+position = Vector2(-177, 33)
+texture = ExtResource("1_iegfb")
+
+[node name="Chains2" type="Sprite2D" parent="Chains" unique_id=276320525]
+position = Vector2(-5, 33)
+texture = ExtResource("1_iegfb")
+
+[node name="Chains7" type="Sprite2D" parent="Chains" unique_id=2113264976]
+position = Vector2(-519, 33)
+texture = ExtResource("1_iegfb")
+
+[node name="Chains3" type="Sprite2D" parent="Chains" unique_id=512179084]
+position = Vector2(167, 33)
+texture = ExtResource("1_iegfb")
+
+[node name="Chains4" type="Sprite2D" parent="Chains" unique_id=10846686]
+position = Vector2(339, 33)
+texture = ExtResource("1_iegfb")
+
+[node name="Chains5" type="Sprite2D" parent="Chains" unique_id=1604767930]
+position = Vector2(511, 33)
+texture = ExtResource("1_iegfb")
+
+[node name="Chains6" type="Sprite2D" parent="Chains" unique_id=1060094745]
+position = Vector2(-349, 33)
+texture = ExtResource("1_iegfb")
+
+[node name="AnimatableBody2D" type="AnimatableBody2D" parent="." unique_id=1188682394]
+position = Vector2(300, -1)
+
+[node name="Gears2" type="AnimatedSprite2D" parent="AnimatableBody2D" unique_id=1851439141]
+position = Vector2(113, 47)
+sprite_frames = SubResource("SpriteFrames_r3axf")
+autoplay = "default"
+frame_progress = 0.41034073
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AnimatableBody2D/Gears2" unique_id=1106262036]
+position = Vector2(1, -28)
+scale = Vector2(1.3076923, 1.3076923)
+sprite_frames = SubResource("SpriteFrames_r3axf")
+autoplay = "default"
+frame_progress = 0.8487748
+
+[node name="Gears" type="AnimatedSprite2D" parent="AnimatableBody2D" unique_id=866722638]
+position = Vector2(-109, 18)
+rotation = -3.1415925
+sprite_frames = SubResource("SpriteFrames_r3axf")
+autoplay = "default"
+frame_progress = 0.02516777
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AnimatableBody2D/Gears" unique_id=813894821]
+position = Vector2(1, -28)
+scale = Vector2(1.3076923, 1.3076923)
+sprite_frames = SubResource("SpriteFrames_r3axf")
+autoplay = "default"
+frame_progress = 0.64179105
+
+[node name="Platform" type="Sprite2D" parent="AnimatableBody2D" unique_id=711334637]
+position = Vector2(-9, 22)
+texture = ExtResource("3_qnxii")
+
+[node name="torches" parent="AnimatableBody2D" unique_id=1245482804 instance=ExtResource("4_m6ocn")]
+position = Vector2(0, 24)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatableBody2D" unique_id=1851192285]
+position = Vector2(1, 31)
+shape = SubResource("RectangleShape2D_fc7xw")
+debug_color = Color(0.996592, 0.99639875, 0.9965703, 0.41960785)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimatableBody2D" unique_id=681096163]
+libraries/ = SubResource("AnimationLibrary_chr16")
+autoplay = &"movingplat2"
+speed_scale = 0.6
