@@ -20,7 +20,7 @@ var player_hit_this_attack := false
 var health := 100
 var health_max := 100
 var damage_to_deal := 20
-var attack_startup := 0.25
+var attack_startup := 0.30
 var attack_active := 0.10
 var attack_recovery := 0.35
 var attack_cooldown := 1.40
@@ -218,7 +218,9 @@ func _set_attack_hitbox_enabled(enabled: bool) -> void:
 		return
 	var collision := enemy.deal_damage_zone.get_node_or_null("CollisionShape2D") as CollisionShape2D
 	if collision != null:
-		collision.disabled = not enabled
+		# Attack cancellation can happen from an Area2D callback while Godot is
+		# flushing queries; defer the physics-server mutation.
+		collision.set_deferred("disabled", not enabled)
 
 func on_animation_finished() -> void:
 	if enemy.anim_sprite.animation == "death" and dead:

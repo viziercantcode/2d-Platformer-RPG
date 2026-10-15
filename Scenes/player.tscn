@@ -1159,6 +1159,7 @@ disabled = true
 debug_color = Color(0.99584323, 0, 0.20622629, 0.41960785)
 
 [node name="DashEffect" parent="." unique_id=104152357 instance=ExtResource("19_0gysh")]
+visible = false
 
 [node name="Slash-1" type="AudioStreamPlayer" parent="." unique_id=490772588]
 stream = ExtResource("14_7dp3o")

@@ -11,6 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://cq6ivixeh2qc6" path="res://Assets/Platform/floor textures 1.png" id="8_hwd74"]
 [ext_resource type="PackedScene" uid="uid://cr0vlpbvjfosv" path="res://Scenes/spikes.tscn" id="9_6t8aa"]
 [ext_resource type="PackedScene" uid="uid://3bneuru53ukg" path="res://Scenes/moving_platform.tscn" id="9_afb76"]
+[ext_resource type="PackedScene" uid="uid://besgo1phks47y" path="res://Scenes/enemy_spawner.tscn" id="11_0nyt0"]
+[ext_resource type="PackedScene" uid="uid://b0vn2tyo5e0x0" path="res://Scenes/enemy1.tscn" id="12_fm3uu"]
 [ext_resource type="PackedScene" uid="uid://bbqbmla61qs17" path="res://Scenes/moving_plaform_horizontal.tscn" id="11_0nyt0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0wopx"]
@@ -507,3 +509,21 @@ polygon = PackedVector2Array(-820, -329, -65, -329, -65, -111, 60, -111, 60, -16
 [node name="Polygon2D2" type="Polygon2D" parent="Blanks" unique_id=179755805]
 color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(340, 360, 340, 810, 1240, 810, 1240, 360)
+
+[node name="EnemySpawners" type="Node2D" parent="." unique_id=212082025]
+
+[node name="EnemySpawner" parent="EnemySpawners" unique_id=816859130 instance=ExtResource("11_0nyt0")]
+position = Vector2(484, -59)
+enemy_scene = ExtResource("12_fm3uu")
+
+[node name="EnemySpawner2" parent="EnemySpawners" unique_id=677904485 instance=ExtResource("11_0nyt0")]
+position = Vector2(848, -77)
+enemy_scene = ExtResource("12_fm3uu")
+
+[node name="EnemySpawner3" parent="EnemySpawners" unique_id=608041968 instance=ExtResource("11_0nyt0")]
+position = Vector2(818, 267)
+enemy_scene = ExtResource("12_fm3uu")
+
+[node name="EnemySpawner4" parent="EnemySpawners" unique_id=1625093141 instance=ExtResource("11_0nyt0")]
+position = Vector2(976, 266)
+enemy_scene = ExtResource("12_fm3uu")

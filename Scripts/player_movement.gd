@@ -102,6 +102,12 @@ func update(delta: float) -> float:
 	var jump_pressed := Input.is_action_just_pressed("ui_accept")
 	var dash_pressed := Input.is_key_pressed(KEY_SHIFT)
 
+	if health.hurt and is_ledge_locked:
+		_cancel_ledge_state()
+		player.velocity = Vector2.ZERO
+		_set_dust_enabled(false)
+		return direction
+
 	if is_ledge_hanging:
 		_update_ledge_hang(jump_pressed)
 		_set_dust_enabled(false)
@@ -250,6 +256,7 @@ func _cancel_ledge_state() -> void:
 		return
 	if player_collision_shape != null:
 		player_collision_shape.disabled = false
+	player.animated_sprite.offset = Vector2.ZERO
 	player.collision_layer = original_collision_layer
 	player.collision_mask = original_collision_mask
 	player.floor_snap_length = original_floor_snap_length
