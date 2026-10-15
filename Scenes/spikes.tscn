@@ -9,6 +9,9 @@ size = Vector2(214, 20)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r3axf"]
 size = Vector2(214, 20)
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_gwqs2"]
+polygon = PackedVector2Array(-108, 15, -108, 6, -105, 7, -102, 8, -97, -10, -92, 8, -85, 4, -82, -5, -80, 3, -76, 3, -71, -7, -64, 8, -62, 8, -57, 2, -55, -14, -52, -2, -49, 9, -46, 9, -44, 3, -41, 8, -39, 9, -33, -2, -27, 8, -23, 7, -19, -5, -15, 3, -13, 3, -3, -10, 3, 4, 6, 4, 9, -5, 12, 4, 14, 4, 20, -8, 26, 5, 27, 5, 29, 2, 29, 5, 32, 6, 35, 3, 36, -1, 37, 7, 40, 7, 48, -6, 53, 5, 61, 4, 63, -3, 65, 1, 67, 2, 72, -6, 72, 3, 80, 11, 83, 11, 84, 12, 89, 12, 93, -3, 97, 9, 102, 6, 104, -1, 108, 5, 108, 15)
+
 [node name="spikes" type="StaticBody2D" unique_id=2128356084]
 script = ExtResource("1_gwqs2")
 knockback = 400.0
@@ -17,12 +20,17 @@ knockback = 400.0
 texture = ExtResource("1_a5dqs")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1299069331]
+visible = false
 position = Vector2(0, 14)
 shape = SubResource("RectangleShape2D_avmpe")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1756442682]
+visible = false
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=27060199]
 position = Vector2(0, 6)
 shape = SubResource("RectangleShape2D_r3axf")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="." unique_id=31592757]
+occluder = SubResource("OccluderPolygon2D_gwqs2")

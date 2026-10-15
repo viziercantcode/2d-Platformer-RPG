@@ -31,6 +31,7 @@ script = ExtResource("1_1l0tm")
 
 [node name="Player 1" parent="." unique_id=433096886 instance=ExtResource("1_qxrlw")]
 z_index = 2
+position = Vector2(-8, -8)
 scale = Vector2(0.99999994, 1)
 player_health_max = 200
 
