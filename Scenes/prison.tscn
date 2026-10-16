@@ -246,7 +246,7 @@ shader_parameter/fast_noise = SubResource("NoiseTexture2D_1puky")
 shader_parameter/speed = Vector2(0.03, 0.07)
 shader_parameter/wave_strength = 2.0
 shader_parameter/scale_y = 240.0
-shader_parameter/y_zoom = 1.6105102
+shader_parameter/y_zoom = 0.42409754
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_jpyye"]
 
@@ -542,10 +542,12 @@ polygon = PackedVector2Array(340, 360, 340, 810, 1240, 810, 1240, 360)
 [node name="EnemySpawner" parent="EnemySpawners" unique_id=816859130 instance=ExtResource("12_0nyt0")]
 position = Vector2(484, -59)
 enemy_scene = ExtResource("13_fm3uu")
+enemy_level = 2
 
 [node name="EnemySpawner2" parent="EnemySpawners" unique_id=677904485 instance=ExtResource("12_0nyt0")]
 position = Vector2(848, -77)
 enemy_scene = ExtResource("13_fm3uu")
+enemy_level = 3
 
 [node name="EnemySpawner3" parent="EnemySpawners" unique_id=608041968 instance=ExtResource("12_0nyt0")]
 position = Vector2(818, 267)

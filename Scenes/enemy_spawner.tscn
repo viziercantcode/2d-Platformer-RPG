@@ -6,4 +6,4 @@
 script = ExtResource("1_4l55s")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=777336424]
-rect = Rect2(-100, -100, 300, 200)
+rect = Rect2(-200, -200, 400, 400)

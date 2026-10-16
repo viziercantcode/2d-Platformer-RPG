@@ -55,6 +55,10 @@ func update(delta: float) -> void:
 		enemy.velocity.x = move_toward(enemy.velocity.x, 0.0, 260.0 * delta)
 		return
 
+	if combat.state == EnemyCombat.State.STUNNED:
+		enemy.velocity.x = move_toward(enemy.velocity.x, 0.0, 500.0 * delta)
+		return
+
 	update_ai(delta, player)
 	check_for_obstacles()
 

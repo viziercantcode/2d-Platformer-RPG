@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://boq5wypf38ccg"]
+
+[ext_resource type="Texture2D" uid="uid://d4pbdq4h346s" path="res://Assets/Enemy Healthbar/Outline.png" id="1_422kq"]
+[ext_resource type="Texture2D" uid="uid://x4c3l8s3bdoa" path="res://Assets/Enemy Healthbar/Health.png" id="2_w1xla"]
+[ext_resource type="Texture2D" uid="uid://6tw4qog4las8" path="res://Assets/Enemy Healthbar/Stun.png" id="3_pu2dj"]
+[ext_resource type="Texture2D" uid="uid://c5r6nmhy75p83" path="res://Assets/Enemy Healthbar/Level1.png" id="4_77s2e"]
+[ext_resource type="Script" uid="uid://bv50b7t0qy00j" path="res://Scripts/enemy_healthbar.gd" id="5_script"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_unshaded"]
+light_mode = 1
+
+[node name="EnemyHealthBar" type="Node2D" unique_id=340667486]
+light_mask = 0
+script = ExtResource("5_script")
+
+[node name="HealthDelayed" type="TextureProgressBar" parent="." unique_id=1050335465]
+light_mask = 0
+material = SubResource("CanvasItemMaterial_unshaded")
+offset_right = 106.0
+offset_bottom = 10.0
+step = 0.01
+value = 100.0
+texture_over = ExtResource("1_422kq")
+texture_progress = ExtResource("2_w1xla")
+texture_progress_offset = Vector2(0, 1)
+tint_progress = Color(4.0448647, 4.0448647, 4.0448647, 1)
+
+[node name="Health" type="TextureProgressBar" parent="." unique_id=841425510]
+light_mask = 0
+material = SubResource("CanvasItemMaterial_unshaded")
+offset_right = 106.0
+offset_bottom = 10.0
+step = 0.01
+value = 100.0
+texture_over = ExtResource("1_422kq")
+texture_progress = ExtResource("2_w1xla")
+texture_progress_offset = Vector2(0, 1)
+
+[node name="Stun" type="TextureProgressBar" parent="." unique_id=1597996188]
+light_mask = 0
+material = SubResource("CanvasItemMaterial_unshaded")
+offset_top = 12.0
+offset_right = 106.0
+offset_bottom = 22.0
+step = 0.01
+value = 10.0
+texture_over = ExtResource("1_422kq")
+texture_progress = ExtResource("3_pu2dj")
+texture_progress_offset = Vector2(0, 1)
+
+[node name="Level" type="Sprite2D" parent="." unique_id=1284027048]
+light_mask = 0
+material = SubResource("CanvasItemMaterial_unshaded")
+position = Vector2(-6, 10)
+texture = ExtResource("4_77s2e")

@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://cew17dwnbx11m"]
+
+[node name="EnemyHealthbar" type="TextureProgressBar" unique_id=1172235346]
