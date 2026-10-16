@@ -7,6 +7,7 @@ const LIGHT_COMBO_COUNT := 3
 
 const ATTACK_LIGHT_1 := {
 	"damage": 8,
+	"stun_per_hit": 12.0,
 	"startup": 0.15,
 	"active": 0.10,
 	"recovery": 0.10,
@@ -18,6 +19,7 @@ const ATTACK_LIGHT_1 := {
 
 const ATTACK_LIGHT_2 := {
 	"damage": 10,
+	"stun_per_hit": 15.0,
 	"startup": 0.20,
 	"active": 0.10,
 	"recovery": 0.05,
@@ -29,6 +31,7 @@ const ATTACK_LIGHT_2 := {
 
 const ATTACK_LIGHT_3 := {
 	"damage": 14,
+	"stun_per_hit": 20.0,
 	"startup": 0.10,
 	"active": 0.10,
 	"recovery": 0.10,
@@ -40,6 +43,7 @@ const ATTACK_LIGHT_3 := {
 
 const ATTACK_HEAVY := {
 	"damage": 30,
+	"stun_per_hit": 35.0,
 	"startup": 0.25,
 	"active": 0.15,
 	"recovery": 0.30,
@@ -52,6 +56,7 @@ const ATTACK_HEAVY := {
 
 const ATTACK_AIR := {
 	"damage": 12,
+	"stun_per_hit": 16.0,
 	"startup": 0.10,
 	"active": 0.12,
 	"recovery": 0.12,
@@ -365,7 +370,8 @@ func _check_attack_hits() -> void:
 			int(current_attack_data.damage),
 			float(current_attack_data.knockback),
 			player.facing_direction,
-			float(enemy.hitstop_on_hurt)
+			float(enemy.hitstop_on_hurt),
+			float(current_attack_data.get("stun_per_hit", 0.0))
 		)
 
 		if applied:

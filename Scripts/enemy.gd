@@ -5,8 +5,22 @@ class_name Enemy_1
 @export var forward_detection_range: float = 200.0
 
 @export_category("Combat")
-@export var health_max: int = 100
-@export var damage_to_deal: int = 20
+@export_range(1, 3, 1) var level: int = 1
+@export var level_1_stats: Dictionary = {
+	"health_max": 200,
+	"damage_to_deal": 20,
+	"stun_max": 100.0
+}
+@export var level_2_stats: Dictionary = {
+	"health_max": 400,
+	"damage_to_deal": 40,
+	"stun_max": 150.0
+}
+@export var level_3_stats: Dictionary = {
+	"health_max": 800,
+	"damage_to_deal": 80,
+	"stun_max": 225.0
+}
 @export var attack_trigger_distance: float = 72.0
 @export var attack_startup: float = 0.30
 @export var attack_active: float = 0.10
@@ -18,6 +32,11 @@ class_name Enemy_1
 @export var knockback_up_force: float = 45.0
 @export var hitstop_on_hurt: float = 0.1
 @export var default_hitstop: float = 0.06
+
+@export_category("Stun")
+@export var stun_decay_rate: float = 20.0
+@export var stun_decay_delay: float = 2.0
+@export var stun_duration: float = 5.0
 
 @export_category("Blood Particles")
 @export var blood_amount: int = 8
@@ -36,6 +55,9 @@ class_name Enemy_1
 var movement: EnemyMovement
 var combat: EnemyCombat
 var death_started := false
+var health_max: int = 200
+var damage_to_deal: int = 20
+var stun_max: float = 100.0
 
 @onready var deal_damage_zone: Area2D = $EnemyDealDamageZone
 @onready var hitbox: CollisionShape2D = $EnemyHitbox/CollisionShape2D
@@ -44,8 +66,12 @@ var death_started := false
 @onready var ground_ahead_ray: RayCast2D = $GroundAheadRay
 @onready var wall_ahead_ray: RayCast2D = $WallAheadRay
 @onready var player_detection_area: Area2D = $PlayerDetectionArea
+@onready var dust: GPUParticles2D = get_node_or_null("dust") as GPUParticles2D
+@onready var health_bar: EnemyHealthBar = $EnemyHealthBar
 
 func _ready() -> void:
+	_apply_level_stats()
+
 	movement = EnemyMovement.new()
 	combat = EnemyCombat.new()
 	add_child(movement)
@@ -53,6 +79,7 @@ func _ready() -> void:
 
 	combat.setup(self)
 	movement.setup(self, combat)
+	health_bar.setup(combat.health_max, combat.stun_max, level)
 
 	anim_sprite.animation_finished.connect(_on_animation_finished)
 	Global.enemyDamageAmount = combat.damage_to_deal
@@ -63,11 +90,27 @@ func _ready() -> void:
 	if attack_shape != null:
 		attack_shape.disabled = true
 
+func _apply_level_stats() -> void:
+	var stats: Dictionary
+	match clampi(level, 1, 3):
+		1:
+			stats = level_1_stats
+		2:
+			stats = level_2_stats
+		3:
+			stats = level_3_stats
+
+	health_max = maxi(int(stats.get("health_max", 1)), 1)
+	damage_to_deal = maxi(int(stats.get("damage_to_deal", 0)), 0)
+	stun_max = maxf(float(stats.get("stun_max", 0.0)), 0.0)
+
 func _physics_process(delta: float) -> void:
 	Global.enemyDamageAmount = combat.damage_to_deal
 	Global.enemyDamageZone = deal_damage_zone
 
 	combat.update(delta)
+	health_bar.set_health(combat.health)
+	health_bar.set_stun(combat.stun_amount)
 	movement.update(delta)
 	handle_animation()
 
@@ -84,6 +127,12 @@ func handle_animation() -> void:
 		anim_sprite.speed_scale = 1.0
 		if anim_sprite.animation != "hurt":
 			anim_sprite.play("hurt")
+		return
+
+	if combat.is_stunned:
+		anim_sprite.speed_scale = 1.0
+		if anim_sprite.animation != "idle" or not anim_sprite.is_playing():
+			anim_sprite.play("idle")
 		return
 
 	if combat.state == EnemyCombat.State.ATTACK:
@@ -152,6 +201,13 @@ func spawn_blood_particles(attack_direction: float) -> void:
 
 func spawn_hit_effect(attack_direction: float) -> void:
 	HitEffect.spawn(get_parent(), global_position + Vector2(0.0, -20.0), attack_direction)
+
+func spawn_knockback_dust() -> void:
+	if dust == null:
+		return
+	dust.one_shot = true
+	dust.restart()
+	dust.emitting = true
 
 func on_death_started() -> void:
 	if death_started:

@@ -5,6 +5,7 @@ enum State {
 	NORMAL,
 	ATTACK,
 	HURT,
+	STUNNED,
 	DEAD
 }
 
@@ -30,10 +31,19 @@ var hurt_invulnerability := 0.04
 var knockback_force := 180.0
 var hitstop_on_hurt := -1.0
 
+var stun_amount := 0.0
+var stun_max := 100.0
+var stun_decay_rate := 20.0
+var stun_decay_delay := 2.0
+var stun_duration := 5.0
+var is_stunned := false
+
 var attack_timer := 0.0
 var hurt_timer := 0.0
 var invulnerability_timer := 0.0
 var attack_cooldown_timer := 0.0
+var stun_decay_timer := 0.0
+var stun_timer := 0.0
 var death_started := false
 
 func setup(enemy_ref: Enemy_1) -> void:
@@ -50,11 +60,17 @@ func setup(enemy_ref: Enemy_1) -> void:
 	hurt_invulnerability = enemy.hurt_invulnerability
 	knockback_force = enemy.knockback_force
 	hitstop_on_hurt = enemy.hitstop_on_hurt
+	stun_max = maxf(enemy.stun_max, 0.0)
+	stun_decay_rate = maxf(enemy.stun_decay_rate, 0.0)
+	stun_decay_delay = maxf(enemy.stun_decay_delay, 0.0)
+	stun_duration = maxf(enemy.stun_duration, 0.0)
 	_set_attack_hitbox_enabled(false)
 
 func update(delta: float) -> void:
 	if not is_instance_valid(enemy):
 		return
+
+	_update_stun(delta)
 
 	if invulnerability_timer > 0.0:
 		invulnerability_timer = max(invulnerability_timer - delta, 0.0)
@@ -71,6 +87,9 @@ func update(delta: float) -> void:
 		if hurt_timer <= 0.0:
 			state = State.NORMAL
 			taking_damage = false
+		return
+
+	if state == State.STUNNED:
 		return
 
 	if state == State.ATTACK:
@@ -156,12 +175,14 @@ func take_damage_from_player(
 	damage: int,
 	knockback: float,
 	attack_direction: float,
-	hitstop_override: float
+	hitstop_override: float,
+	stun_per_hit: float = 0.0
 ) -> bool:
 	if damage <= 0 or dead:
 		return false
 	if invulnerability_timer > 0.0:
 		return false
+	var was_stunned := is_stunned
 
 	health = max(health - damage, 0)
 	invulnerability_timer = hurt_invulnerability
@@ -174,6 +195,7 @@ func take_damage_from_player(
 		away_direction = attack_direction
 
 	enemy.velocity.x = away_direction * knockback
+	enemy.spawn_knockback_dust()
 	enemy.spawn_blood_particles(attack_direction)
 
 	var effective_hitstop := hitstop_override
@@ -182,8 +204,17 @@ func take_damage_from_player(
 	if effective_hitstop > 0.0:
 		Global.playerBody.combat.request_hitstop(effective_hitstop)
 
+	if not was_stunned:
+		stun_amount = minf(stun_amount + maxf(stun_per_hit, 0.0), stun_max)
+		stun_decay_timer = stun_decay_delay
+		if stun_amount >= stun_max and stun_max > 0.0 and health > 0:
+			_start_stun()
+
 	if health <= 0:
 		_start_death()
+	elif is_stunned:
+		state = State.STUNNED
+		taking_damage = false
 	else:
 		state = State.HURT
 		taking_damage = true
@@ -191,12 +222,57 @@ func take_damage_from_player(
 
 	return true
 
+func _update_stun(delta: float) -> void:
+	if is_stunned:
+		stun_timer = maxf(stun_timer - delta, 0.0)
+		if stun_timer <= 0.0:
+			_end_stun()
+		return
+
+	if stun_amount <= 0.0:
+		stun_decay_timer = 0.0
+		return
+
+	if stun_decay_timer > 0.0:
+		stun_decay_timer = maxf(stun_decay_timer - delta, 0.0)
+		return
+
+	stun_amount = maxf(stun_amount - stun_decay_rate * delta, 0.0)
+
+func _start_stun() -> void:
+	if is_stunned or dead:
+		return
+
+	is_stunned = true
+	state = State.STUNNED
+	taking_damage = false
+	is_dealing_damage = false
+	can_damage_player = false
+	player_hit_this_attack = false
+	stun_timer = stun_duration
+	stun_decay_timer = 0.0
+	enemy.velocity.x = 0.0
+	_set_attack_hitbox_enabled(false)
+
+func _end_stun() -> void:
+	is_stunned = false
+	stun_amount = 0.0
+	stun_decay_timer = 0.0
+	stun_timer = 0.0
+	if not dead:
+		state = State.NORMAL
+		taking_damage = false
+
 func _start_death() -> void:
 	if dead:
 		return
 
 	dead = true
 	state = State.DEAD
+	is_stunned = false
+	stun_amount = 0.0
+	stun_decay_timer = 0.0
+	stun_timer = 0.0
 	taking_damage = false
 	is_dealing_damage = false
 	can_damage_player = false
@@ -206,7 +282,12 @@ func _start_death() -> void:
 	enemy.on_death_started()
 
 func _cancel_attack() -> void:
-	state = State.NORMAL if not dead else State.DEAD
+	if dead:
+		state = State.DEAD
+	elif is_stunned:
+		state = State.STUNNED
+	else:
+		state = State.NORMAL
 	is_dealing_damage = false
 	can_damage_player = false
 	player_hit_this_attack = false

@@ -35,7 +35,7 @@ position = Vector2(-114, -4)
 
 [node name="Player 1" parent="." unique_id=506953172 instance=ExtResource("1_qxrlw")]
 z_index = 2
-position = Vector2(-2100, 500)
+position = Vector2(-8, -8)
 scale = Vector2(0.99999994, 1)
 player_health_max = 200
 
