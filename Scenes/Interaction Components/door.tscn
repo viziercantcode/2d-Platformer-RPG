@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://u6l6m2dukmwd"]
+
+[ext_resource type="Script" uid="uid://dynepd0orrirf" path="res://Scripts/Interaction Components/Door.gd" id="1_foy0w"]
+[ext_resource type="Texture2D" uid="uid://c0amffjkksjmo" path="res://Assets/Platform/door.png" id="2_foy0w"]
+[ext_resource type="PackedScene" uid="uid://dxatp4xjvkkoh" path="res://Scenes/Interaction Components/interactable.tscn" id="3_w68ij"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_avmpe"]
+size = Vector2(45, 97)
+
+[sub_resource type="Animation" id="Animation_i4srj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_w68ij"]
+resource_name = "door_open"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-1, -108)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xxnqv"]
+_data = {
+&"RESET": SubResource("Animation_i4srj"),
+&"door_open": SubResource("Animation_w68ij")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r3axf"]
+size = Vector2(99.5, 114.25)
+
+[node name="Door" type="Node2D" unique_id=1189033946]
+script = ExtResource("1_foy0w")
+
+[node name="AnimatableBody2D" type="AnimatableBody2D" parent="." unique_id=887637214]
+
+[node name="Sprite2D" type="Sprite2D" parent="AnimatableBody2D" unique_id=853431782]
+position = Vector2(0, 2.9999998)
+scale = Vector2(0.6011236, 0.71857923)
+texture = ExtResource("2_foy0w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatableBody2D" unique_id=1907241025]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_avmpe")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimatableBody2D" unique_id=442641818]
+libraries/ = SubResource("AnimationLibrary_xxnqv")
+
+[node name="Interactable" parent="." unique_id=731810455 instance=ExtResource("3_w68ij")]
+position = Vector2(2, 59)
+interact_name = "Press E"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable" unique_id=1153227317]
+position = Vector2(-2, -59)
+shape = SubResource("RectangleShape2D_r3axf")

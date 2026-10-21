@@ -24,6 +24,7 @@
 [ext_resource type="AudioStream" uid="uid://1adqikb3eqbn" path="res://Assets/SFX/jump-land.mp3" id="17_qqcod"]
 [ext_resource type="PackedScene" uid="uid://dscdak487amto" path="res://Scenes/VFX/dash_effect.tscn" id="19_0gysh"]
 [ext_resource type="AudioStream" uid="uid://cavk6ek4stub7" path="res://Assets/SFX/in-game.mp3" id="22_wpjfl"]
+[ext_resource type="PackedScene" uid="uid://c2k63ce7qfoof" path="res://Scenes/Interaction Components/interacting_component.tscn" id="27_vfarp"]
 [ext_resource type="AudioStream" uid="uid://bybo4td6rb5wb" path="res://Assets/SFX/dashfx.mp3" id="100_dash"]
 [ext_resource type="AudioStream" uid="uid://cybbvql53pxsj" path="res://Assets/SFX/footsteps.mp3" id="101_steps"]
 
@@ -1115,6 +1116,9 @@ energy = 0.58
 shadow_enabled = true
 shadow_filter = 2
 texture = SubResource("GradientTexture2D_r3axf")
+
+[node name="InteractingComponent" parent="." unique_id=886132007 instance=ExtResource("27_vfarp")]
+position = Vector2(-1, -16)
 
 [node name="Character" type="AnimatedSprite2D" parent="." unique_id=504513388]
 position = Vector2(-1, -33)

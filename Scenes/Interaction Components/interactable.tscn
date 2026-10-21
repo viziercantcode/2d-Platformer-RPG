@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://dxatp4xjvkkoh"]
+
+[ext_resource type="Script" uid="uid://cnqvyvowwmrj8" path="res://Scripts/Interaction Components/interactable.gd" id="1_dvt3y"]
+
+[node name="Interactable" type="Area2D" unique_id=731810455]
+collision_layer = 8
+script = ExtResource("1_dvt3y")
+
+[node name="InteractLabel" type="Label" parent="." unique_id=1125712666]
+z_index = 10
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -27.0
+offset_top = -13.0
+offset_right = 32.0
+offset_bottom = 10.0
+grow_horizontal = 2
+text = "Press E"
