@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://b0vn2tyo5e0x0" path="res://Scenes/enemy1.tscn" id="13_fm3uu"]
 [ext_resource type="Shader" uid="uid://c0cnfrvfbddut" path="res://Shaders/reflection.gdshader" id="13_y0lmg"]
 [ext_resource type="Script" uid="uid://cupmwwayfb05d" path="res://Scripts/reflection.gd" id="14_x1nol"]
+[ext_resource type="PackedScene" uid="uid://u6l6m2dukmwd" path="res://Scenes/Interaction Components/door.tscn" id="17_x1nol"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0wopx"]
 texture = ExtResource("3_g3ypg")
@@ -246,7 +247,7 @@ shader_parameter/fast_noise = SubResource("NoiseTexture2D_1puky")
 shader_parameter/speed = Vector2(0.03, 0.07)
 shader_parameter/wave_strength = 2.0
 shader_parameter/scale_y = 240.0
-shader_parameter/y_zoom = 0.42409754
+shader_parameter/y_zoom = 0.36208037
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_jpyye"]
 
@@ -399,6 +400,19 @@ position = Vector2(-2432, 488)
 
 [node name="saw9" parent="saw" unique_id=1438583384 instance=ExtResource("6_fm3uu")]
 position = Vector2(-2624, 488)
+
+[node name="TestInteract" parent="." unique_id=1189033946 instance=ExtResource("17_x1nol")]
+position = Vector2(-719, 477)
+scale = Vector2(1.1252606, 1.1252606)
+
+[node name="TestInteract2" parent="TestInteract" unique_id=1301598609 instance=ExtResource("17_x1nol")]
+position = Vector2(963.3324, -191.95552)
+
+[node name="TestInteract3" parent="TestInteract" unique_id=1811052497 instance=ExtResource("17_x1nol")]
+position = Vector2(1167.7295, -474.55673)
+
+[node name="TestInteract4" parent="TestInteract" unique_id=1343605324 instance=ExtResource("17_x1nol")]
+position = Vector2(-520.76825, 260.38416)
 
 [node name="Spikes" type="Node2D" parent="." unique_id=1491305102]
 
