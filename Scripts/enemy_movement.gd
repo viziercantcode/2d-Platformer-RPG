@@ -119,9 +119,15 @@ func check_for_obstacles() -> void:
 	enemy.wall_ahead_ray.force_raycast_update()
 
 	if not enemy.ground_ahead_ray.is_colliding() or enemy.wall_ahead_ray.is_colliding():
+		enemy.velocity.x = 0.0
+		# While chasing, keep facing the player and stop at the obstacle. Flipping
+		# here would be undone by move_toward_player on the next frame, causing
+		# the facing-dependent sprite, hitbox, and detection area to jitter.
+		if is_enemy_chase:
+			return
+
 		facing_direction *= -1.0
 		dir = Vector2(facing_direction, 0.0)
-		enemy.velocity.x = 0.0
 		_apply_facing()
 
 func on_direction_timer_timeout() -> void:

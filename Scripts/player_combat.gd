@@ -359,20 +359,33 @@ func _check_attack_hits() -> void:
 		var enemy = area.get_parent()
 		if enemy == null or not is_instance_valid(enemy):
 			continue
-		if not enemy is Enemy_1:
-			continue
-		if enemy.combat.dead:
+		if enemy is Enemy_1:
+			if enemy.combat.dead:
+				continue
+		elif enemy is Boss:
+			if enemy.dead:
+				continue
+		else:
 			continue
 		if hit_targets.has(enemy.get_instance_id()):
 			continue
 
-		var applied: bool = enemy.combat.take_damage_from_player(
-			int(current_attack_data.damage),
-			float(current_attack_data.knockback),
-			player.facing_direction,
-			float(enemy.hitstop_on_hurt),
-			float(current_attack_data.get("stun_per_hit", 0.0))
-		)
+		var applied := false
+		if enemy is Enemy_1:
+			applied = enemy.combat.take_damage_from_player(
+				int(current_attack_data.damage),
+				float(current_attack_data.knockback),
+				player.facing_direction,
+				float(enemy.hitstop_on_hurt),
+				float(current_attack_data.get("stun_per_hit", 0.0))
+			)
+		else:
+			applied = enemy.take_damage_from_player(
+				int(current_attack_data.damage),
+				float(current_attack_data.knockback),
+				player.facing_direction,
+				float(enemy.hitstop_on_hurt)
+			)
 
 		if applied:
 			hit_targets[enemy.get_instance_id()] = true

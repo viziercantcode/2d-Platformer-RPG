@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dunjr81fe1nbe"
+path="res://.godot/imported/Bullet Flyby 4.wav-9358c21fd84abd5581e03d1efd1dd90e.sample"
+
+[deps]
+
+source_file="res://Assets/SFX/Boss/Bullet Flyby 4.wav"
+dest_files=["res://.godot/imported/Bullet Flyby 4.wav-9358c21fd84abd5581e03d1efd1dd90e.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=0
+compress/mode=0

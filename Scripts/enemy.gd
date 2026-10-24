@@ -79,6 +79,9 @@ func _ready() -> void:
 
 	combat.setup(self)
 	movement.setup(self, combat)
+	if dust != null:
+		dust.one_shot = true
+		dust.emitting = false
 	health_bar.setup(combat.health_max, combat.stun_max, level)
 
 	anim_sprite.animation_finished.connect(_on_animation_finished)

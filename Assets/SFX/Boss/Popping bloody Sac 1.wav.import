@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://blsu6posftjhk"
+path="res://.godot/imported/Popping bloody Sac 1.wav-12a1014aa8a10a6c2fab87eb2e3b553b.sample"
+
+[deps]
+
+source_file="res://Assets/SFX/Boss/Popping bloody Sac 1.wav"
+dest_files=["res://.godot/imported/Popping bloody Sac 1.wav-12a1014aa8a10a6c2fab87eb2e3b553b.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=0
+compress/mode=0

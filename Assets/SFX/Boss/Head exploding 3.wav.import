@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dyyjmba3xl4xt"
+path="res://.godot/imported/Head exploding 3.wav-86af410c0cff93615e961ef1fa7381e1.sample"
+
+[deps]
+
+source_file="res://Assets/SFX/Boss/Head exploding 3.wav"
+dest_files=["res://.godot/imported/Head exploding 3.wav-86af410c0cff93615e961ef1fa7381e1.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=0
+compress/mode=0

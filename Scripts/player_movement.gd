@@ -82,7 +82,7 @@ func setup(player_ref: Player, combat_ref: PlayerCombat, health_ref: PlayerHealt
 	health = health_ref
 	ledge_wall_cast = player.get_node_or_null("LedgeWallCast") as RayCast2D
 	ledge_clear_cast = player.get_node_or_null("LedgeClearCast") as ShapeCast2D
-	player_collision_shape = player.get_node_or_null("CollisonShape2D") as CollisionShape2D
+	player_collision_shape = player.get_node_or_null("CollisionShape2D") as CollisionShape2D
 	original_collision_layer = player.collision_layer
 	original_collision_mask = player.collision_mask
 	original_floor_snap_length = player.floor_snap_length

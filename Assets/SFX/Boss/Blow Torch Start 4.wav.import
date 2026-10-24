@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bwhdjjrhfrgu5"
+path="res://.godot/imported/Blow Torch Start 4.wav-9b75f7d58a825000f14edd2b637c1462.sample"
+
+[deps]
+
+source_file="res://Assets/SFX/Boss/Blow Torch Start 4.wav"
+dest_files=["res://.godot/imported/Blow Torch Start 4.wav-9b75f7d58a825000f14edd2b637c1462.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=0
+compress/mode=0
