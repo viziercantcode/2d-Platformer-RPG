@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dkc5i1a4th2n3"
+path="res://.godot/imported/Metal footstep 4.wav-5c4e7eb2c6a7b3ba98c9fd0fdaf27b09.sample"
+
+[deps]
+
+source_file="res://Assets/SFX/Boss/footsteps/metal/Metal footstep 4.wav"
+dest_files=["res://.godot/imported/Metal footstep 4.wav-5c4e7eb2c6a7b3ba98c9fd0fdaf27b09.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=0
+compress/mode=0

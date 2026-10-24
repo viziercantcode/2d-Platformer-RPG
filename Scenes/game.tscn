@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://d0o81vbctgpmt" path="res://Scenes/player.tscn" id="1_qxrlw"]
 [ext_resource type="PackedScene" uid="uid://263eao016li6" path="res://Scenes/prison.tscn" id="1_wrm1d"]
 [ext_resource type="Script" uid="uid://6607mlk6isrv" path="res://Scripts/camera.gd" id="4_o5yvi"]
+[ext_resource type="PackedScene" uid="uid://80tl1c4a0kym" path="res://Scenes/boss.tscn" id="6_ldgsr"]
 [ext_resource type="PackedScene" uid="uid://i5t3kb38uhjl" path="res://Scenes/Fade_transition.tscn" id="7_v158k"]
-[ext_resource type="PackedScene" uid="uid://b0vn2tyo5e0x0" path="res://Scenes/enemy1.tscn" id="8_v158k"]
 [ext_resource type="Texture2D" uid="uid://beleh2xhwym2x" path="res://Assets/UI/setting_icon.png" id="9_settings"]
 [ext_resource type="PackedScene" uid="uid://x3k50e87lqpn" path="res://Scenes/options_menu.tscn" id="10_options"]
 [ext_resource type="PackedScene" uid="uid://dmapjky8ka6pi" path="res://Scenes/healthbar.tscn" id="11_healthbar"]
@@ -28,10 +28,6 @@ seamless_blend_skirt = 0.272
 script = ExtResource("1_1l0tm")
 
 [node name="prison" parent="." unique_id=380204568 instance=ExtResource("1_wrm1d")]
-
-[node name="Enemy 1" parent="." unique_id=848644838 instance=ExtResource("8_v158k")]
-z_index = 2
-position = Vector2(-114, -4)
 
 [node name="Player 1" parent="." unique_id=506953172 instance=ExtResource("1_qxrlw")]
 z_index = 2
@@ -56,6 +52,9 @@ repeat_times = 2
 z_index = 3
 position = Vector2(630, 630)
 texture = SubResource("NoiseTexture2D_h4fw4")
+
+[node name="Boss" parent="." unique_id=147053641 instance=ExtResource("6_ldgsr")]
+position = Vector2(-400, 0)
 
 [node name="Fade_transition" parent="." unique_id=636216178 instance=ExtResource("7_v158k")]
 offset_left = -573.0

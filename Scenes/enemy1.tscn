@@ -393,6 +393,7 @@ target_position = Vector2(-56, 0)
 
 [node name="dust" type="GPUParticles2D" parent="." unique_id=823007291]
 scale = Vector2(0.715, 0.715)
+emitting = false
 amount = 6
 texture = ExtResource("3_apx2k")
 lifetime = 0.63
