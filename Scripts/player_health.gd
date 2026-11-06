@@ -41,7 +41,7 @@ func setup(player_ref: Player) -> void:
 
 func update(delta: float) -> void:
 	var heal_key_down := Input.is_key_pressed(KEY_R)
-	if heal_key_down and not heal_key_was_down:
+	if heal_key_down and not heal_key_was_down and not player.dialogue_locked:
 		start_healing()
 	heal_key_was_down = heal_key_down
 
@@ -74,7 +74,7 @@ func can_receive_damage() -> bool:
 	return true
 
 func start_healing() -> void:
-	if dead or not _can_start_healing():
+	if dead or player.dialogue_locked or not _can_start_healing():
 		return
 
 	if no_of_heals > 0:
