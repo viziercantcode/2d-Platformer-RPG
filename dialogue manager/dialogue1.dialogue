@@ -1,0 +1,20 @@
+~ start
+Kunoichi: Here is your clothes and your Katana
+You: *gets changed*
+- Who are you?
+	You: Who are you?
+	Kunoichi: Names have a way of complicating things..
+	You: ....
+~ step1
+- Why are you helping me?
+	You: Why are you helping me?
+	Kunoichi: Consider it a debt being repaid..
+	You: What debt..?
+	Kunoichi: You ought to find out soon enough
+	=> step1
+- Who are you?
+	Kunoichi: Names have a way of complicating things..
+	You: ...
+	=> step1
+- End the conversation => END
+=> END

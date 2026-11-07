@@ -38,6 +38,7 @@ var was_dashing := false
 var was_ledge_hanging := false
 var dash_afterimage_timer := 0.0
 var point_light_default_position := Vector2.ZERO
+var dialogue_locked := false
 
 @onready var animated_sprite: AnimatedSprite2D = $Character
 @onready var point_light: PointLight2D = $PointLight2D
@@ -93,8 +94,17 @@ func _physics_process(delta: float) -> void:
 	Global.playerHitbox = $PlayerHitbox
 	Global.playerDamageZone = deal_damage_zone
 	
-	# Health updates first, then combat, then movement
+	# Keep health timers running, but ignore gameplay input while a conversation is open.
 	health.update(delta)
+	if dialogue_locked:
+		velocity = Vector2.ZERO
+		move_and_slide()
+		if animated_sprite.animation != "Idle" or not animated_sprite.is_playing():
+			animated_sprite.speed_scale = 1.0
+			animated_sprite.play("Idle")
+		return
+
+	# Health updates first, then combat, then movement
 	combat.update(delta)
 	var direction := movement.update(delta)
 	point_light.enabled = true
@@ -122,6 +132,25 @@ func _physics_process(delta: float) -> void:
 	_update_landing_audio()
 	update_animation(direction)
 	_update_dash_afterimage(delta)
+
+func begin_dialogue(focus_world_position: Vector2) -> void:
+	dialogue_locked = true
+	velocity = Vector2.ZERO
+	combat.interrupt_for_hurt()
+	movement.pause_for_dialogue()
+	animated_sprite.speed_scale = 1.0
+	animated_sprite.play("Idle")
+	var camera := get_node_or_null("Camera2D")
+	if camera != null and camera.has_method("focus_on_dialogue"):
+		camera.focus_on_dialogue((global_position + focus_world_position) * 0.5 - Vector2(0.0, 24.0))
+
+func end_dialogue() -> void:
+	dialogue_locked = false
+	velocity = Vector2.ZERO
+	movement.resume_after_dialogue()
+	var camera := get_node_or_null("Camera2D")
+	if camera != null and camera.has_method("clear_dialogue_focus"):
+		camera.clear_dialogue_focus()
 
 func _update_dash_afterimage(delta: float) -> void:
 	if not movement.is_dashing:

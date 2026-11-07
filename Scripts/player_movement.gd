@@ -88,6 +88,19 @@ func setup(player_ref: Player, combat_ref: PlayerCombat, health_ref: PlayerHealt
 	original_floor_snap_length = player.floor_snap_length
 	_configure_ledge_casts()
 
+func pause_for_dialogue() -> void:
+	cancel_dash()
+	_cancel_ledge_state()
+	jump_buffer_timer = 0.0
+	dash_key_was_down = Input.is_key_pressed(KEY_SHIFT)
+	player.velocity = Vector2.ZERO
+	state = MovementState.IDLE if player.is_on_floor() else MovementState.FALL
+	_set_dust_enabled(false)
+
+func resume_after_dialogue() -> void:
+	player.velocity = Vector2.ZERO
+	state = MovementState.IDLE if player.is_on_floor() else MovementState.FALL
+
 func update(delta: float) -> float:
 	if health.dead or health.healing:
 		cancel_dash()

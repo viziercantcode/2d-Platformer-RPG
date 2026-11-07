@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://cmyp7dpbvkjpc"]
+
+[ext_resource type="Texture2D" uid="uid://ybrw0kv068yj" path="res://Assets/Character/Samurai5/Sprites/IDLE.png" id="1_acqhf"]
+[ext_resource type="Script" uid="uid://dradid40ut4hi" path="res://Scripts/npc.gd" id="1_g6unj"]
+[ext_resource type="PackedScene" uid="uid://dxatp4xjvkkoh" path="res://Scenes/Interaction Components/interactable.tscn" id="2_xxsvc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xxsvc"]
+atlas = ExtResource("1_acqhf")
+region = Rect2(0, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g6unj"]
+atlas = ExtResource("1_acqhf")
+region = Rect2(96, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h1ryf"]
+atlas = ExtResource("1_acqhf")
+region = Rect2(192, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ig1v"]
+atlas = ExtResource("1_acqhf")
+region = Rect2(288, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6atyd"]
+atlas = ExtResource("1_acqhf")
+region = Rect2(384, 0, 96, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r3axf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xxsvc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g6unj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h1ryf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ig1v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6atyd")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 7.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g6unj"]
+size = Vector2(99.5, 114.25)
+
+[node name="NPC" type="Node2D" unique_id=444794192]
+script = ExtResource("1_g6unj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1475770115]
+sprite_frames = SubResource("SpriteFrames_r3axf")
+autoplay = "default"
+frame_progress = 0.09711373
+
+[node name="Interactable" parent="." unique_id=731810455 instance=ExtResource("2_xxsvc")]
+position = Vector2(2, -35)
+scale = Vector2(0.52552307, 0.52552307)
+interact_name = "Press E to talk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable" unique_id=1981382509]
+position = Vector2(-2, 31)
+scale = Vector2(1.848382, 1.848382)
+shape = SubResource("RectangleShape2D_g6unj")
